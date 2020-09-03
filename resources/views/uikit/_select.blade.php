@@ -18,15 +18,24 @@
 		@if($field->isMultiple())
 		multiple
 		@endif
+
+		@if($field->isSelect2())
+		data-placeholder="{{ __('fields.selectFromOptions', ['fieldName' => __('fields.' . $field->getName())]) }}"
+		data-allowClear="{{ ($field->isRequired())? 'false' : 'true' }}"
+		@endif
 		
 		class="uk-select"
 	>
+		@if($field->isSelect2())
+		<option></option>
+		@else
 		<option 
 			@if(empty($oldSelected[0])||(is_null($oldSelected[0])))
 			selected disabled
 			@endif
 			value=""
 			>{{ __('fields.selectFromOptions', ['fieldName' => __('fields.' . $field->getName())]) }}</option>
+		@endif
 
 		@foreach($field->getPossibleValuesArray() as $index => $value)
 			<option value="{{ $index }}"

@@ -77,4 +77,19 @@ trait FormFieldGetter
 	{
 		return $this->name;
 	}
+
+	public function getHtmlClasses()
+	{
+		return $this->htmlClasses;
+	}
+
+	public function getHtmlRowClassesString()
+	{
+		return "";
+	}
+
+	public function getHtmlClassesString()
+	{
+		return implode(" ", $this->getHtmlClasses());
+	}
 }

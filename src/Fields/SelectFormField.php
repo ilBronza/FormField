@@ -13,6 +13,11 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 {
 	protected $relationType;
 	protected $possibleValuesArray;
+	public $select2 = true;
+
+	public $htmlClasses = [
+			'uk-select'
+		];
 
 	use SingleValueFormFieldTrait;
 	use ListValueFormFieldTrait;
@@ -67,6 +72,19 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 		return $model->getRelationshipPossibleValuesArray(
 			$relationshipName
 		);
+	}
+
+	public function isSelect2()
+	{
+		return $this->select2;
+	}
+
+	public function getHtmlClasses()
+	{
+		if($this->isSelect2())
+			$this->htmlClasses[] = 'select2';
+
+		return $this->htmlClasses;
 	}
 
 	// public $nullableValues = ['true' => 1, 'false' => 0, 'null' => null];

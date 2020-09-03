@@ -4,11 +4,6 @@ namespace ilBronza\FormField\Traits;
 
 trait FormFieldDisplay
 {
-	public function getHtmlClassesString()
-	{
-		return implode(" ", $this->htmlClasses);
-	}
-
 	public function getFieldTypeClass()
 	{
 		return $this->type;

@@ -9,4 +9,8 @@ use ilBronza\FormField\Traits\SingleValueFormFieldTrait;
 class TextFormField extends FormField implements FormFieldInterface
 {
 	use SingleValueFormFieldTrait;
+
+	public $htmlClasses = [
+			'uk-input'
+		];
 }

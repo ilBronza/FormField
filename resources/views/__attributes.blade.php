@@ -34,3 +34,5 @@ data-disabledtext="{{ $field->getReadOnlyText() }}"
 @if($field->mustShowPlaceholder())
 placeholder="{{ $field->getPlaceholder() }}"
 @endif
+
+class="{{ $field->getHtmlClassesString() }}"
