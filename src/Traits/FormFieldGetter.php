@@ -92,4 +92,12 @@ trait FormFieldGetter
 	{
 		return implode(" ", $this->getHtmlClasses());
 	}
+
+	public function getFetcherRowClasses()
+	{
+		if(! isset($this->fetcher))
+			return null;
+
+		return $this->fetcher['type'] ?? 'ajaxfetcher';
+	}
 }

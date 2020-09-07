@@ -38,7 +38,12 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 	public function getFormOldSelected()
 	{
 		if(! $this->isMultiple())
-			return [$this->getFormOldValue()];
+		{
+			if(is_array($result = $this->getFormOldValue()))
+				return $result;
+
+			return [$result];
+		}
 
 		$value = $this->getFormOldValue();
 
