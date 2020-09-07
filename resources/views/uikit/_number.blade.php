@@ -1,6 +1,4 @@
-@extends('formfield::uikit.formRow')
-
-@section('field' . $field->getName())
+@include('formfield::uikit.formRowHeader')
 
 <input
 	@include('formfield::__data')
@@ -12,4 +10,4 @@
 	step="{{ $field->getStep() }}"
 	/>
 
-@endsection
+@include('formfield::uikit.formRowFooter')

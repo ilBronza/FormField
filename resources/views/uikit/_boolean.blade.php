@@ -1,6 +1,4 @@
-@extends('formfield::uikit.formRow')
-
-@section('field' . $field->getName())
+@include('formfield::uikit.formRowHeader')
 
 	@php
 		$booleanValue = $field->getFormOldValue();
@@ -28,4 +26,4 @@
 
 	@endforeach
 
-@endsection
+@include('formfield::uikit.formRowFooter')

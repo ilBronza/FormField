@@ -1,6 +1,4 @@
-@extends('formfield::uikit.formRow')
-
-@section('field' . $field->getName())
+@include('formfield::uikit.formRowHeader')
 
 	@php
 		$oldSelected = $field->getFormOldSelected();
@@ -51,4 +49,4 @@
 
 	@endif
 
-@endsection
+@include('formfield::uikit.formRowFooter')

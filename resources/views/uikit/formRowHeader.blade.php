@@ -1,5 +1,5 @@
 <div
-	class="{{ $field->getHtmlRowClassesString() }} {{ $field->getFieldTypeClass() }} {{ ($field->isClosed())? 'uk-hidden' : '' }} uk-clearfix"
+	class="{{ $field->getHtmlClassesString() }} {{ $field->getFieldTypeClass() }} {{ ($field->isClosed())? 'uk-hidden' : '' }} uk-clearfix"
 
 	@if($id = $field->getContainerId())
 		id="{{ $id }}"
@@ -16,10 +16,3 @@
 	@endif
 
 	<div class="uk-form-controls @if(! $label) uk-margin-remove-left @endif">
-		@yield('field' . $field->getName())
-
-		@error($field->getFormOldName()) 
-		<div class="uk-text-danger">{{ $message }}</div>
-		@enderror
-    </div>
-</div>
