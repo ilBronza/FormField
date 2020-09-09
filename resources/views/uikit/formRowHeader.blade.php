@@ -1,5 +1,5 @@
 <div
-	class="{{ $field->getHtmlClassesString() }} {{ $field->getFieldTypeClass() }} {{ ($field->isClosed())? 'uk-hidden' : '' }} uk-clearfix"
+	class="{{ $field->getHtmlRowClassesString() }} {{ $field->getFieldTypeClass() }} {{ ($field->isClosed())? 'uk-hidden' : '' }} uk-clearfix"
 
 	@if($id = $field->getContainerId())
 		id="{{ $id }}"

@@ -10,6 +10,10 @@ class NumberFormField extends FormField implements FormFieldInterface
 {
 	use SingleValueFormFieldTrait;
 
+	public $htmlClasses = [
+			'uk-input'
+		];
+
 	public function getStep()
 	{
 		if($this->rulesContain('numeric'))

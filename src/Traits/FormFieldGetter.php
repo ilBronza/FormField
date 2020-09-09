@@ -2,6 +2,7 @@
 
 namespace ilBronza\FormField\Traits;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 trait FormFieldGetter
@@ -32,6 +33,13 @@ trait FormFieldGetter
 		return $model->{$fieldName};
 
 		throw new \Exception('Il model ' . class_basename($model) . ' non ha il metodo getter per ' . $fieldName . ' o il campo non esiste a db');
+	}
+
+	public function assignModel(Model $model)
+	{
+		$this->model = $model;
+
+		return $this;
 	}
 
 	public function getModel()
@@ -86,11 +94,6 @@ trait FormFieldGetter
 	public function getHtmlRowClassesString()
 	{
 		return "";
-	}
-
-	public function getHtmlClassesString()
-	{
-		return implode(" ", $this->getHtmlClasses());
 	}
 
 	public function getFetcherRowClasses()

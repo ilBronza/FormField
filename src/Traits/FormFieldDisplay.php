@@ -6,7 +6,7 @@ trait FormFieldDisplay
 {
 	public function getHtmlClassesString()
 	{
-		return implode(" ", $this->htmlClasses);
+		return implode(" ", $this->getHtmlClasses());
 	}
 
 	public function getFieldTypeClass()
