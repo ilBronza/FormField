@@ -73,7 +73,10 @@ trait FormFieldGetter
 
 	public function getId()
 	{
-		return $this->id;
+		if($this->id === false)
+			return false;
+
+		return $this->id ?? Str::slug($this->name);
 	}
 
 	public function getName()
@@ -96,7 +99,7 @@ trait FormFieldGetter
 		return "";
 	}
 
-	public function getFetcherRowClasses()
+	public function getFetcherFieldClasses()
 	{
 		if(! isset($this->fetcher))
 			return null;

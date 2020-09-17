@@ -41,6 +41,14 @@ trait FormFieldChecker
 
 	public function hasAutocomplete()
 	{
-		return false;
+		return false;		
+	}
+
+	public function mustShowPlaceholder()
+	{
+		if((is_null($this->placeholder))&&(isset($this->form)))
+			return $this->form->mustShowPlaceholder;
+
+		return !! $this->placeholder;
 	}
 }

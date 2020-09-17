@@ -16,6 +16,21 @@ trait FormFieldSetter
 		$this->fetcher = [];
 
 		foreach($options as $key => $value)
-			$this->fetcher[$key] = $value;
+			$this->fetcher['fetcher-' . $key] = $value;
+	}
+
+	public function hasFetcher()
+	{
+		return isset($this->fetcher);
+	}
+
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+
+	public function getFetcherData()
+	{
+		return $this->fetcher;
 	}
 }

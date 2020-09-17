@@ -25,7 +25,7 @@ class FormField
 	public $model;
 	public $modelClass;
 
-	public $id = false;
+	public $id;
 	public $containerId = false;
 
 	public $multiple = false;

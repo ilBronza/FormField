@@ -6,12 +6,22 @@ use \ilBronza\Form\Form;
 
 trait SingleValueFormFieldTrait
 {
+	public function setValue($value)
+	{
+		$this->value = $value;
+
+		return $this;
+	}
+
 	public function getValue()
 	{
+		if(isset($this->value))
+			return $this->value;
+
 		if($this->model)
 			return $this->getModelValueByName($this->model, $this->name);
 
-		if($this->form->model)
+		if(($this->form)&&($this->form->model))
 			return $this->getModelValueByName($this->form->model, $this->name);
 
 		if(! empty($this->default))

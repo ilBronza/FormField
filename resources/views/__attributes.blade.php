@@ -5,7 +5,9 @@
 	name="{{ $field->getName() }}[{{ $fieldIndex }}]"
 	@endif
 
+	@if(isset($overrideId)||($field->getId()))
 	id="{{ $overrideId ?? ($field->getId() . '-' . $fieldIndex) }}"
+	@endif
 @else
 	@if($field->isMultiple())
 	name="{{ $field->getName() }}[]"
@@ -13,7 +15,9 @@
 	name="{{ $field->getName() }}"
 	@endif
 
+	@if(isset($overrideId)||($field->getId()))
 	id="{{ $overrideId ?? $field->getId() }}"
+	@endif
 @endif
 
 @if($field->isDisabled())
@@ -39,4 +43,8 @@ placeholder="{{ $field->getPlaceholder() }}"
 autocomplete="off"
 @endif
 
-class="{{ $field->getHtmlClassesString() }}"
+@if($field->hasFetcher())
+	@include('formfield::__fetcherAttributes')
+@endif
+
+class="{{ $field->getHtmlClassesString() }} {{ $field->getFetcherFieldClasses() }}"

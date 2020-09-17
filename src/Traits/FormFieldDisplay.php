@@ -14,6 +14,10 @@ trait FormFieldDisplay
 		return $this->type;
 	}
 
+	public function setLabel($label)
+	{
+		$this->label = $label;
+	}
 
 	public function getLabel()
 	{
@@ -23,7 +27,7 @@ trait FormFieldDisplay
 		else if($this->label)
 			return $this->label;
 
-		if($this->form->mustShowLabel())
+		if(($this->form)&&($this->form->mustShowLabel()))
 			return __('fields.' . $this->getName());
 
 		return false;
