@@ -35,4 +35,8 @@ data-disabledtext="{{ $field->getReadOnlyText() }}"
 placeholder="{{ $field->getPlaceholder() }}"
 @endif
 
+@if(! $field->hasAutocomplete())
+autocomplete="off"
+@endif
+
 class="{{ $field->getHtmlClassesString() }}"

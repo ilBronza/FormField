@@ -38,4 +38,9 @@ trait FormFieldChecker
 	{
 		return in_array($rule, array_keys($this->rules));
 	}
+
+	public function hasAutocomplete()
+	{
+		return false;
+	}
 }
