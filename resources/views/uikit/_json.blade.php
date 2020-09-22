@@ -37,7 +37,7 @@
 </div>
 
 
-<div class="valuestemplate">
+<div class="valuestemplate uk-hidden">
 	<div
 		id="{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}"
 		class="jsonvalues fakejsonvalues"

@@ -39,10 +39,14 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 	{
 		if(! $this->isMultiple())
 		{
+
 			if(is_array($result = $this->getFormOldValue()))
 				return $result;
 
-			return [$result];
+			if($result)
+				return [$result];
+
+			return [];
 		}
 
 		$value = $this->getFormOldValue();
@@ -72,11 +76,12 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 
 		$model = $this->getModel();
 
-		$relationshipName = $this->getRelationshipName();
+		if($relationshipName = $this->getRelationshipName())
+			return $model->getRelationshipPossibleValuesArray(
+				$relationshipName
+			);
 
-		return $model->getRelationshipPossibleValuesArray(
-			$relationshipName
-		);
+		return $this->getPossibleEnumValuesArray();
 	}
 
 	public function isSelect2()

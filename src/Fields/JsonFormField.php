@@ -46,10 +46,15 @@ class JsonFormField extends FormField implements FormFieldInterface
 
 	public function getFormOldValue()
 	{
-		return old(
+		$value = old(
 			$this->getFormOldName(),
 			$this->getValue()
 		);
+
+		if(! $value)
+			return [];
+
+		return $value;
 	}
 
 	private function manageLabel(FormField $formField) : FormField

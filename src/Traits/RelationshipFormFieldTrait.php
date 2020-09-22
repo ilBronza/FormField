@@ -8,6 +8,6 @@ trait RelationshipFormFieldTrait
 {
 	public function getRelationshipName()
 	{
-		return $this->relation;
+		return $this->relation ?? false;
 	}
 }
