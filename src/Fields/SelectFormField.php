@@ -29,11 +29,30 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 			throw new \Exception('add ASD CRUDModelTrait to model ' . class_basename($model));
 	}
 
-	// private function getRelationType()
-	// {
-	// 	$type = get_class($this->form->model->{$this->relation}());
-	// 	return $type;
-	// }
+	public function multipleConditionIsManaged()
+	{
+		return ! is_null($this->multiple);
+	}
+
+	public function hasValidationForMultiple()
+	{
+		$multipleFields = array_intersect(['array'], array_keys($this->rules));
+
+		return count($multipleFields) > 0;
+	}
+
+	public function manageMultipleCondition()
+	{
+		if($this->multipleConditionIsManaged())
+			return;
+
+		$this->multiple = $this->hasValidationForMultiple();
+	}
+
+	public function checkPostCreationParameters()
+	{
+		$this->manageMultipleCondition();
+	}
 
 	public function getFormOldSelected()
 	{
@@ -52,7 +71,8 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 		$value = $this->getFormOldValue();
 
 		if(! is_array($value))
-			return $value->toArray();
+			return [$value];
+			// return $value->toArray();
 
 		return $value;
 	}
@@ -96,26 +116,5 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 
 		return $this->htmlClasses;
 	}
-
-	// public $nullableValues = ['true' => 1, 'false' => 0, 'null' => null];
-	// public $compulsoryValues = ['true' => 1, 'false' => 0];
-
-	// public function getPossibleValues()
-	// {
-	// 	if($this->isNullable())
-	// 		return $this->getNullableValues();
-
-	// 	return $this->getCompulsoryValues();
-	// }
-
-	// private function getNullableValues()
-	// {
-	// 	return $this->nullableValues;
-	// }
-
-	// private function getCompulsoryValues()
-	// {
-	// 	return $this->compulsoryValues;
-	// }
 }
 
