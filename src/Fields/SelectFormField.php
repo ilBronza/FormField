@@ -29,6 +29,14 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 			throw new \Exception('add ASD CRUDModelTrait to model ' . class_basename($model));
 	}
 
+	public function hasManualInput()
+	{
+		if(! isset($this->manualInput))
+			return false;
+
+		return $this->manualInput;
+	}
+
 	public function multipleConditionIsManaged()
 	{
 		return ! is_null($this->multiple);
@@ -58,7 +66,6 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 	{
 		if(! $this->isMultiple())
 		{
-
 			if(is_array($result = $this->getFormOldValue()))
 				return $result;
 

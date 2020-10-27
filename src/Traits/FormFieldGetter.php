@@ -59,6 +59,8 @@ trait FormFieldGetter
 	{
 		if(empty($this->renderAs))
 			return $this->type;
+
+		return $this->renderAs;
 	}
 
 	public function getDataAttributes()
