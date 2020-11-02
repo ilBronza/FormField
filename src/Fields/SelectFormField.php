@@ -77,11 +77,13 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 
 		$value = $this->getFormOldValue();
 
-		if(! is_array($value))
-			return [$value];
-			// return $value->toArray();
+		if(is_array($value))
+			return $value;
 
-		return $value;
+		if(class_basename($value) == 'Collection')
+			return $value->toArray();
+
+		return [$value];
 	}
 
 	private function getRelatedFullModelClass()
