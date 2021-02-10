@@ -42,7 +42,8 @@ trait SingleValueFormFieldTrait
 	public function mustShowPlaceholder()
 	{
 		if(is_null($this->placeholder))
-			return $this->form->mustShowPlaceholder;
+			if($this->form)
+				return $this->form->mustShowPlaceholder;
 
 		return !! $this->placeholder;
 	}

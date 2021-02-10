@@ -28,7 +28,12 @@ trait FormFieldGetter
 			return $model->getFromFieldValue($fieldName);
 
 		if(! empty($value = $model->{$fieldName}))
+		{
+			if ($value instanceof Model)
+				return $value->getKey();
+
 			return $value;
+		}
 
 		return $model->{$fieldName};
 
@@ -59,8 +64,6 @@ trait FormFieldGetter
 	{
 		if(empty($this->renderAs))
 			return $this->type;
-
-		return $this->renderAs;
 	}
 
 	public function getDataAttributes()

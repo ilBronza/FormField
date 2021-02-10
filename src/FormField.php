@@ -28,7 +28,7 @@ class FormField
 	public $id;
 	public $containerId = false;
 
-	public $multiple;
+	public $multiple = false;
 
 	public $closed = false;
 	public $readOnly = false;
@@ -58,14 +58,11 @@ class FormField
 		return $formFieldClassName::_createFromArray($parameters);
 	}
 
-	public function checkPostCreationParameters() { }
-
 	static function _createFromArray(array $parameters)
 	{
 		$field = new static();
 
 		$field->assignArrayParameters($parameters);
-		$field->checkPostCreationParameters();
 
 		return $field;
 	}
