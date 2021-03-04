@@ -79,5 +79,10 @@ class FormField
 
 		return view("formfield::uikit._{$type}", ['field' => $this]);
 	}
+
+	public function transformValueBeforeStore($value)
+	{
+		return $value;
+	}
 }
 

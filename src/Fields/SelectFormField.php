@@ -29,38 +29,11 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 			throw new \Exception('add ASD CRUDModelTrait to model ' . class_basename($model));
 	}
 
-	public function hasManualInput()
-	{
-		if(! isset($this->manualInput))
-			return false;
-
-		return $this->manualInput;
-	}
-
-	public function multipleConditionIsManaged()
-	{
-		return ! is_null($this->multiple);
-	}
-
-	public function hasValidationForMultiple()
-	{
-		$multipleFields = array_intersect(['array'], array_keys($this->rules));
-
-		return count($multipleFields) > 0;
-	}
-
-	public function manageMultipleCondition()
-	{
-		if($this->multipleConditionIsManaged())
-			return;
-
-		$this->multiple = $this->hasValidationForMultiple();
-	}
-
-	public function checkPostCreationParameters()
-	{
-		$this->manageMultipleCondition();
-	}
+	// private function getRelationType()
+	// {
+	// 	$type = get_class($this->form->model->{$this->relation}());
+	// 	return $type;
+	// }
 
 	public function getFormOldSelected()
 	{
@@ -77,13 +50,10 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 
 		$value = $this->getFormOldValue();
 
-		if(is_array($value))
-			return $value;
-
-		if(class_basename($value) == 'Collection')
+		if(! is_array($value))
 			return $value->toArray();
 
-		return [$value];
+		return $value;
 	}
 
 	private function getRelatedFullModelClass()
@@ -100,8 +70,11 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 
 	public function getPossibleValuesArray()
 	{
-		if($this->possibleValuesArray)
+		if(is_array($this->possibleValuesArray))
 			return $this->possibleValuesArray;
+
+		if(isset($this->list))
+			return $this->list;
 
 		$model = $this->getModel();
 
@@ -125,5 +98,26 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 
 		return $this->htmlClasses;
 	}
+
+	// public $nullableValues = ['true' => 1, 'false' => 0, 'null' => null];
+	// public $compulsoryValues = ['true' => 1, 'false' => 0];
+
+	// public function getPossibleValues()
+	// {
+	// 	if($this->isNullable())
+	// 		return $this->getNullableValues();
+
+	// 	return $this->getCompulsoryValues();
+	// }
+
+	// private function getNullableValues()
+	// {
+	// 	return $this->nullableValues;
+	// }
+
+	// private function getCompulsoryValues()
+	// {
+	// 	return $this->compulsoryValues;
+	// }
 }
 

@@ -16,6 +16,15 @@ class JsonFormField extends FormField implements FormFieldInterface
 	// 		'uk-input'
 	// 	];
 
+	// 'price_coefficient' => [
+	//     'type' => 'json',
+	//     'fields' => [
+	//         'quantity' => ['number' => 'integer|required|min:1'],
+	//         'coefficient' => ['number' => 'numeric|required|min:0']
+	//     ],
+	//     'rules' => 'array|required',
+	// ],
+
 	public $innerFields;
 	public $showLabels = false;
 
@@ -53,6 +62,9 @@ class JsonFormField extends FormField implements FormFieldInterface
 
 		if(! $value)
 			return [];
+
+		if(is_string($value))
+			return json_decode($value, true);
 
 		return $value;
 	}
