@@ -37,7 +37,12 @@
 </div>
 
 
-<div class="valuestemplate uk-hidden">
+<div class="valuestemplate uk-hiddena">
+	<pre class="uk-hidden">
+		INNER
+		{{-- {{ dd($field->innerFields) }} --}}
+		END
+	</pre>
 	<div
 		id="{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}"
 		class="jsonvalues fakejsonvalues"

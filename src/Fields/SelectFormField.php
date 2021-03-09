@@ -29,6 +29,11 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 			throw new \Exception('add ASD CRUDModelTrait to model ' . class_basename($model));
 	}
 
+	public function hasManualInput()
+	{
+		return false;
+	}
+
 	// private function getRelationType()
 	// {
 	// 	$type = get_class($this->form->model->{$this->relation}());
