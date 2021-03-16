@@ -1,6 +1,11 @@
+@include('formfield::scripts.sortable')
+
 <script type="text/javascript">
 jQuery(document).ready(function($)
 {
+
+
+
 	//START FETCHER
 
 	function ajaxFetcher(url, target, data = null, append = false)

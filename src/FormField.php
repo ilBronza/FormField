@@ -44,9 +44,9 @@ class FormField
 	public $htmlClasses = [];
 	public $rules = [];
 
-	public function __construct()
+	public function __construct(array $parameters = [])
 	{
-		
+		$this->assignArrayParameters($parameters);
 	}
 
 	static function createFromArray(array $parameters)
@@ -60,11 +60,7 @@ class FormField
 
 	static function _createFromArray(array $parameters)
 	{
-		$field = new static();
-
-		$field->assignArrayParameters($parameters);
-
-		return $field;
+		return new static($parameters);
 	}
 
 	public function assignArrayParameters(array $parameters)

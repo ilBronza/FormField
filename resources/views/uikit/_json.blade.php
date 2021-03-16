@@ -1,31 +1,32 @@
 @include('formfield::uikit.formRowHeader')
 
-<div class="valuescontainer">
-	<div
-		uk-grid
-		>
-		<div uk-grid class="uk-child-width-1-2 uk-clearfix uk-form-stacked uk-width-expand">
-			@foreach($field->innerFields as $innerField)
-			<label>{{ __('fields.' . $innerField->subName) }}</label>
-			@endforeach			
-		</div>
-		<div class="uk-width-auto">
-			<button type="button" data-id="{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}" class="addjsonfake" uk-icon="plus"></button>
-		</div>
-		
+<div
+	uk-grid
+	>
+	<div uk-grid class="uk-child-width-1-2 uk-clearfix uk-form-stacked uk-width-expand">
+		@foreach($field->innerFields as $innerField)
+		<label>{{ __('fields.' . $innerField->subName) }}</label>
+		@endforeach			
 	</div>
+	<div class="uk-width-auto">
+		<button type="button" data-id="{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}" class="addjsonfake" uk-icon="plus"></button>
+	</div>
+	
+</div>
 
+<div class="valuescontainer @if($field->hasPosition()) ib-sortable @endif">
 	@foreach($field->getFormOldValue() as $key => $value)
 
 		<div
 			id="{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}"
+			data-position="{{ $position = ($loop->index + 1) }}"
 			class="jsonvalues"
 			uk-grid
 			>
 			<div uk-grid class="uk-child-width-1-2 uk-clearfix uk-form-stacked uk-width-expand">
 				@foreach($field->getInnerFieldsByKeyValue($key, $value) as $innerField)
-					{!! $innerField->setValue($value[$innerField->subName])->render() !!}
-				@endforeach			
+					{!! $innerField->setValue($value[$innerField->subName] ?? $position)->render() !!}
+				@endforeach
 			</div>
 			<div class="uk-width-auto">
 				<span uk-icon="minus" class="jsonvaluesremover"></span>
@@ -37,12 +38,7 @@
 </div>
 
 
-<div class="valuestemplate uk-hiddena">
-	<pre class="uk-hidden">
-		INNER
-		{{-- {{ dd($field->innerFields) }} --}}
-		END
-	</pre>
+<div class="valuestemplate uk-hidden">
 	<div
 		id="{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}"
 		class="jsonvalues fakejsonvalues"

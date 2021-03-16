@@ -3,11 +3,16 @@
 namespace ilBronza\FormField\Fields;
 
 use Illuminate\Support\Str;
+use ilBronza\CRUD\Traits\CRUDArrayFieldsTrait;
 use ilBronza\FormField\Fields\FormFieldInterface;
 use ilBronza\FormField\FormField;
 
 class JsonFormField extends FormField implements FormFieldInterface
 {
+	public $position = true;
+
+	use CRUDArrayFieldsTrait;
+
 	// use SingleValueFormFieldTrait;
 	// use ListValueFormFieldTrait;
 	// use RelationshipFormFieldTrait;
@@ -28,26 +33,57 @@ class JsonFormField extends FormField implements FormFieldInterface
 	public $innerFields;
 	public $showLabels = false;
 
-	public function __construct()
+	public function __construct(array $parameters = [])
 	{
-		parent::__construct();
+		parent::__construct($parameters);
 
 		$this->innerFields = collect();
+
+		foreach($parameters['fields'] as $fieldName => $field)
+			$this->addFormField(
+				FormField::createFromArray(
+					$this->getFieldParameters($fieldName, $field)
+				)
+			);
+	}
+
+	public function hasPosition()
+	{
+		return $this->position;
+	}
+
+	public function transformValueByPosition(array $value) : array
+	{
+		return $value;
+		if(! $this->hasPosition())
+			return $value;
+
+		ksort($value);
+
+		return array_values($value);
 	}
 
 	public function getValue()
 	{
 		if(isset($this->value))
-			return $this->value;
+			return $this->transformValueByPosition(
+				$this->value
+			);
 
 		if($this->model)
-			return $this->getModelValueByName($this->model, $this->name);
+			return $this->transformValueByPosition(
+				$this->getModelValueByName($this->model, $this->name)
+			);
 
 		if(($this->form)&&($this->form->model))
-			return $this->getModelValueByName($this->form->model, $this->name);
+			return $this->transformValueByPosition(
+				$this->getModelValueByName($this->form->model, $this->name)
+			);
 
 		if(! empty($this->default))
-			return $this->default;
+			return $this->transformValueByPosition(
+				$this->default
+			);
 
 		return null;
 		// throw new \Exception('Nessun model da dove prendere il dato');
@@ -88,7 +124,7 @@ class JsonFormField extends FormField implements FormFieldInterface
 	private function manageName(FormField $formField) : FormField
 	{
 		$formField->subName = $formField->name;
-		$formField->name = $this->name . '[counter][' . $formField->name . ']';
+		$formField->name = $this->name . '[][' . $formField->name . ']';
 
 		return $formField;
 	}
@@ -114,10 +150,12 @@ class JsonFormField extends FormField implements FormFieldInterface
 
 		foreach($this->innerFields as $innerField)
 		{
-			$innerField->name = str_replace("counter", $key, $innerField->name);
-			$innerField->setValue($value[$innerField->subName]);
+			$_innerField = clone $innerField;
 
-			$result->push($innerField);
+			// $_innerField->name = str_replace("counter", "", $_innerField->name);
+			$_innerField->setValue($value[$_innerField->subName] ?? null);
+
+			$result->push($_innerField);
 		}
 
 		return $result;

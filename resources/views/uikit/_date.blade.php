@@ -4,7 +4,7 @@
 	@include('formfield::__data')
 	@include('formfield::__attributes')
 
-	type="text"
+	type="date"
 	value="{{ $field->getFormOldValue() }}"
 
 	/>
