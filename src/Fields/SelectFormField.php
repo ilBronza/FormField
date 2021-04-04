@@ -84,9 +84,12 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 		$model = $this->getModel();
 
 		if($relationshipName = $this->getRelationshipName())
+		{
 			return $model->getRelationshipPossibleValuesArray(
 				$relationshipName
 			);
+
+		}
 
 		return $this->getPossibleEnumValuesArray();
 	}
