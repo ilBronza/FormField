@@ -7,7 +7,7 @@
 		@include('formfield::__data')
 		@include('formfield::__attributes')
 
-		type="text"
+		type="datetime-local"
 		value="{{ $field->getFormOldValue() }}"
 		/>
 

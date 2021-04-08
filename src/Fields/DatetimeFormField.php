@@ -28,4 +28,26 @@ class DatetimeFormField extends FormField implements FormFieldInterface
 
 		return $this;
 	}
+
+	public function getValue()
+	{
+		if(isset($this->value))
+			$value = $this->value;
+
+		else if($this->model)
+			$value = $this->getModelValueByName($this->model, $this->name);
+
+		else if(($this->form)&&($this->form->model))
+			$value = $this->getModelValueByName($this->form->model, $this->name);
+
+		else if(! empty($this->default))
+			$value = $this->default;
+
+		if(class_basename($value) == 'Carbon')
+			return $value->format('Y-m-d\TH:i:s');
+
+		return null;
+		// throw new \Exception('Nessun model da dove prendere il dato');
+	}
+
 }
