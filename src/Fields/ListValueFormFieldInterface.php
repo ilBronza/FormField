@@ -1,6 +1,6 @@
 <?php
 
-namespace ilBronza\FormField\Fields;
+namespace IlBronza\FormField\Fields;
 
 interface ListValueFormFieldInterface
 {

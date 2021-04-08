@@ -1,6 +1,6 @@
 <?php
 
-namespace ilBronza\FormField;
+namespace IlBronza\FormField;
 
 use Illuminate\Support\ServiceProvider;
 

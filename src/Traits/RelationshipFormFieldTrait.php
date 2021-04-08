@@ -1,8 +1,8 @@
 <?php
 
-namespace ilBronza\FormField\Traits;
+namespace IlBronza\FormField\Traits;
 
-use \ilBronza\Form\Form;
+use \IlBronza\Form\Form;
 
 trait RelationshipFormFieldTrait
 {

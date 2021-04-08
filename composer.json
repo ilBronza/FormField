@@ -22,21 +22,21 @@
     },
     "autoload": {
         "psr-4": {
-            "ilBronza\\FormField\\": "src/"
+            "IlBronza\\FormField\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ilBronza\\FormField\\Tests\\": "tests"
+            "IlBronza\\FormField\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "ilBronza\\FormField\\FormFieldServiceProvider"
+                "IlBronza\\FormField\\FormFieldServiceProvider"
             ],
             "aliases": {
-                "FormField": "ilBronza\\FormField\\Facades\\FormField"
+                "FormField": "IlBronza\\FormField\\Facades\\FormField"
             }
         }
     }

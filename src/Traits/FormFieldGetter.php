@@ -1,6 +1,6 @@
 <?php
 
-namespace ilBronza\FormField\Traits;
+namespace IlBronza\FormField\Traits;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;

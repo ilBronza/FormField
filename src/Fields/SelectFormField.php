@@ -1,13 +1,13 @@
 <?php
 
-namespace ilBronza\FormField\Fields;
+namespace IlBronza\FormField\Fields;
 
-use ilBronza\FormField\Fields\FormFieldInterface;
-use ilBronza\FormField\Fields\ListValueFormFieldInterface;
-use ilBronza\FormField\FormField;
-use ilBronza\FormField\Traits\ListValueFormFieldTrait;
-use ilBronza\FormField\Traits\RelationshipFormFieldTrait;
-use ilBronza\FormField\Traits\SingleValueFormFieldTrait;
+use IlBronza\FormField\Fields\FormFieldInterface;
+use IlBronza\FormField\Fields\ListValueFormFieldInterface;
+use IlBronza\FormField\FormField;
+use IlBronza\FormField\Traits\ListValueFormFieldTrait;
+use IlBronza\FormField\Traits\RelationshipFormFieldTrait;
+use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
 
 class SelectFormField extends FormField implements FormFieldInterface, ListValueFormFieldInterface, RelatedFormFieldInterface
 {
@@ -25,7 +25,7 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 
 	private function checkIfModelUsesRelationshipTrait($model)
 	{
-		if(! in_array('ilBronza\CRUD\Traits\Model\CRUDModelTrait', class_uses($model)))
+		if(! in_array('IlBronza\CRUD\Traits\Model\CRUDModelTrait', class_uses($model)))
 			throw new \Exception('add ASD CRUDModelTrait to model ' . class_basename($model));
 	}
 

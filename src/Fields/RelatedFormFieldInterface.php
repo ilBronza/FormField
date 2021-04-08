@@ -1,6 +1,6 @@
 <?php
 
-namespace ilBronza\FormField\Fields;
+namespace IlBronza\FormField\Fields;
 
 /**
  * interface to set all methods related to relation elements retrieving

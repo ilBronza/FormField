@@ -1,6 +1,6 @@
 <?php
 
-namespace ilBronza\FormField\Facades;
+namespace IlBronza\FormField\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace ilBronza\FormField;
+namespace IlBronza\FormField;
 
-use ilBronza\FormField\Traits\FormFieldChecker;
-use ilBronza\FormField\Traits\FormFieldDisplay;
-use ilBronza\FormField\Traits\FormFieldGetter;
-use ilBronza\FormField\Traits\FormFieldSetter;
-use ilBronza\FormField\Traits\MultipleValueFormFieldTrait;
-use ilBronza\FormField\Traits\SingleValueFormFieldTrait;
+use IlBronza\FormField\Traits\FormFieldChecker;
+use IlBronza\FormField\Traits\FormFieldDisplay;
+use IlBronza\FormField\Traits\FormFieldGetter;
+use IlBronza\FormField\Traits\FormFieldSetter;
+use IlBronza\FormField\Traits\MultipleValueFormFieldTrait;
+use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
 
 
 class FormField

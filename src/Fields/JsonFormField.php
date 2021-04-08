@@ -1,11 +1,11 @@
 <?php
 
-namespace ilBronza\FormField\Fields;
+namespace IlBronza\FormField\Fields;
 
 use Illuminate\Support\Str;
-use ilBronza\CRUD\Traits\CRUDArrayFieldsTrait;
-use ilBronza\FormField\Fields\FormFieldInterface;
-use ilBronza\FormField\FormField;
+use IlBronza\CRUD\Traits\CRUDArrayFieldsTrait;
+use IlBronza\FormField\Fields\FormFieldInterface;
+use IlBronza\FormField\FormField;
 
 class JsonFormField extends FormField implements FormFieldInterface
 {
