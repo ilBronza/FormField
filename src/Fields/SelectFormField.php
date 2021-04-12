@@ -8,6 +8,7 @@ use IlBronza\FormField\FormField;
 use IlBronza\FormField\Traits\ListValueFormFieldTrait;
 use IlBronza\FormField\Traits\RelationshipFormFieldTrait;
 use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
+use Illuminate\Support\Str;
 
 class SelectFormField extends FormField implements FormFieldInterface, ListValueFormFieldInterface, RelatedFormFieldInterface
 {
@@ -73,6 +74,16 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 		return array_pop($pieces);
 	}
 
+	public function getSpecificModelFieldPossibleValues($model)
+	{
+		$getterMethod = 'getSelectPossible' . Str::studly($this->getName()) . 'Values';
+
+		if(method_exists($model, $getterMethod))
+			return $model->{$getterMethod}();
+
+		return ;
+	}
+
 	public function getPossibleValuesArray()
 	{
 		if(is_array($this->possibleValuesArray))
@@ -84,12 +95,12 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 		$model = $this->getModel();
 
 		if($relationshipName = $this->getRelationshipName())
-		{
 			return $model->getRelationshipPossibleValuesArray(
 				$relationshipName
 			);
 
-		}
+		if($possibleValues = $this->getSpecificModelFieldPossibleValues($model))
+			return $possibleValues;
 
 		return $this->getPossibleEnumValuesArray();
 	}
@@ -105,6 +116,11 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 			$this->htmlClasses[] = 'select2';
 
 		return $this->htmlClasses;
+	}
+
+	public function executeBeforeRenderingOperations()
+	{
+		$this->possibleValuesArray = $this->getPossibleValuesArray();
 	}
 
 	// public $nullableValues = ['true' => 1, 'false' => 0, 'null' => null];

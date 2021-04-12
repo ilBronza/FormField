@@ -80,5 +80,7 @@ class FormField
 	{
 		return $value;
 	}
+
+	public function executeBeforeRenderingOperations() { }
 }
 
