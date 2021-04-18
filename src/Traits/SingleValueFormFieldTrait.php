@@ -31,11 +31,16 @@ trait SingleValueFormFieldTrait
 		// throw new \Exception('Nessun model da dove prendere il dato');
 	}
 
+	public function parseValueBeforeRender($value)
+	{
+		return $value;
+	}
+
 	public function getFormOldValue()
 	{
 		return old(
 			$this->getFormOldName(),
-			$this->getValue()
+			$this->parseValueBeforeRender($this->getValue())
 		);
 	}
 

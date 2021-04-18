@@ -13,4 +13,12 @@ class DateFormField extends FormField implements FormFieldInterface
 	public $htmlClasses = [
 			'uk-input'
 		];
+
+	public function parseValueBeforeRender($value)
+	{
+		if(class_basename($value) == 'Carbon')
+			return $value->format('Y-m-d');
+
+		return $value;
+	}
 }
