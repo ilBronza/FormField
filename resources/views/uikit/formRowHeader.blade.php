@@ -15,4 +15,4 @@
 	</label>
 	@endif
 
-	<div class="uk-form-controls @if(! $label) uk-margin-remove-left @endif">
+	<div class="uk-form-controls uk-width-medium @if(! $label) uk-margin-remove-left @endif">

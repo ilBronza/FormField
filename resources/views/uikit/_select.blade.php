@@ -25,8 +25,6 @@
 		@if($field->hasManualInput())
 		data-tag="true"
 		@endif
-		
-		class="uk-select"
 	>
 		@if($field->isSelect2())
 		<option></option>
