@@ -122,6 +122,35 @@ jQuery(document).ready(function($)
 		return false;
 	});
 
+
+	$('body').on('submit', 'form', function(e)
+	{
+		$('.valuescontainer').each(function()
+		{
+			let counter = 0;
+
+			$(this).find('.jsonvalues').each(function()
+			{
+				$(this).find('input, textarea, select').each(function()
+				{
+					let name = $(this).attr('name');
+					let nameParts = name.split("[]");
+
+					let openingChar = name.indexOf("[");
+					let closingChar = name.indexOf("]");
+
+					let firstPart = name.substring(0, openingChar);
+					let lastPart = name.substring(closingChar + 1, name.length);
+
+					let postingName = firstPart + '[' + counter + ']' + lastPart;
+
+					$(this).attr('name', postingName);
+				});
+
+				counter ++;
+			})
+		})
+	});
 	//END JSON FIELD
 });
 </script>

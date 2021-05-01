@@ -1,15 +1,20 @@
 @include('formfield::uikit.formRowHeader')
 
 <div
-	uk-grid
+	uk-grid class="uk-grid-collapse"
 	>
-	<div uk-grid class="uk-child-width-1-2 uk-clearfix uk-form-stacked uk-width-expand">
+	<div class="uk-flex uk-flex-middle uk-flex-center uk-width-auto">
+		<i class="fas fa-arrows-alt uk-margin-small-bottom uk-padding-small uk-invisible"></i>
+	</div>
+	<div uk-grid class="uk-child-width-auto uk-form-stacked uk-width-expand uk-flex uk-flex-middle">
 		@foreach($field->innerFields as $innerField)
-		<label>{{ __('fields.' . $innerField->subName) }}</label>
+		<div style="width: {{ floor(100/count($field->innerFields)) }}%;">
+			<label>{{ __('fields.' . $innerField->subName) }}</label>			
+		</div>
 		@endforeach			
 	</div>
-	<div class="uk-width-auto">
-		<button type="button" data-id="{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}" class="addjsonfake" uk-icon="plus"></button>
+	<div class="uk-flex uk-flex-middle uk-flex-center">
+		<i class="fas fa-plus uk-margin-small-bottom uk-padding-small addjsonfake" data-id="{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}" ></i>
 	</div>
 	
 </div>
@@ -18,18 +23,23 @@
 	@foreach($field->getFormOldValue() as $key => $value)
 
 		<div
-			id="{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}"
+			id="{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}{{ $loop->index + 1 }}"
 			data-position="{{ $position = ($loop->index + 1) }}"
-			class="jsonvalues"
+			class="jsonvalues uk-grid-collapse"
 			uk-grid
 			>
-			<div uk-grid class="uk-child-width-1-2 uk-clearfix uk-form-stacked uk-width-expand">
+			<div class="uk-flex uk-flex-middle uk-flex-center uk-width-auto">
+				<i class="fas fa-arrows-alt uk-margin-small-bottom uk-padding-small"></i>
+			</div>
+			<div uk-grid class="uk-child-width-1-2 uk-form-stacked uk-width-expand">
 				@foreach($field->getInnerFieldsByKeyValue($key, $value) as $innerField)
-					{!! $innerField->setValue($value[$innerField->subName] ?? $position)->render() !!}
+				<div style="width: {{ floor(100/count($field->innerFields)) }}%;">
+					{!! $innerField->setValue($value[$innerField->subName] ?? $position)->render() !!}					
+				</div>
 				@endforeach
 			</div>
-			<div class="uk-width-auto">
-				<span uk-icon="minus" class="jsonvaluesremover"></span>
+			<div class="uk-flex uk-flex-middle uk-flex-center">
+				<i class="fas fa-minus uk-margin-small-bottom uk-padding-small jsonvaluesremover"></i>
 			</div>
 			
 		</div>
@@ -38,19 +48,24 @@
 </div>
 
 
-<div class="valuestemplate uk-hidden">
+<div class="valuestemplate uk-hiddena">
 	<div
 		id="{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}"
-		class="jsonvalues fakejsonvalues"
+		class="jsonvalues fakejsonvalues uk-grid-collapse"
 		uk-grid
 		>
-		<div uk-grid class="uk-child-width-1-2 uk-clearfix uk-form-stacked uk-width-expand">
+		<div class="uk-flex uk-flex-middle uk-flex-center uk-width-auto">
+			<i class="fas fa-arrows-alt uk-margin-small-bottom uk-padding-small"></i>
+		</div>
+		<div uk-grid class="uk-child-width-1-2 uk-form-stacked uk-width-expand">
 			@foreach($field->innerFields as $innerField)
+			<div style="width: {{ floor(100/count($field->innerFields)) }}%;">
 				{!! $innerField->setValue(null)->render() !!}
+			</div>
 			@endforeach			
 		</div>
-		<div class="uk-width-auto">
-			<span uk-icon="minus" class="jsonvaluesremover"></span>
+		<div class="uk-flex uk-flex-middle uk-flex-center">
+			<i class="fas fa-minus uk-margin-small-bottom uk-padding-small jsonvaluesremover"></i>
 		</div>
 		
 	</div>
