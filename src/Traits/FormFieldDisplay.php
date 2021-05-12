@@ -4,6 +4,14 @@ namespace IlBronza\FormField\Traits;
 
 trait FormFieldDisplay
 {
+	public function getFasIcon()
+	{
+		if(isset($this->fasIcon))
+			return $this->fasIcon;
+
+		return ;
+	}
+
 	public function getHtmlClassesString()
 	{
 		return implode(" ", $this->getHtmlClasses());

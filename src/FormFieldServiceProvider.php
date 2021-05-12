@@ -67,9 +67,9 @@ class FormFieldServiceProvider extends ServiceProvider
         ], 'formfield.views');*/
 
         // Publishing assets.
-        /*$this->publishes([
-            __DIR__.'/../resources/assets' => public_path('vendor/ilbronza'),
-        ], 'formfield.views');*/
+        $this->publishes([
+            __DIR__.'/../resources/assets' => public_path(''),
+        ], 'formfield.assets');
 
         // Publishing the translation files.
         /*$this->publishes([
