@@ -55,10 +55,10 @@ trait FormFieldDisplay
 	public function getTooltip()
 	{
 		if($this->tooltip === true)
-			return $this->getName();
+			return __('fieldTooltips.' . $this->getName());
 
 		else if($this->tooltip)
-			return $this->tooltip;
+			return __('fieldTooltips.' . $this->tooltip);
 
 		return false;
 	}
