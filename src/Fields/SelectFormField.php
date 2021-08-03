@@ -56,6 +56,9 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 
 		$value = $this->getFormOldValue();
 
+		if(! $value)
+			return [];
+
 		if(! is_array($value))
 			return $value->toArray();
 

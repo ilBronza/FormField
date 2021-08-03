@@ -1,12 +1,11 @@
 @include('formfield::uikit.formRowHeader')
 
 <div class="uk-inline">
-	<span class="uk-form-icon" uk-icon="icon: calendar"></span>
-
 	<input
 		@include('formfield::__data')
 		@include('formfield::__attributes')
 
+		step="{{ $field->getStep() }}"
 		type="datetime-local"
 		value="{{ $field->getFormOldValue() }}"
 		/>
