@@ -12,7 +12,7 @@
 		<i class="fas fa-{{ $icon }}"></i>
 		@endif
 
-		{{ $label }}
+		{!! $label !!}
 
 		@if($tooltip = $field->getTooltip())
 			<span uk-tooltip='title:{{ $tooltip }}' uk-icon='question'></span>
