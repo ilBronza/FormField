@@ -6,7 +6,7 @@
 
 	@foreach($field->getPossibleValuesArray() as $index => $value)
 
-	<span class="uk-text-nowrap {{ $field->getStackingClass() }}">
+	<span class="uk-margin-small {{ $field->getStackingClass() }}">
 		<input
 			@include('formfield::__data')
 			@include('formfield::__attributes', ['overrideId' => $field->getId() . '-' . $index])
