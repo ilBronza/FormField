@@ -10,8 +10,11 @@
 
 
 	>
+	<div class="dropzone">
+		
+	</div>
 
-	<ul class="fileslist">
+	<ul class="fileslist" uk-lightbox>
 	</ul>
 
 </div>
@@ -20,13 +23,14 @@
 
 	let id = "{{ ($overrideId ?? ($field->getId() . ( ($fieldIndex ?? false)? ('-' . $fieldIndex) : ''))) }}"
 
-	let element = "div#" + id;
+	let container = "div#" + id;
+	let element = container + ' .dropzone';
 
 	var myDropzone = new Dropzone(element, {
 		url: "{{ $field->getUploadingUrl() }}",
 		params: {
 			"ib-fileupload": true,
-			fieldname: $(element).attr('name'),
+			fieldname: $(container).attr('name'),
 
 			//lo useremo per decidere quale file sostituire etc
 			index: null,
@@ -46,13 +50,12 @@
 		headers: {
 			'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
 		}
-	}).on("success", function(file, response) {
-			console.log(file);
-			console.log(response);
+	}).on("success", function(file, response)
+	{
+		$(container + ' .fileslist').append('<li><a href="' + response.fileurl + '" uk-icon="file">' + response.filename + '</a> &nbsp; <span data-deleteurl="' + response.deleteurl + '" uk-icon="trash"></span></li>');
 
-			window.dropzoneIbSuccess(file, response);
-			/* Maybe display some more file information on your page */
-			});
+		// window.dropzoneIbSuccess(file, response, container);
+	});
 </script>
 
 @include('formfield::uikit.formRowFooter')

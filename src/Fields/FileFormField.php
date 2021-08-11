@@ -11,7 +11,6 @@ class FileFormField extends FormField implements FormFieldInterface
 	use SingleValueFormFieldTrait;
 
 	public $htmlClasses = [
-			'dropzone'
 		];
 
 	public function getMethod()
