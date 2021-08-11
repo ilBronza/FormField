@@ -81,7 +81,12 @@ trait FormFieldGetter
 		if($this->id === false)
 			return false;
 
-		return $this->id ?? Str::slug($this->name);
+		$this->id = $this->id ?? Str::slug($this->name);
+
+		if(preg_match('/^\d/', $this->id) === 1)
+			$this->id = 'id-' . $this->id;
+
+		return $this->id;
 	}
 
 	public function getName()

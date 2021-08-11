@@ -68,7 +68,7 @@ class FormFieldServiceProvider extends ServiceProvider
 
         // Publishing assets.
         $this->publishes([
-            __DIR__.'/../resources/assets' => public_path(''),
+            __DIR__.'/../resources/assets' => base_path('resources'),
         ], 'formfield.assets');
 
         // Publishing the translation files.
