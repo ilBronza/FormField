@@ -104,9 +104,14 @@ trait FormFieldGetter
 		return $this->htmlClasses;
 	}
 
-	public function getHtmlRowClassesString()
+	public function addRowHtmlClass(string $class)
 	{
-		return "";
+		$this->rowHtmlClasses[] = $class;
+	}
+
+	public function getHtmlRowClassesString() : string
+	{
+		return " " . implode(" ", $this->rowHtmlClasses) . " ";
 	}
 
 	public function getFetcherFieldClasses()
