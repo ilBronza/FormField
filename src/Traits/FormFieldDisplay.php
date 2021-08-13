@@ -46,10 +46,13 @@ trait FormFieldDisplay
 		if($this->placeholder === true)
 			return $this->getName();
 
-		else if($this->placeholder)
-			return $this->placeholder;
+		else if($this->translatablePlaceholder ?? false)
+			return strip_tags(__('fields.' . $this->translatablePlaceholder)); 
 
-		return __('fields.' . $this->getName());
+		else if($this->placeholder)
+			return strip_tags($this->placeholder);
+
+		return strip_tags(__('fields.' . $this->getName()));
 	}
 
 	public function getTooltip()
