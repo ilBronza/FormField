@@ -15,6 +15,7 @@
 	</div>
 
 	<ul class="fileslist" uk-lightbox>
+		@include('formfield::uikit.__filesList', ['filesCollection' => $field->getFiles()])
 	</ul>
 
 </div>
