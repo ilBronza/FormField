@@ -20,7 +20,7 @@
 			@endif
 			/>
 		<label for="{{ $field->getId() }}-{{ $index }}">
-			{!! __('fields.radioLabel' . $index) !!}
+			{!! __('fields.checkboxLabel' . $index) !!}
 		</label>
 	</span>
 
