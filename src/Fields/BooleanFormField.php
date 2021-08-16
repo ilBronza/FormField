@@ -13,7 +13,7 @@ class BooleanFormField extends FormField implements FormFieldInterface, ListValu
 	use SingleValueFormFieldTrait;
 	use ListValueFormFieldTrait;
 
-	public $nullableValues = ['true' => 'true', 'false' => 'false', 'null' => null];
+	public $nullableValues = ['true' => 'true', 'false' => 'false', 'null' => 'null'];
 	public $compulsoryValues = ['true' => 'true', 'false' => 'false'];
 
 	public function getPossibleValuesArray()
@@ -36,10 +36,21 @@ class BooleanFormField extends FormField implements FormFieldInterface, ListValu
 
 	public function getFormOldValue()
 	{
-		return (old(
+		$value = old(
 					$this->getFormOldName(),
 					$this->parseValueBeforeRender($this->getValue())
-				))? 'true' : 'false';
+				);
+
+		if($value === null)
+			return $this->nullableValues['null'];
+
+		if(($value === true)||($value === 1))
+			return $this->nullableValues['true'];
+
+		if(($value === false)||($value === 0))
+			return $this->nullableValues['false'];
+
+		throw new \Exception('problemi a gestire il booleano per ' . $value);
 	}
 }
 
