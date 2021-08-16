@@ -22,10 +22,10 @@
 
 <script type="text/javascript">
 
-	let id = "{{ ($overrideId ?? ($field->getId() . ( ($fieldIndex ?? false)? ('-' . $fieldIndex) : ''))) }}"
+	var id = "{{ ($overrideId ?? ($field->getId() . ( ($fieldIndex ?? false)? ('-' . $fieldIndex) : ''))) }}"
 
-	let container = "div#" + id;
-	let element = container + ' .dropzone';
+	var container = "div#" + id;
+	var element = container + ' .dropzone';
 
 	var myDropzone = new Dropzone(element, {
 		url: "{{ $field->getUploadingUrl() }}",
