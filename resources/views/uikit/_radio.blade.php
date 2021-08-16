@@ -15,7 +15,7 @@
 			type="radio"
 			value="{{ $value }}"
 
-			@if($value == $oldSelected)
+			@if(in_array($value, $oldSelected))
 			checked
 			@endif
 			/>
