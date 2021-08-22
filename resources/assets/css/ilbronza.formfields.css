@@ -1,1 +1,43 @@
 @import "dropzone.min.css";
+
+
+body *
+{
+	outline: 1px solid red;
+}
+
+.ib-suffix,
+.ib-prefix,
+.ib-prefix-container,
+.ib-suffix-container
+{
+  display: flex;
+}
+
+.ib-suffix-container .ib-suffix,
+.ib-suffix-container .ib-prefix
+{
+  align-items: center;  
+}
+
+
+.ib-suffix-container .ib-suffix > *,
+.ib-suffix-container .ib-prefix > *
+{
+    height: 100%;
+    display: flex;
+    align-items: center;  
+    padding: 0 10px 0;
+    background-color: #e9ecef;
+    border: 1px solid #cecece;
+}
+
+.ib-suffix-container .ib-suffix > *
+{
+    border-left:none;  
+}
+
+.ib-suffix-container .ib-prefix > *
+{
+    border-right:none;  
+}
