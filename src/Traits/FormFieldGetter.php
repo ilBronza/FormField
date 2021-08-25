@@ -121,4 +121,14 @@ trait FormFieldGetter
 
 		return $this->fetcher['type'] ?? 'ajaxfetcher';
 	}
+
+	public function getSuffix()
+	{
+		return $this->suffix ?? false;
+	}
+
+	public function getPrefix()
+	{
+		return $this->prefix ?? false;
+	}
 }

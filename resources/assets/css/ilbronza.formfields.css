@@ -1,17 +1,12 @@
 @import "dropzone.min.css";
 
-
-body *
-{
-	outline: 1px solid red;
-}
-
 .ib-suffix,
 .ib-prefix,
 .ib-prefix-container,
 .ib-suffix-container
 {
-  display: flex;
+    align-items: stretch;
+    display: flex;
 }
 
 .ib-suffix-container .ib-suffix,
@@ -24,7 +19,15 @@ body *
 .ib-suffix-container .ib-suffix > *,
 .ib-suffix-container .ib-prefix > *
 {
-    height: 100%;
+    /* Firefox */
+    height: -moz-calc(100% - 2px);
+    /* WebKit */
+    height: -webkit-calc(100% - 2px);
+    /* Opera */
+    height: -o-calc(100% - 2px);
+    /* Standard */
+    height: calc(100% - 2px);
+
     display: flex;
     align-items: center;  
     padding: 0 10px 0;

@@ -22,3 +22,13 @@
 	@endif
 
 	<div class="uk-form-controls @if(! $label) uk-margin-remove-left @endif">
+
+
+		@if($field->getPrefix()||$field->getSuffix())
+		<div class="ib-suffix-container">
+		@endif
+
+			@if($prefix = $field->getPrefix())
+				<div class="ib-prefix"><div>{{ $prefix }}</div></div>
+			@endif
+
