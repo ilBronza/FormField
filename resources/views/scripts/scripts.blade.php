@@ -76,7 +76,7 @@ jQuery(document).ready(function($)
 	  );
 	}
 
-	$('.fakejsonvalues input').each(function()
+	$('.fakejsonvalues input, .fakejsonvalues textarea, .fakejsonvalues select').each(function()
 	{
 		$(this).attr('disabled', 'disabled');
 	})
@@ -96,7 +96,7 @@ jQuery(document).ready(function($)
 
 		cloned = content.clone();
 
-		$(cloned).find('input').each(function()
+		$(cloned).find('input, select, textarea').each(function()
 		{
 			let newName = $(this).attr('name');
 			newName = newName.replace('counter', "'" + uuid + "'");
