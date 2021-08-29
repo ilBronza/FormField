@@ -31,7 +31,7 @@
 			<div class="uk-flex uk-flex-middle uk-flex-center uk-width-auto">
 				<i class="fas fa-arrows-alt uk-margin-small-bottom uk-padding-small"></i>
 			</div>
-			<div uk-grid class="uk-child-width-1-2 uk-form-stacked uk-width-expand">
+			<div uk-grid class="uk-child-width-1-2 uk-form-stacked uk-width-expand childfields">
 				@foreach($field->getInnerFieldsByKeyValue($key, $value) as $innerField)
 				<div style="width: {{ floor(100/count($field->innerFields)) }}%;">
 					{!! $innerField->setValue($value[$innerField->subName] ?? $position)->render() !!}					
@@ -57,7 +57,7 @@
 		<div class="uk-flex uk-flex-middle uk-flex-center uk-width-auto">
 			<i class="fas fa-arrows-alt uk-margin-small-bottom uk-padding-small"></i>
 		</div>
-		<div uk-grid class="uk-child-width-1-2 uk-form-stacked uk-width-expand">
+		<div uk-grid class="uk-child-width-1-2 uk-form-stacked uk-width-expand childfields">
 			@foreach($field->innerFields as $innerField)
 			<div style="width: {{ floor(100/count($field->innerFields)) }}%;">
 				{!! $innerField->setValue(null)->render() !!}

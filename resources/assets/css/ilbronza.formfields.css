@@ -1,6 +1,27 @@
 @import "dropzone.min.css";
 @import "select2.min.css";
 
+.uk-form-horizontal .json .uk-form-label
+{
+    float: none;
+}
+
+.uk-form-horizontal .json .uk-form-label + .uk-form-controls
+{
+    margin-left: 0px;
+    margin-top: 8px;
+}
+
+.uk-form-horizontal .json .valuescontainer .childfields.uk-grid
+{
+    margin-left: -3px;
+}
+
+.uk-form-horizontal .json .valuescontainer .childfields.uk-grid > div
+{
+    padding-left: 2px;
+}
+
 .ib-suffix,
 .ib-prefix,
 .ib-prefix-container,
