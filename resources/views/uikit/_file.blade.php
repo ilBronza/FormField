@@ -29,6 +29,7 @@
 
 	var myDropzone = new Dropzone(element, {
 		url: "{{ $field->getUploadingUrl() }}",
+		dictDefaultMessage: 'Trascina i files in questo riquadro',
 		params: {
 			"ib-fileupload": true,
 			fieldname: $(container).attr('name'),
@@ -53,7 +54,9 @@
 		}
 	}).on("success", function(file, response)
 	{
-		$(container + ' .fileslist').append('<li><a href="' + response.fileurl + '" uk-icon="file">' + response.filename + '</a> &nbsp; <span data-deleteurl="' + response.deleteurl + '" uk-icon="trash"></span></li>');
+		window.addSuccessNotification(response.message);
+
+		$( 'div#{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }} .fileslist').append('<li><a href="' + response.fileurl + '" uk-icon="file">' + response.filename + '</a> &nbsp; <span data-deleteurl="' + response.deleteurl + '" uk-icon="trash"></span></li>');
 
 		// window.dropzoneIbSuccess(file, response, container);
 	});
