@@ -10,6 +10,7 @@ use IlBronza\FormField\FormField;
 class JsonFormField extends FormField implements FormFieldInterface
 {
 	public $position = true;
+	public $vertical = false;
 
 	use CRUDArrayFieldsTrait;
 
@@ -37,6 +38,8 @@ class JsonFormField extends FormField implements FormFieldInterface
 	{
 		parent::__construct($parameters);
 
+		$this->manageOrientation();
+
 		$this->innerFields = collect();
 
 		foreach($parameters['fields'] as $fieldName => $field)
@@ -45,6 +48,19 @@ class JsonFormField extends FormField implements FormFieldInterface
 					$this->getFieldParameters($fieldName, $field)
 				)
 			);
+	}
+
+	public function manageOrientation() : void
+	{
+		if(! $this->isVertical())
+			return ;
+
+		$this->showLabels = true;
+	}
+
+	public function isVertical() : bool
+	{
+		return !! $this->vertical;
 	}
 
 	public function hasPosition()
