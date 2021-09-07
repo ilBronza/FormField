@@ -191,4 +191,21 @@ class JsonFormField extends FormField implements FormFieldInterface
 
 		return $formField;
 	}
+
+	public function transformValueBeforeStore($jsonValue)
+	{
+		foreach($jsonValue ?? [] as $key => $parameters)
+		{
+			$validRow = false;
+
+			foreach($parameters as $name => $value)
+				if($value)
+					$validRow = true;
+
+			if(! $validRow)
+				unset($jsonValue[$key]);
+		}
+
+		return $jsonValue;
+	}
 }
