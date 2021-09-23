@@ -7,6 +7,11 @@ use Illuminate\Support\Str;
 
 trait FormFieldGetter
 {
+	public function getEditorAction()
+	{
+		return $this->editorAction ?? false;
+	}
+
 	/**
 	 * get model value
 	 *
