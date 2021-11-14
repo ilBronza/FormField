@@ -12,8 +12,15 @@ class FileFormField extends FormField implements FormFieldInterface
 {
 	use SingleValueFormFieldTrait;
 
+	public $dropzone = true;
+
 	public $htmlClasses = [
 		];
+
+	public function isDropzone()
+	{
+		return $this->dropzone;
+	}
 
 	public function loadModelMediaCollections(Model $model)
 	{

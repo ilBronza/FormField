@@ -6,6 +6,13 @@ use \IlBronza\Form\Form;
 
 trait FormFieldSetter
 {
+	public function assignModel(Model $model)
+	{
+		$this->model = $model;
+
+		return $this;
+	}
+
 	public function setForm(Form $form)
 	{
 		$this->form = $form;
@@ -19,18 +26,9 @@ trait FormFieldSetter
 			$this->fetcher['fetcher-' . $key] = $value;
 	}
 
-	public function hasFetcher()
-	{
-		return isset($this->fetcher);
-	}
-
 	public function setId($id)
 	{
 		$this->id = $id;
 	}
 
-	public function getFetcherData()
-	{
-		return $this->fetcher;
-	}
 }

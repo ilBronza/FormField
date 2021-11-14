@@ -66,6 +66,9 @@ class FormField
 
 	public function assignArrayParameters(array $parameters)
 	{
+		if($parameters['htmlClasses'] ?? false)
+			$parameters['htmlClasses'] = array_merge($parameters['htmlClasses'], $this->htmlClasses);
+
 		foreach($parameters as $name => $value)
 			$this->$name = $value;
 	}

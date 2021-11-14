@@ -16,4 +16,29 @@ jQuery(document).ready(function($)
 		    value.focus()
 		})
 	});
+
+	$('body').on('click', 'span.ib-dropzone-delete', function(e)
+	{
+		let url = $(this).attr('href');
+
+		let that = this;
+
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: {
+				_method: 'DELETE'
+			},
+			success: function(response)
+			{
+				$(that).parents('li').remove();
+			},
+			error: function(response, message)
+			{
+				alert(message);
+			}
+		});
+
+	});
+
 });

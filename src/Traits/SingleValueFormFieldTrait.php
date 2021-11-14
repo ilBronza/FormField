@@ -13,6 +13,17 @@ trait SingleValueFormFieldTrait
 		return $this;
 	}
 
+	public function getDefaultValue()
+	{
+		if(! $this->form)
+			return null;
+
+		if(! $databaseField = $this->form->getDatabaseField($this->name))
+			return null;
+
+		return $databaseField->getDefaultValue();
+	}
+
 	public function getValue()
 	{
 		if(isset($this->value))
@@ -22,7 +33,16 @@ trait SingleValueFormFieldTrait
 			return $this->getModelValueByName($this->model, $this->name);
 
 		if(($this->form)&&($this->form->model))
-			return $this->getModelValueByName($this->form->model, $this->name);
+		{
+			if($this->form->model->exists)
+				return $this->getModelValueByName($this->form->model, $this->name);
+
+			if($value = $this->getModelValueByName($this->form->model, $this->name))
+				return $value;
+
+			if($default = $this->getDefaultValue())
+				return $default;
+		}
 
 		if(! empty($this->default))
 			return $this->default;

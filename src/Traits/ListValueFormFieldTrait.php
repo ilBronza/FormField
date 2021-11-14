@@ -20,9 +20,14 @@ trait ListValueFormFieldTrait
 
     public function getPossibleEnumValues()
     {
-        $_enumStr = \DB::select(\DB::raw('SHOW COLUMNS FROM ' . $this->getModel()->getTable() . ' WHERE Field = "' . $this->name . '"'));
+        $databaseField = $this->form->allDatabaseFields[$this->name];
+        //$databaseField->type
 
-        $enumStr = $_enumStr[0]->Type;
+        // $_enumStr = \DB::select(\DB::raw('SHOW COLUMNS FROM ' . $this->getModel()->getTable() . ' WHERE Field = "' . $this->name . '"'));
+
+        // $enumStr = $_enumStr[0]->Type;
+
+        $enumStr = $databaseField->type;
         preg_match_all("/'([^']+)'/", $enumStr, $matches);
 
         return $matches[1] ?? [];

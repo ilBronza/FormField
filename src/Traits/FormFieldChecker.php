@@ -4,6 +4,11 @@ namespace IlBronza\FormField\Traits;
 
 trait FormFieldChecker
 {
+	public function hasFetcher()
+	{
+		return isset($this->fetcher);
+	}
+
 	public function isClosed()
 	{
 		return $this->closed;

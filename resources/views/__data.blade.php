@@ -1,5 +1,9 @@
 @foreach($field->getDataAttributes() as $data => $value)
+	@if(is_string($value))
+	data-{{ $data }}="{{ $value }}"
+	@else
 	data-{{ $data }}="{{ json_encode($value) }}"
+	@endif
 @endforeach
 
 	@if(is_string($value = $field->getFormOldValue()))

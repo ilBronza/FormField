@@ -7,6 +7,11 @@ use Illuminate\Support\Str;
 
 trait FormFieldGetter
 {
+	public function getFetcherData()
+	{
+		return $this->fetcher;
+	}
+
 	public function getEditorAction()
 	{
 		return $this->editorAction ?? false;
@@ -43,13 +48,6 @@ trait FormFieldGetter
 		return $model->{$fieldName};
 
 		throw new \Exception('Il model ' . class_basename($model) . ' non ha il metodo getter per ' . $fieldName . ' o il campo non esiste a db');
-	}
-
-	public function assignModel(Model $model)
-	{
-		$this->model = $model;
-
-		return $this;
 	}
 
 	public function getModel()
@@ -101,7 +99,7 @@ trait FormFieldGetter
 
 	public function getFormOldName()
 	{
-		return $this->name;
+		return str_replace("]", "", str_replace("[", ".", $this->name));
 	}
 
 	public function getHtmlClasses()
