@@ -68,6 +68,20 @@ class JsonFormField extends FormField implements FormFieldInterface
 		return $this->position;
 	}
 
+	public function getDefaultValue()
+	{
+		if(! $this->form)
+			return null;
+
+		if($this->default)
+			return $this->default;
+
+		if(($databaseField = $this->form->getDatabaseField($this->name))&&($default = $databaseField->getDefaultValue()))
+			return $default;
+
+		return json_decode(json_encode([]));
+	}
+
 	public function transformValueByPosition(array $value) : array
 	{
 		return $value;

@@ -41,14 +41,26 @@ class BooleanFormField extends FormField implements FormFieldInterface, ListValu
 					$this->parseValueBeforeRender($this->getValue())
 				);
 
-		if($value === null)
-			return $this->nullableValues['null'];
-
-		if(($value === true)||($value === 1))
+		if(($value === true)||($value === 1)||($value === "1"))
 			return $this->nullableValues['true'];
 
-		if(($value === false)||($value === 0))
+		if(($value === false)||($value === 0)||($value === "0"))
 			return $this->nullableValues['false'];
+
+		if($default = $this->getDefaultValue())
+			return $default;
+
+		if(isset($this->default))
+		{
+			if(($this->default === true)||($this->default === 1)||($this->default === "1"))
+				return $this->nullableValues['true'];
+
+			if(($this->default === false)||($this->default === 0)||($this->default === "0"))
+				return $this->nullableValues['false'];
+		}
+
+		if($value === null)
+			return $this->nullableValues['null'];
 
 		throw new \Exception('problemi a gestire il booleano per ' . $value);
 	}

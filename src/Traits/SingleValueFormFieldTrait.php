@@ -18,10 +18,10 @@ trait SingleValueFormFieldTrait
 		if(! $this->form)
 			return null;
 
-		if(! $databaseField = $this->form->getDatabaseField($this->name))
-			return null;
+		if($databaseField = $this->form->getDatabaseField($this->name))
+			return $databaseField->getDefaultValue();
 
-		return $databaseField->getDefaultValue();
+		return $this->default;
 	}
 
 	public function getValue()

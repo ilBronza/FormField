@@ -45,7 +45,10 @@ trait FormFieldGetter
 			return $value;
 		}
 
-		return $model->{$fieldName};
+		if($model->{$fieldName} !== null)
+			return $model->{$fieldName};
+
+		return $this->getDefaultValue();
 
 		throw new \Exception('Il model ' . class_basename($model) . ' non ha il metodo getter per ' . $fieldName . ' o il campo non esiste a db');
 	}

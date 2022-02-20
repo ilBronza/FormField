@@ -18,8 +18,23 @@ trait ListValueFormFieldTrait
         return $result;
     }
 
+    public function getPossibleValuesFromRules()
+    {
+        $rules = $this->rules;
+
+        if(! isset($rules['in']))
+            throw new \Exception('Dichiara i possibili valori sulla rule:in');
+
+        $pieces = explode(",", $rules['in']);
+
+        return array_combine($pieces, $pieces);
+    }
+
     public function getPossibleEnumValues()
     {
+        if(! isset($this->form->allDatabaseFields[$this->name]))
+            return $this->getPossibleValuesFromRules();
+
         $databaseField = $this->form->allDatabaseFields[$this->name];
         //$databaseField->type
 

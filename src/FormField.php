@@ -19,6 +19,7 @@ class FormField
 
 	public $name;
 	public $oldName;
+	public $default;
 
 	public $type;
 	public $form;

@@ -51,6 +51,14 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 			if($result)
 				return [$result];
 
+			if(isset($this->default))
+			{
+				if(is_array($this->default))
+					return $this->default;
+
+				return [$this->default];
+			}
+
 			return [];
 		}
 
@@ -64,6 +72,7 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 
 		if(! is_array($value))
 			return $value->toArray();
+
 
 		return $value;
 	}
@@ -101,9 +110,15 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 		$model = $this->getModel();
 
 		if($relationshipName = $this->getRelationshipName())
-			return $model->getRelationshipPossibleValuesArray(
+		{
+			$result = $model->getRelationshipPossibleValuesArray(
 				$relationshipName
 			);
+
+			asort($result);
+
+			return $result;
+		}
 
 		if($possibleValues = $this->getSpecificModelFieldPossibleValues($model))
 			return $possibleValues;
