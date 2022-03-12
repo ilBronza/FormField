@@ -20,6 +20,7 @@
 		@if($field->isSelect2())
 		data-placeholder="{{ __('fields.selectFromOptions', ['fieldName' => __('fields.' . $field->getName())]) }}"
 		data-allowClear="{{ ($field->isRequired())? 'false' : 'true' }}"
+		data-allowclear="{{ ($field->isRequired())? 'false' : 'true' }}"
 		@endif
 		
 		@if($field->hasManualInput())

@@ -2,6 +2,7 @@
 
 namespace IlBronza\FormField\Traits;
 
+use Illuminate\Database\Eloquent\Model;
 use \IlBronza\Form\Form;
 
 trait FormFieldSetter

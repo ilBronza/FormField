@@ -6,6 +6,8 @@ class RadioFormField extends SelectFormField
 {
 	public $stacked = true;
 
+	public $mustTranslateLabel = true;
+
 	public $htmlClasses = [
 			'uk-radio'
 		];
@@ -26,6 +28,19 @@ class RadioFormField extends SelectFormField
 			return ' uk-display-block ';
 
 		return null;
+	}
+
+	public function mustTranslateLabel()
+	{
+		return $this->mustTranslateLabel;
+	}
+
+	public function getLabelByIndex(string $index)
+	{
+		if($this->mustTranslateLabel())
+			return __('fields.checkboxLabel' . $index);
+
+		return $index;
 	}
 }
 

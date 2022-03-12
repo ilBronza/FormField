@@ -72,4 +72,24 @@ class FileFormField extends FormField implements FormFieldInterface
 	{
 		return in_array("Spatie\\MediaLibrary\\InteractsWithMedia", class_uses_recursive($model));
 	}
+
+	public function getMediaCollection()
+	{
+		return $this->name;
+	}
+
+	public function getDisk()
+	{
+		if(! $this->model)
+			return config('media-library.disk_name');
+
+		if($this->folder ?? null)
+			if($this->folder['method'] ?? null)
+				return $this->model->{$this->folder['method']}();
+
+		if(method_exists($this->model, 'getDiskByField'))
+			return $this->model->getDiskByField($this);
+
+		throw new \Exception('use IlBronza\CRUD\Traits\MediaInteractsWithMedia instead of Spatie\MediaLibrary\InteractsWithMedia -> ' . $e->getMessage());
+	}
 }

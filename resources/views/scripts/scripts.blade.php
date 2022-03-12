@@ -108,6 +108,8 @@ jQuery(document).ready(function($)
 		$(cloned).css('display', 'flex');
 
 		$(container).append(cloned);
+
+		setIndexOnValuescontainer();
 	});
 
 	$('body').on('click', '.jsonvaluesremover', function(e)
@@ -119,8 +121,7 @@ jQuery(document).ready(function($)
 		return false;
 	});
 
-
-	$('body').on('submit', 'form', function(e)
+	function setIndexOnValuescontainer()
 	{
 		$('.valuescontainer').each(function()
 		{
@@ -146,7 +147,12 @@ jQuery(document).ready(function($)
 
 				counter ++;
 			})
-		})
+		})		
+	}
+
+	$('body').on('submit', 'form', function(e)
+	{
+		setIndexOnValuescontainer();
 	});
 	//END JSON FIELD
 });

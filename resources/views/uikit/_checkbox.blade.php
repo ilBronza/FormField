@@ -20,7 +20,7 @@
 			@endif
 			/>
 		<label for="{{ $field->getId() }}-{{ $index }}">
-			{!! __('fields.checkboxLabel' . $index) !!}
+			{!! $field->getLabelByIndex($index) !!}
 		</label>
 	</span>
 

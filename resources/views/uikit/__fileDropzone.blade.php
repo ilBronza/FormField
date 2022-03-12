@@ -54,7 +54,7 @@
 	{
 		window.addSuccessNotification(response.message);
 
-		$( 'div#{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }} .fileslist').append('<li><a href="' + response.fileurl + '" uk-icon="file">' + response.filename + '</a> &nbsp; <span class="ib-dropzone-delete" href="' + response.deleteurl + '" uk-icon="trash"></span></li>');
+		$( 'div#{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }} .fileslist').append('<li><a target="_blank" href="' + response.fileurl + '" uk-icon="file">' + response.filename + '</a> &nbsp; <span class="ib-dropzone-delete" href="' + response.deleteurl + '" uk-icon="trash"></span></li>');
 
 		// window.dropzoneIbSuccess(file, response, container);
 	});

@@ -6,7 +6,20 @@ require('select2');
 
 jQuery(document).ready(function($)
 {
-	$('.select2').select2();
+	// $('.select2').select2();
+
+	$('.select2').each(function()
+	{
+		let options = {};
+
+		if($(this).data('placeholder'))
+			options.placeholder = $(this).data('placeholder');
+
+		if($(this).data('allowclear'))
+			options.allowClear = ($(this).data('allowclear'))? true : false;
+
+		$(this).select2(options);
+	});
 
 	$(document).on('select2:open', (e) => {
 		var selectId = e.target.id
