@@ -1,6 +1,9 @@
 <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
 <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
 
+
+<script src="https://cdn.ckeditor.com/ckeditor5/33.0.0/decoupled-document/ckeditor.js"></script>
+
 <script type="text/javascript">
 function quilljs_textarea(elem = null, options = null) {
     if(elem) {

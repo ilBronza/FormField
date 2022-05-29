@@ -4,6 +4,11 @@ namespace IlBronza\FormField\Traits;
 
 trait FormFieldDisplay
 {
+	public function generateContainerId()
+	{
+
+	}
+
 	public function getFasIcon()
 	{
 		if(isset($this->fasIcon))

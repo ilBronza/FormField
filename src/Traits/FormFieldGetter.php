@@ -79,7 +79,18 @@ trait FormFieldGetter
 
 	public function getContainerId()
 	{
-		return $this->containerId ?? $this->id;
+		if($this->containerId)
+			return $this->containerId;
+
+		$pieces = [];
+
+		if($this->form ?? false)
+			$pieces[] = $this->form->getId();
+
+		$pieces[] = $this->getId();
+		$pieces[] = 'container';
+
+		return implode("-", $pieces);
 	}
 
 	public function getId()

@@ -15,3 +15,24 @@
 		@enderror
     </div>
 </div>
+
+
+@if($field->hasOpener())
+<script type="text/javascript">
+jQuery(document).ready(function($)
+{
+	$('#{{ $field->getId() }}').on('change', function()
+	{
+		@if($name = $field->getOpenerTargetName())
+
+			$('*[name="{{ $name }}"]').parents('.fieldcontainer').fadeIn().addClass('manzone');
+		
+		@elseif($id = $field->getOpenerId())
+
+		@elseif($containerId = $field->getOpenerContainerId())
+
+		@endif
+	})
+})
+</script>
+@endif

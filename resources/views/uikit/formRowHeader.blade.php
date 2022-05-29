@@ -1,10 +1,14 @@
 <div
-	class="uk-margin-small-bottom {{ $field->getHtmlRowClassesString() }} {{ $field->getFieldTypeClass() }} {{ ($field->isClosed())? 'uk-hidden' : '' }} uk-clearfix container{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}"
+	class="uk-margin-small-bottom {{ $field->getHtmlRowClassesString() }} {{ $field->getFieldTypeClass() }} uk-clearfix fieldcontainer container{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}"
+
+	style="{{ ($field->isClosed())? 'display: none;' : '' }} "
+	
 
 	@if($id = $field->getContainerId())
 		id="{{ $id }}"
 	@endif
 	>
+
 	@if($label = $field->getLabel())
 	<label class="uk-form-label">
 
@@ -31,4 +35,3 @@
 			@if($prefix = $field->getPrefix())
 				<div class="ib-prefix"><div>{{ $prefix }}</div></div>
 			@endif
-

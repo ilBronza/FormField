@@ -5,6 +5,7 @@ namespace IlBronza\FormField;
 use IlBronza\FormField\Traits\FormFieldChecker;
 use IlBronza\FormField\Traits\FormFieldDisplay;
 use IlBronza\FormField\Traits\FormFieldGetter;
+use IlBronza\FormField\Traits\FormFieldOpener;
 use IlBronza\FormField\Traits\FormFieldSetter;
 use IlBronza\FormField\Traits\MultipleValueFormFieldTrait;
 use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
@@ -16,6 +17,7 @@ class FormField
 	use FormFieldChecker;
 	use FormFieldGetter;
 	use FormFieldSetter;
+	use FormFieldOpener;
 
 	public $name;
 	public $oldName;

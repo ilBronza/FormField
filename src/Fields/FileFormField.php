@@ -83,13 +83,44 @@ class FileFormField extends FormField implements FormFieldInterface
 		if(! $this->model)
 			return config('media-library.disk_name');
 
-		if($this->folder ?? null)
-			if($this->folder['method'] ?? null)
-				return $this->model->{$this->folder['method']}();
+		if($this->disk ?? null)
+			if($this->disk['method'] ?? null)
+				return $this->model->{$this->disk['method']}();
+
+		// if($this->folder ?? null)
+		// 	if($this->folder['method'] ?? null)
+		// 		return $this->model->{$this->folder['method']}();
 
 		if(method_exists($this->model, 'getDiskByField'))
 			return $this->model->getDiskByField($this);
 
-		throw new \Exception('use IlBronza\CRUD\Traits\MediaInteractsWithMedia instead of Spatie\MediaLibrary\InteractsWithMedia -> ' . $e->getMessage());
+		throw new \Exception('use IlBronza\CRUD\Traits\MediaInteractsWithMedia instead of Spatie\MediaLibrary\InteractsWithMedia -> ' . json_encode($this->model));
+	}
+
+	public function getCroppedSize(string $sizeType)
+	{
+		if(empty($this->cropper['croppedSizes']))
+			return null;
+
+		return $this->cropper['croppedSizes'][$sizeType] ?? false;
+	}
+
+	public function getCroppedCanvasParameters()
+	{
+		$result = [];
+
+		foreach([] as $field)
+			if($value = $this->getCroppedSize($field))
+				$result[$field] = $value;
+
+		return json_encode($result);
+	}
+
+	public function hasCropper()
+	{
+		if(! isset($this->cropper))
+			return false;
+
+		return true;
 	}
 }
