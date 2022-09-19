@@ -174,8 +174,12 @@ class JsonFormField extends FormField implements FormFieldInterface
 		return $formField;
 	}
 
-	public function getInnerFieldsByKeyValue(string $key, array $value)
+	// public function getInnerFieldsByKeyValue(string $key, array $value)
+	public function getInnerFieldsByKeyValue(string $key, $value)
 	{
+		if(is_int($value))
+			dd($value);
+
 		$result = collect();
 
 		foreach($this->innerFields as $innerField)
