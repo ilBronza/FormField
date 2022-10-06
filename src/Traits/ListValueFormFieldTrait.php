@@ -23,7 +23,7 @@ trait ListValueFormFieldTrait
         $rules = $this->rules;
 
         if(! isset($rules['in']))
-            throw new \Exception('Dichiara i possibili valori sulla rule:in');
+            throw new \Exception('Dichiara i possibili valori sulla rule:in per ' . $this->name);
 
         $pieces = explode(",", $rules['in']);
 
