@@ -15,6 +15,7 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 	protected $relationType;
 	protected $possibleValuesArray;
 	public $select2 = true;
+	public $manualInput;
 
 	public $htmlClasses = [
 			'uk-select'
@@ -32,7 +33,7 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 
 	public function hasManualInput()
 	{
-		return false;
+		return !! $this->manualInput;
 	}
 
 	// private function getRelationType()

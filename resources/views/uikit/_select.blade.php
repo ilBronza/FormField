@@ -5,7 +5,6 @@
 	@endphp
 
 	@if(! is_array($oldSelected))
-
 	<h1>{{ class_basename($oldSelected) }}</h1>
 	@else
 
@@ -27,7 +26,7 @@
 		data-tag="true"
 		@endif
 	>
-		@if($field->isSelect2())
+		@if(($field->isSelect2())||($field->hasManualInput()))
 		<option></option>
 		@else
 		<option 
@@ -48,7 +47,15 @@
 				{{ $value }}
 			</option>
 		@endforeach
+			
+			@if((! $field->isSelect2())&&($field->hasManualInput()))
+			<option class="ibuseselectmanualinput">Manual input</option>
+			@endif
 	</select>
+
+		@if((! $field->isSelect2())&&($field->hasManualInput()))
+		<input class="ibselectmanualinput uk-input" type="text" name="" />
+		@endif
 
 	@endif
 

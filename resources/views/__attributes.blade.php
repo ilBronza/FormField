@@ -1,8 +1,10 @@
 @if(isset($fieldIndex))
 	@if($field->isMultiple())
 	name="{{ $field->getName() }}[{{ $fieldIndex }}][]"
+	data-name="{{ $field->getName() }}[{{ $fieldIndex }}][]"
 	@else
 	name="{{ $field->getName() }}[{{ $fieldIndex }}]"
+	data-name="{{ $field->getName() }}[{{ $fieldIndex }}]"
 	@endif
 
 	@if(isset($overrideId)||($field->getId()))
@@ -11,8 +13,10 @@
 @else
 	@if($field->isMultiple())
 	name="{{ $field->getName() }}[]"
+	data-name="{{ $field->getName() }}[]"
 	@else
 	name="{{ $field->getName() }}"
+	data-name="{{ $field->getName() }}"
 	@endif
 
 	@if(isset($overrideId)||($field->getId()))
@@ -47,4 +51,4 @@ autocomplete="off"
 	@include('formfield::__fetcherAttributes')
 @endif
 
-class="{{ $field->getHtmlClassesString() }} {{ $field->getFetcherFieldClasses() }}"
+class="selectwithmanualinput {{ $field->getHtmlClassesString() }} {{ $field->getFetcherFieldClasses() }}"
