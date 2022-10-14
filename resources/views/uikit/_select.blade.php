@@ -27,7 +27,7 @@
 		@endif
 	>
 		@if(($field->isSelect2())||($field->hasManualInput()))
-		<option></option>
+		<option value=""></option>
 		@else
 		<option 
 			@if(empty($oldSelected[0])||(is_null($oldSelected[0])))
