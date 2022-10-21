@@ -27,6 +27,7 @@ class FormField
 	public $form;
 	public $model;
 	public $modelClass;
+	public $viewName;
 
 	public $id;
 	public $containerId = false;
@@ -79,7 +80,7 @@ class FormField
 	public function render()
 	{
 		$type = $this->getRenderType();
-
+		
 		return view("formfield::uikit._{$type}", ['field' => $this]);
 	}
 
