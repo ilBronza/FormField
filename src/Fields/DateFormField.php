@@ -10,6 +10,10 @@ class DateFormField extends FormField implements FormFieldInterface
 {
 	use SingleValueFormFieldTrait;
 
+	public $dateType = 'date';
+	public $viewName = 'date';
+	public $step = 1;
+
 	public $htmlClasses = [
 			'uk-input'
 		];
@@ -33,6 +37,11 @@ class DateFormField extends FormField implements FormFieldInterface
 		$this->data['format'] = $format;
 
 		return $this;
+	}
+
+	public function getDateType()
+	{
+		return $this->dateType;
 	}
 
 	public function getValue()

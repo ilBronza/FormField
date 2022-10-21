@@ -68,6 +68,9 @@ trait FormFieldGetter
 
 	public function getRenderType()
 	{
+		if($this->viewName)
+			return $this->viewName;
+
 		if(empty($this->renderAs))
 			return $this->type;
 	}

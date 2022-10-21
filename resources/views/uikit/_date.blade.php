@@ -1,12 +1,15 @@
 @include('formfield::uikit.formRowHeader')
 
-<input
-	@include('formfield::__data')
-	@include('formfield::__attributes')
+<div class="uk-inline">
+	<input
+		@include('formfield::__data')
+		@include('formfield::__attributes')
 
-	type="date"
-	value="{{ $field->getFormOldValue() }}"
+		step="{{ $field->getStep() }}"
+		type="{{ $field->getDateType() }}"
+		value="{{ $field->getFormOldValue() }}"
 
-	/>
+		/>
+</div>
 
 @include('formfield::uikit.formRowFooter')
