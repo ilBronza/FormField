@@ -23,9 +23,6 @@ class DatabaseField
 
 	public function getDefaultValue()
 	{
-		if($this->name == 'cc_agent')
-			mori('asd');
-
 		return $this->default;
 	}
 }

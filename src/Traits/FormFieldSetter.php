@@ -2,6 +2,7 @@
 
 namespace IlBronza\FormField\Traits;
 
+use IlBronza\Form\FormFieldset;
 use Illuminate\Database\Eloquent\Model;
 use \IlBronza\Form\Form;
 
@@ -17,6 +18,11 @@ trait FormFieldSetter
 	public function setForm(Form $form)
 	{
 		$this->form = $form;
+	}
+
+	public function setFieldset(FormFieldset $fieldset)
+	{
+		$this->fieldset = $fieldset;
 	}
 
 	public function setFetcher(array $options)

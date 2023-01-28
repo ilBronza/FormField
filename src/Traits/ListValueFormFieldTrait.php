@@ -47,4 +47,24 @@ trait ListValueFormFieldTrait
 
         return $matches[1] ?? [];
     }
+
+    public function getShowValue()
+    {
+        $model = $this->getModel();
+
+        $relation = $this->getRelationshipName();
+
+        $relatedModels = $model->$relation()->get();
+
+        $links = $relatedModels->map(function($item)
+            {
+                return [
+                    'name' => $item->getName(),
+                    'link' => $item->getShowUrl()
+                ];
+            });
+
+        return view('formfield::uikit.show.__links', ['links' => $links])->render();
+
+    }
 }

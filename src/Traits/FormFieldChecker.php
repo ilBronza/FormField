@@ -4,6 +4,11 @@ namespace IlBronza\FormField\Traits;
 
 trait FormFieldChecker
 {
+	public function isRelationship() : bool
+	{
+		return !! $this->getRelationshipName();
+	}
+
 	public function hasFetcher()
 	{
 		return isset($this->fetcher);

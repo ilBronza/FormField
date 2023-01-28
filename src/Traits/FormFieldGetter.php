@@ -2,11 +2,40 @@
 
 namespace IlBronza\FormField\Traits;
 
+use IlBronza\Form\FormFieldset;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
 trait FormFieldGetter
 {
+	public function getRelationshipName() : ? string
+	{
+		return $this->relation ?? null;
+	}
+
+	public function getRelationshipTypeLink()
+	{
+		$relationship = $this->getRelationshipName();
+
+		$routeName = $relationship . ".index";
+
+		if(Route::has($routeName)) 
+			return route($routeName);
+
+		$routeName = Str::plural($relationship) . ".index";
+
+		if(Route::has($routeName)) 
+			return route($routeName);
+
+		$routeName = __('routenames.' . $routeName . 'Index');
+
+		if(! Route::has($routeName))
+			throw new \Exception('Translate this missing route ' . $routeName . ' to link properly for ' . $relationship . ' index');
+		
+		return route($routeName);
+	}
+
 	public function getFetcherData()
 	{
 		return $this->fetcher;
@@ -53,12 +82,21 @@ trait FormFieldGetter
 		throw new \Exception('Il model ' . class_basename($model) . ' non ha il metodo getter per ' . $fieldName . ' o il campo non esiste a db');
 	}
 
+	public function getFieldset() : ? FormFieldset
+	{
+		return $this->fieldset;
+	}
+
 	public function getModel()
 	{
 		if($this->model)
 			return $this->model;
 
-		return $this->form->model;
+		if($model = $this->getFieldset()?->getModel())
+			return $model;
+
+		if($this->form?->model)
+			return $this->form->model;
 	}
 
 	public function getType()

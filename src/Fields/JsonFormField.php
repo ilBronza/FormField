@@ -105,6 +105,11 @@ class JsonFormField extends FormField implements FormFieldInterface
 				$this->getModelValueByName($this->model, $this->name)
 			);
 
+		if($model = $this->getModel())
+			return $this->transformValueByPosition(
+				$this->getModelValueByName($model, $this->name)
+			);
+
 		if(($this->form)&&($this->form->model))
 			return $this->transformValueByPosition(
 				$this->getModelValueByName($this->form->model, $this->name)
@@ -178,7 +183,7 @@ class JsonFormField extends FormField implements FormFieldInterface
 	public function getInnerFieldsByKeyValue(string $key, $value)
 	{
 		if(is_int($value))
-			dd($value);
+			dd("RISOLVI QUA if(is_int($value))");
 
 		$result = collect();
 

@@ -32,6 +32,9 @@ trait SingleValueFormFieldTrait
 		if($this->model)
 			return $this->getModelValueByName($this->model, $this->name);
 
+		if($model = $this->getModel())
+			return $this->getModelValueByName($model, $this->name);
+
 		if(($this->form)&&($this->form->model))
 		{
 			if($this->form->model->exists)

@@ -1,6 +1,4 @@
-<div class="uk-alert uk-alert-danger">
-	UTILIZZARE Il nuovo sistema con file di parametri di SAEL
-</div>
+@include('formfield::uikit.show.formRowHeader')
 
 <table class="uk-table">
 	@if($current = current($arrayElement))
@@ -23,3 +21,5 @@
 	@endforeach
 	
 </table>
+
+@include('formfield::uikit.show.formRowFooter')

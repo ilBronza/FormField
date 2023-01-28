@@ -25,6 +25,7 @@ class FormField
 
 	public $type;
 	public $form;
+	public $fieldset;
 	public $model;
 	public $modelClass;
 	public $viewName;
@@ -79,9 +80,20 @@ class FormField
 
 	public function render()
 	{
+		$this->executeBeforeRenderingOperations();
+
 		$type = $this->getRenderType();
 		
 		return view("formfield::uikit._{$type}", ['field' => $this]);
+	}
+
+	public function renderShow()
+	{
+		// $this->executeBeforeRenderingOperations();
+
+		$type = $this->getRenderType();
+		
+		return view("formfield::uikit.show._{$type}", ['field' => $this]);
 	}
 
 	public function transformValueBeforeStore($value)

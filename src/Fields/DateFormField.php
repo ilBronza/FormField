@@ -52,6 +52,9 @@ class DateFormField extends FormField implements FormFieldInterface
 		else if($this->model)
 			$value = $this->getModelValueByName($this->model, $this->name);
 
+		else if($model = $this->getModel())
+			$value = $this->getModelValueByName($model, $this->name);
+
 		else if(($this->form)&&($this->form->model))
 			$value = $this->getModelValueByName($this->form->model, $this->name);
 
