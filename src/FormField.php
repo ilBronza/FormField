@@ -48,6 +48,8 @@ class FormField
 	public $data = [];
 	public $htmlClasses = [];
 	public $rowHtmlClasses = [];
+	public $labelHtmlClasses = [];
+	
 	public $rules = [];
 
 	public function __construct(array $parameters = [])

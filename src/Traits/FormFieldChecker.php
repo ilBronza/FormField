@@ -39,9 +39,9 @@ trait FormFieldChecker
 		return ! $this->isRequired();
 	}
 
-	public function isRequired()
+	public function isRequired() : bool
 	{
-		return $this->required;
+		return !! $this->required;
 	}
 
 	public function rulesContain(string $rule)

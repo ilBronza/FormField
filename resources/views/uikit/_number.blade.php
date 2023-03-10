@@ -4,7 +4,7 @@
 	@include('formfield::__data')
 	@include('formfield::__attributes')
 
-	type="text"
+	type="number"
 	value="{{ $field->getFormOldValue() }}"
 	step="{{ $field->getStep() }}"
 	/>

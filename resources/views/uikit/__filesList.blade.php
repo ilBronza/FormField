@@ -1,3 +1,9 @@
 @foreach($filesCollection as $file)
-	<li><a target="_blank" href="{{ $file->getServeImageUrl() }}" uk-icon="file">{{ $file->name }}</a> &nbsp; <span class="ib-dropzone-delete" href="{{ $file->getDeleteUrl() }}" uk-icon="trash"></span></li>
+	<li uk-lightbox>
+		<a
+	        data-type="iframe"
+			href="{{ $file->getServeImageUrl() }}?iframed=true"
+			uk-icon="file">
+				{{ $file->name }}
+		</a> &nbsp; <span class="ib-dropzone-delete" href="{{ $field->getForm()->getModel()->getDeleteMediaUrlByMedia($file) }}" uk-icon="trash"></span></li>
 @endforeach

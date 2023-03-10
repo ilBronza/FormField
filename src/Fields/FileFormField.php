@@ -48,16 +48,16 @@ class FileFormField extends FormField implements FormFieldInterface
 
 	public function getMethod()
 	{
-		if($this->form->method)
-			return $this->form->method;
+		if($this->getForm()->method)
+			return $this->getForm()->method;
 
 		throw new \Exception('Gestire method di diversa provenienza se in mancanza di form');
 	}
 
 	public function getUploadingUrl()
 	{
-		if($this->form->action)
-			return $this->form->action;
+		if($this->getForm()->action)
+			return $this->getForm()->action;
 
 		throw new \Exception('Gestire url di diversa provenienza se in mancanza di form');
 	}

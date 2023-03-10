@@ -8,7 +8,15 @@ use \IlBronza\Form\Form;
 
 trait FormFieldSetter
 {
+	/**
+	 * DEPRECATA IN FAVORE Di setModel DOGODO SISTODO TODO
+	 **/
 	public function assignModel(Model $model)
+	{
+		return $this->setModel($model);
+	}
+
+	public function setModel(Model $model)
 	{
 		$this->model = $model;
 

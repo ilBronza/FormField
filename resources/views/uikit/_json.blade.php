@@ -41,7 +41,7 @@
 			@endif
 				@foreach($field->getInnerFieldsByKeyValue($key, $value) as $innerField)
 				<div @if(! $field->isVertical()) style="width: {{ floor(100/count($field->innerFields)) }}%;" @endif>
-					{!! $innerField->setValue($value[$innerField->subName] ?? $position)->render() !!}					
+					{!! $innerField->setValue($value[$innerField->subName] ?? null)->render() !!}					
 				</div>
 				@endforeach
 			</div>

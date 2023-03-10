@@ -16,18 +16,18 @@
 		<i class="fas fa-{{ $icon }}"></i>
 		@endif
 
-		@if($field->isRelationship())
+{{-- 		@if($field->isRelationship())
 		<a uk-tooltip title="@lang('crud::crud.backToList')" href="{{ $field->getRelationshipTypeLink() }}">
 			
 		@endif
-
+ --}}
 		{!! $label !!}
 
-		@if($field->isRelationship())
+{{-- 		@if($field->isRelationship())
 			<i class="fas fa-list"></i>
 		</a>
 		@endif
-
+ --}}
 		@if($tooltip = $field->getTooltip())
 			<span uk-tooltip='title:{{ $tooltip }}' uk-icon='question'></span>
 		@endif

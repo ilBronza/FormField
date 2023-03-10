@@ -13,7 +13,7 @@ class FormFieldServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'ilbronza');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'formfield');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'formfield');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');

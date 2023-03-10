@@ -2,6 +2,7 @@
 
 namespace IlBronza\FormField\Traits;
 
+use IlBronza\Form\Form;
 use IlBronza\Form\FormFieldset;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Route;
@@ -9,6 +10,18 @@ use Illuminate\Support\Str;
 
 trait FormFieldGetter
 {
+	public function getForm() : ? Form
+	{
+		if($this->form)
+			return $this->form;
+
+		if($fiedlset = $this->getFieldset())
+			if($form = $fiedlset->getForm())
+				return $form;
+
+		return null;
+	}
+
 	public function getRelationshipName() : ? string
 	{
 		return $this->relation ?? null;
@@ -87,16 +100,20 @@ trait FormFieldGetter
 		return $this->fieldset;
 	}
 
-	public function getModel()
+	public function getModel() : ? Model
 	{
 		if($this->model)
 			return $this->model;
 
-		if($model = $this->getFieldset()?->getModel())
-			return $model;
+		if($fieldset = $this->getFieldset())
+			if($model = $fieldset->getModel())
+				return $model;
 
-		if($this->form?->model)
-			return $this->form->model;
+		if($form = $this->getForm())
+			if($model = $form->getModel())
+				return $model;
+
+		return null;
 	}
 
 	public function getType()
@@ -170,6 +187,11 @@ trait FormFieldGetter
 	public function getHtmlRowClassesString() : string
 	{
 		return " " . implode(" ", $this->rowHtmlClasses) . " ";
+	}
+
+	public function getHtmlLabelClassesString() : string
+	{
+		return " " . implode(" ", $this->labelHtmlClasses) . " ";		
 	}
 
 	public function getFetcherFieldClasses()

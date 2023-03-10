@@ -10,7 +10,7 @@
 	>
 
 	@if($label = $field->getLabel())
-	<label class="uk-form-label">
+	<label class="uk-form-label {{ $field->getHtmlLabelClassesString() }}">
 
 		@if($icon = $field->getFasIcon())
 		<i class="fas fa-{{ $icon }}"></i>

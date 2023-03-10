@@ -30,19 +30,25 @@ trait ListValueFormFieldTrait
         return array_combine($pieces, $pieces);
     }
 
+    public function hasRuleInArray() : bool
+    {
+        $rules = $this->rules;
+
+        return !! isset($rules['in']);
+    }
+
     public function getPossibleEnumValues()
     {
-        if(! isset($this->form->allDatabaseFields[$this->name]))
+        if($this->hasRuleInArray())
             return $this->getPossibleValuesFromRules();
 
-        $databaseField = $this->form->allDatabaseFields[$this->name];
+        // $databaseField = $this->form->allDatabaseFields[$this->name];
         //$databaseField->type
 
-        // $_enumStr = \DB::select(\DB::raw('SHOW COLUMNS FROM ' . $this->getModel()->getTable() . ' WHERE Field = "' . $this->name . '"'));
+        $_enumStr = \DB::select(\DB::raw('SHOW COLUMNS FROM ' . $this->getModel()->getTable() . ' WHERE Field = "' . $this->name . '"'));
 
-        // $enumStr = $_enumStr[0]->Type;
+        $enumStr = $_enumStr[0]->Type;
 
-        $enumStr = $databaseField->type;
         preg_match_all("/'([^']+)'/", $enumStr, $matches);
 
         return $matches[1] ?? [];

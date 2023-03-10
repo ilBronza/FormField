@@ -17,6 +17,9 @@ class PasswordFormField extends FormField implements FormFieldInterface
 
 	public function transformValueBeforeStore($value)
 	{
+		if(! $value)
+			return $value;
+		
         return Hash::make($value);
 	}
 }

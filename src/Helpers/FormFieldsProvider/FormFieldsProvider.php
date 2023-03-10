@@ -68,7 +68,7 @@ class FormFieldsProvider
 		return static::buildParametersRules($parameters);
 	}
 
-	static function checkIfFieldIsRequired(array $rules)
+	static function checkIfFieldIsRequired(array $rules) : bool
 	{
 		return in_array('required', $rules);
 	}
