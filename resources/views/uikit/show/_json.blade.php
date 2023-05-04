@@ -1,7 +1,8 @@
 @include('formfield::uikit.show.formRowHeader')
 
 <table class="uk-table">
-	@if($current = current($arrayElement))
+
+	@if($current = current($field->getValue()))
 	<tr>
 		@foreach($current as $fieldName => $parameters)
 		<th>
@@ -12,14 +13,14 @@
 
 	@endif
 
-	@foreach($arrayElement as $index => $parameters)
+	@foreach($field->getValue() as $index => $parameters)
 	<tr>
 		@foreach($parameters as $name => $value)
 		<td>{{ $value }}</td>
 		@endforeach
 	</tr>
 	@endforeach
-	
+
 </table>
 
 @include('formfield::uikit.show.formRowFooter')

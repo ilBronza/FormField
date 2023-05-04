@@ -20,6 +20,7 @@
 		data-placeholder="{{ __('fields.selectFromOptions', ['fieldName' => __('fields.' . $field->getName())]) }}"
 		data-allowClear="{{ ($field->isRequired())? 'false' : 'true' }}"
 		data-allowclear="{{ ($field->isRequired())? 'false' : 'true' }}"
+		data-allow-clear="{{ ($field->isRequired())? 'false' : 'true' }}"
 		@endif
 		
 		@if($field->hasManualInput())
@@ -27,7 +28,7 @@
 		@endif
 	>
 		@if(($field->isSelect2())||($field->hasManualInput()))
-		<option value=""></option>
+		<option value="">{{ __('fields.selectFromOptions', ['fieldName' => __('fields.' . $field->getName())]) }}</option>
 		@else
 		<option 
 			@if(empty($oldSelected[0])||(is_null($oldSelected[0])))
