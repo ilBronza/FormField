@@ -6,13 +6,21 @@ use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
 class JsonFieldCast implements CastsAttributes
 {
-    public function get($model, $key, $value, $attributes)
+    protected function jsonField($value)
     {
-        return decrypt($value);
+        if(! $value)
+            return [];
+
+        return json_decode($value, true);
     }
 
-    public function set($model, $key, $value, $attributes)
+    public function get($model, string $key, $value, array $attributes)
     {
-        return [$key => encrypt($value)];
+        return $this->jsonField($value);
+    }
+
+    public function set($model, string $key, $value, array $attributes)
+    {
+        $model->$key = $value;
     }
 }
