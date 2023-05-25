@@ -1,7 +1,13 @@
 <div
+	@if(! $field->isVisible())
+	hidden="1"
+	@endif
+
 	class="uk-margin-small-bottom {{ $field->getHtmlRowClassesString() }} {{ $field->getFieldTypeClass() }} uk-clearfix fieldcontainer container{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}"
 
-	style="{{ ($field->isClosed())? 'display: none;' : '' }} "
+	@if($field->isClosed())
+	style="display: none;"
+	@endif
 	
 
 	@if($id = $field->getContainerId())

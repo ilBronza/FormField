@@ -35,6 +35,7 @@ class FormField
 
 	public $multiple = false;
 
+	public $visible = true;
 	public $closed = false;
 	public $readOnly = false;
 	public $disabled = false;

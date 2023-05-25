@@ -19,6 +19,11 @@ trait FormFieldChecker
 		return $this->closed;
 	}
 
+	public function isVisible() : bool
+	{
+		return $this->visible;
+	}
+
 	public function isReadOnly()
 	{
 		return $this->readOnly;
