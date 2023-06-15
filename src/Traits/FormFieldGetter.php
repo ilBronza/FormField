@@ -5,6 +5,7 @@ namespace IlBronza\FormField\Traits;
 use IlBronza\Form\Form;
 use IlBronza\Form\FormFieldset;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
@@ -59,6 +60,22 @@ trait FormFieldGetter
 		return $this->editorAction ?? false;
 	}
 
+	public function parseIfModels(mixed $elements)
+	{
+		if(is_array($elements))
+			throw new \Exception('gestire quando è un array');
+
+		if($elements instanceof \Illuminate\Support\Collection)
+		{
+			if(($elements[0] ?? false) instanceof \Illuminate\Database\Eloquent\Model)
+				return ( $elements->pluck($elements[0]->getKeyName()));
+
+			return $elements;
+		}
+
+		return $elements;
+	}
+
 	/**
 	 * get model value
 	 *
@@ -74,7 +91,9 @@ trait FormFieldGetter
 		$getterMethod = 'get' . ucfirst(Str::camel($fieldName));
 
 		if(method_exists($model, $getterMethod))
-			return $model->$getterMethod();
+			return $this->parseIfModels(
+				$model->$getterMethod()
+			);
 
 		if(method_exists($model, 'getFromFieldValue'))
 			return $model->getFromFieldValue($fieldName);
