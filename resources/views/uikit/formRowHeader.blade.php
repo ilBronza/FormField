@@ -1,9 +1,10 @@
+
 <div
 	@if(! $field->isVisible())
 	hidden="1"
 	@endif
 
-	class="uk-margin-small-bottom {{ $field->getHtmlRowClassesString() }} {{ $field->getFieldTypeClass() }} uk-clearfix fieldcontainer container{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}"
+	class="uk-margin-small-bottom {{ $field->getHtmlRowClassesString() }} {{ $field->getFieldTypeClass() }} uk-clearfix fieldcontainer {{-- Occhio che classe fieldcontainer era una volta solo container --}} fieldcontainer{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}"
 
 	@if($field->isClosed())
 	style="display: none;"
