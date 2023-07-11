@@ -13,6 +13,8 @@ class FileFormField extends FormField implements FormFieldInterface
 	use SingleValueFormFieldTrait;
 
 	public $dropzone = true;
+	public $actionMethod;
+	public $method;
 
 	public $htmlClasses = [
 		];
@@ -46,16 +48,27 @@ class FileFormField extends FormField implements FormFieldInterface
 		return $media[$this->name] ?? collect();
 	}
 
-	public function getMethod()
+	public function getMethod() : string
 	{
-		if($this->getForm()->method)
-			return $this->getForm()->method;
+		if($this->method)
+			return $this->method;
 
-		throw new \Exception('Gestire method di diversa provenienza se in mancanza di form');
+		if($form = $this->getForm())
+			return $form->method;
+
+		return 'PUT';
+	}
+
+	public function getActionMethod() : ? string
+	{
+		return $this->actionMethod;
 	}
 
 	public function getUploadingUrl()
 	{
+		if($actionMethod = $this->getActionMethod())
+			return $actionMethod;
+
 		if($this->getForm()->action)
 			return $this->getForm()->action;
 
