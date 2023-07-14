@@ -58,7 +58,8 @@ trait ListValueFormFieldTrait
     {
         $model = $this->getModel();
 
-        $relation = $this->getRelationshipName();
+        if(! $relation = $this->getRelationshipName())
+            return $model->{$this->name};
 
         $relatedModels = $model->$relation()->get();
 
