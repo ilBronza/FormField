@@ -105,10 +105,16 @@ class JsonFormField extends FormField implements FormFieldInterface
 				$this->getModelValueByName($this->model, $this->name)
 			);
 
+		
+
 		if($model = $this->getModel())
-			return $this->transformValueByPosition(
-				$this->getModelValueByName($model, $this->name)
-			);
+		{
+			//ho aggiunto questo perchè dava errore in http://127.0.0.1:8000/clients/1/edit
+			if($this->getModelValueByName($model, $this->name) !== null)
+				return $this->transformValueByPosition(
+					$this->getModelValueByName($model, $this->name)
+				);
+		}
 
 		if(($this->form)&&($this->form->model))
 			return $this->transformValueByPosition(
