@@ -51,4 +51,8 @@ autocomplete="off"
 	@include('formfield::__fetcherAttributes')
 @endif
 
-class="selectwithmanualinput {{ $field->getHtmlClassesString() }} {{ $field->getFetcherFieldClasses() }}"
+@if($field->hasUpdateEditor()) 
+	data-updateeditorurl="{{ $field->getUpdateEditorUrl() }}"
+@endif
+
+class="selectwithmanualinput {{ $field->getHtmlClassesString() }} {{ $field->getFetcherFieldClasses() }} @if($field->hasUpdateEditor()) update-editor-field @endif"

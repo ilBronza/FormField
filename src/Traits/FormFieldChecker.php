@@ -66,4 +66,23 @@ trait FormFieldChecker
 
 		return !! $this->placeholder;
 	}
+
+	public function hasUpdateEditor() : bool
+	{
+		if(! $this->updateEditor)
+			return false;
+
+		if(is_array($this->updateEditor))
+			return count($this->updateEditor) > 0;
+
+		return $this->updateEditor;
+	}
+
+	public function getUpdateEditorUrl() : string
+	{
+		if(is_array($this->updateEditor))
+			return $this->updateEditor['url'];
+
+		return $this->getModel()->getUpdateUrl();
+	}
 }

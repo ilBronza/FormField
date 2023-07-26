@@ -20,6 +20,7 @@ class FormField
 	use FormFieldOpener;
 
 	public $name;
+	public $value;
 	public $oldName;
 	public $default;
 
@@ -29,6 +30,7 @@ class FormField
 	public $model;
 	public $modelClass;
 	public $viewName;
+	public $updateEditor;
 
 	public $id;
 	public $containerId = false;
