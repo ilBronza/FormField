@@ -2,6 +2,7 @@
 
 namespace IlBronza\FormField\Traits;
 
+use IlBronza\FormField\FormField;
 use IlBronza\Form\FormFieldset;
 use Illuminate\Database\Eloquent\Model;
 use \IlBronza\Form\Form;
@@ -21,6 +22,11 @@ trait FormFieldSetter
 		$this->model = $model;
 
 		return $this;
+	}
+
+	public function setParent(FormField $field)
+	{
+		$this->parent = $field;
 	}
 
 	public function setForm(Form $form)

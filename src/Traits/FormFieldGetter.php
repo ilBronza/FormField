@@ -2,6 +2,7 @@
 
 namespace IlBronza\FormField\Traits;
 
+use IlBronza\FormField\FormField;
 use IlBronza\Form\Form;
 use IlBronza\Form\FormFieldset;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,11 @@ use Illuminate\Support\Str;
 
 trait FormFieldGetter
 {
+	public function getParent() : ? FormField
+	{
+		return $this->parent;
+	}
+
 	public function getForm() : ? Form
 	{
 		if($this->form)
@@ -123,6 +129,9 @@ trait FormFieldGetter
 	{
 		if($this->model)
 			return $this->model;
+
+		if($model = $this->getParent()?->getModel())
+			return $model;
 
 		if($fieldset = $this->getFieldset())
 			if($model = $fieldset->getModel())

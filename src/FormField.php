@@ -27,6 +27,7 @@ class FormField
 	public $type;
 	public $form;
 	public $fieldset;
+	public $parent;
 	public $model;
 	public $modelClass;
 	public $viewName;

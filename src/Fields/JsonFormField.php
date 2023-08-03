@@ -216,6 +216,8 @@ class JsonFormField extends FormField implements FormFieldInterface
 
 		$formField->addRowHtmlClass('uk-width-1-1');
 
+		$formField->setParent($this);
+
 		$this->innerFields->push($formField);
 
 		return $formField;
