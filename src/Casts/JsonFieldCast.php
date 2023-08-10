@@ -21,6 +21,6 @@ class JsonFieldCast implements CastsAttributes
 
     public function set($model, string $key, $value, array $attributes)
     {
-        $model->$key = $value;
+        return json_encode($value);
     }
 }
