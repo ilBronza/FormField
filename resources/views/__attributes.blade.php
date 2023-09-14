@@ -55,4 +55,4 @@ autocomplete="off"
 	data-updateeditorurl="{{ $field->getUpdateEditorUrl() }}"
 @endif
 
-class="selectwithmanualinput {{ $field->getHtmlClassesString() }} {{ $field->getFetcherFieldClasses() }} @if($field->hasUpdateEditor()) update-editor-field @endif"
+class="selectwithmanualinput {{ $field->getInputSizeClass() }} {{ $field->getHtmlClassesString() }} {{ $field->getFetcherFieldClasses() }} @if($field->hasUpdateEditor()) update-editor-field @endif"

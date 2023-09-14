@@ -69,7 +69,7 @@ trait FormFieldGetter
 	public function parseIfModels(mixed $elements)
 	{
 		if(is_array($elements))
-			throw new \Exception('gestire quando è un array');
+			throw new \Exception('gestire quando è un array: ' . json_encode($elements));
 
 		if($elements instanceof \Illuminate\Support\Collection)
 		{
@@ -220,6 +220,11 @@ trait FormFieldGetter
 	public function getHtmlLabelClassesString() : string
 	{
 		return " " . implode(" ", $this->labelHtmlClasses) . " ";		
+	}
+
+	public function getInputSizeClass() : string
+	{
+		return 'uk-form-small';
 	}
 
 	public function getFetcherFieldClasses()

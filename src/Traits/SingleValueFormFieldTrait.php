@@ -59,6 +59,14 @@ trait SingleValueFormFieldTrait
 		return $value;
 	}
 
+	public function getNumberFormOldValue()
+	{
+		if($this->isInteger())
+			return floor($this->getFormOldValue());
+
+		return $this->getFormOldValue();
+	}
+
 	public function getFormOldValue()
 	{
 		return old(
