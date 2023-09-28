@@ -16,6 +16,8 @@ class FileFormField extends FormField implements FormFieldInterface
 	public $actionMethod;
 	public $method;
 
+	public $inputSizeClass = '';
+
 	public $htmlClasses = [
 		];
 

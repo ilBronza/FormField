@@ -53,6 +53,7 @@ class FormField
 	public $htmlClasses = [];
 	public $rowHtmlClasses = [];
 	public $labelHtmlClasses = [];
+	public $inputSizeClass =  'uk-form-small';
 	
 	public $rules = [];
 

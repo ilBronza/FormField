@@ -224,7 +224,7 @@ trait FormFieldGetter
 
 	public function getInputSizeClass() : string
 	{
-		return 'uk-form-small';
+		return $this->inputSizeClass;
 	}
 
 	public function getFetcherFieldClasses()

@@ -110,6 +110,9 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 
 		$model = $this->getModel();
 
+		if(! $model)
+			throw new \Exception('Assign a model or declare possibleValuesArray or list');
+
 		if($relationshipName = $this->getRelationshipName())
 		{
 			$result = $model->getRelationshipPossibleValuesArray(

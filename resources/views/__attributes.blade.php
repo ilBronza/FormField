@@ -24,6 +24,8 @@
 	@endif
 @endif
 
+data-flatname="{{ $field->getName() }}"
+
 @if($field->isDisabled())
 disabled
 @endif
