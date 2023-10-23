@@ -45,7 +45,18 @@ trait ListValueFormFieldTrait
         // $databaseField = $this->form->allDatabaseFields[$this->name];
         //$databaseField->type
 
-        $_enumStr = \DB::select(\DB::raw('SHOW COLUMNS FROM ' . $this->getModel()->getTable() . ' WHERE Field = "' . $this->name . '"'));
+        try
+        {
+            $expression = \DB::raw('SHOW COLUMNS FROM ' . $this->getModel()->getTable() . ' WHERE Field = "' . $this->name . '"');
+            $expression = $expression->getValue(\DB::connection()->getQueryGrammar());
+            $_enumStr = \DB::select($expression);
+        }
+        catch(\Exception $e)
+        {
+            $expression = \DB::raw('SHOW COLUMNS FROM ' . $this->getModel()->getTable() . ' WHERE Field = "' . $this->name . '"');
+            // $expression = $expression->getValue(\DB::connection()->getQueryGrammar());
+            $_enumStr = \DB::select($expression);            
+        }
 
         $enumStr = $_enumStr[0]->Type;
 
@@ -65,10 +76,20 @@ trait ListValueFormFieldTrait
 
         $links = $relatedModels->map(function($item)
             {
-                return [
-                    'name' => $item->getName(),
-                    'link' => $item->getShowUrl()
-                ];
+                try
+                {
+                    return [
+                        'name' => $item->getName(),
+                        'link' => $item->getShowUrl()
+                    ];
+                }
+                catch(\Exception $e)
+                {
+                    return [
+                        'name' => $e->getMessage(),
+                        'link' => ''
+                    ];                    
+                }
             });
 
         return view('formfield::uikit.show.__links', ['links' => $links])->render();

@@ -25,6 +25,10 @@
 
 		{!! $label !!}
 
+		@if($field->isRequired())
+		*
+		@endif
+
 		@if($tooltip = $field->getTooltip())
 			<span uk-tooltip='title:{{ $tooltip }}' uk-icon='question'></span>
 		@endif

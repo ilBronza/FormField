@@ -4,9 +4,7 @@
 		$oldSelected = $field->getFormOldSelected();
 	@endphp
 
-	@if(! is_array($oldSelected))
-	<h1>{{ class_basename($oldSelected) }}</h1>
-	@else
+	@if(is_array($oldSelected))
 
 	<select
 		@include('formfield::__data')

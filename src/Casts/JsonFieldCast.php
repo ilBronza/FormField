@@ -11,6 +11,9 @@ class JsonFieldCast implements CastsAttributes
         if(! $value)
             return [];
 
+        if(is_array($value))
+            return $value;
+
         return json_decode($value, true);
     }
 

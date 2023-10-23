@@ -2,6 +2,7 @@
 
 namespace IlBronza\FormField\Traits;
 
+use Illuminate\Database\Eloquent\Model;
 use \IlBronza\Form\Form;
 
 trait SingleValueFormFieldTrait
@@ -56,23 +57,40 @@ trait SingleValueFormFieldTrait
 
 	public function parseValueBeforeRender($value)
 	{
+		if($value instanceof Model)
+			return $value->getKey();
+
 		return $value;
 	}
 
 	public function getNumberFormOldValue()
 	{
-		if($this->isInteger())
-			return floor($this->getFormOldValue());
+		try
+		{
+			if($this->isInteger())
+				return floor($this->getFormOldValue());			
+		}
+		catch(\Throwable $e)
+		{
+			return $e->getMessage();
+		}
 
 		return $this->getFormOldValue();
 	}
 
 	public function getFormOldValue()
 	{
-		return old(
-			$this->getFormOldName(),
-			$this->parseValueBeforeRender($this->getValue())
-		);
+		try
+		{
+			return old(
+				$this->getFormOldName(),
+				$this->parseValueBeforeRender($this->getValue())
+			);			
+		}
+		catch(\Throwable $e)
+		{
+			return $e->getMessage();
+		}
 	}
 
 	public function mustShowPlaceholder()

@@ -1,5 +1,9 @@
 @include('formfield::uikit.show.formRowHeader')
 
-{{ $field->getFormOldValue() }}
+@if($field->isInteger())
+	{{ round($field->getFormOldValue()) }}
+@else
+	{{ $field->getFormOldValue() }}
+@endif
 
 @include('formfield::uikit.show.formRowFooter')

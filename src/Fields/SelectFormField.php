@@ -71,6 +71,9 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 		if(is_string($value))
 			return explode(",", $value);
 
+		if(is_int($value))
+			return [$value];
+
 		if(! is_array($value))
 			return $value->toArray();
 
