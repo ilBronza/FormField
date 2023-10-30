@@ -20,7 +20,7 @@
 			@endif
 			/>
 		<label for="{{ $field->getId() }}-{{ $index }}">
-			{{ __('fields.booleanLabel' . $index) }}
+			{{ __('formfield::values.booleanLabel' . $index) }}
 		</label>
 	</span>
 

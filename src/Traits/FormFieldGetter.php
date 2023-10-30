@@ -69,7 +69,10 @@ trait FormFieldGetter
 	public function parseIfModels(mixed $elements)
 	{
 		if(is_array($elements))
-			throw new \Exception('gestire quando è un array: ' . json_encode($elements));
+		{
+			return $elements;
+			// throw new \Exception('gestire quando è un array: ' . json_encode($elements));
+		}
 
 		if($elements instanceof \Illuminate\Support\Collection)
 		{

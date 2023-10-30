@@ -6,6 +6,8 @@ use IlBronza\FormField\FormField;
 
 class FormFieldsProvider
 {
+	static ? string $translationPrefix;
+
 	public function setParameters(array $parameters)
 	{
 
@@ -51,10 +53,18 @@ class FormFieldsProvider
 		return $parameters;
 	}
 
+	static function getTranslationPrefix(array $parameters) : string
+	{
+		if($parameters['translationPrefix'] ?? false)
+			return $parameters['translationPrefix'];
+
+		return static::$translationPrefix ?? 'fields';
+	}
+
 	static function buildLabel(array $parameters) : array
 	{
 		if(! ($parameters['label'] ?? false))
-			$parameters['label'] = trans('fields.' . $parameters['name']);
+			$parameters['label'] = trans(static::getTranslationPrefix($parameters) . '.' . $parameters['name']);
 
 		return $parameters;
 	}

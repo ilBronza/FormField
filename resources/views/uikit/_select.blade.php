@@ -15,7 +15,7 @@
 		@endif
 
 		@if($field->isSelect2())
-		data-placeholder="{{ __('fields.selectFromOptions', ['fieldName' => __('fields.' . $field->getName())]) }}"
+		data-placeholder="{{ __('formfield::values.selectFromOptions', ['fieldName' => $field->getLabel()]) }}"
 		data-allowClear="{{ ($field->isRequired())? 'false' : 'true' }}"
 		data-allowclear="{{ ($field->isRequired())? 'false' : 'true' }}"
 		data-allow-clear="{{ ($field->isRequired())? 'false' : 'true' }}"
