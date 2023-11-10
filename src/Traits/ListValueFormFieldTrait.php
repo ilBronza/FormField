@@ -86,7 +86,7 @@ trait ListValueFormFieldTrait
                 catch(\Exception $e)
                 {
                     return [
-                        'name' => $e->getMessage(),
+                        'name' => $item->getName() . ' | ' . $e->getMessage(),
                         'link' => ''
                     ];                    
                 }

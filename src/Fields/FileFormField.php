@@ -138,4 +138,11 @@ class FileFormField extends FormField implements FormFieldInterface
 
 		return true;
 	}
+
+	public function getValue()
+	{
+		return $this->getFiles();
+
+	}
+
 }

@@ -3,6 +3,10 @@
 		@include('formfield::__data')
 		@include('formfield::__attributes')
 
+		@if($field->isMultiple())
+		multiple
+		@endif
+
 		type="file"
 
 		/>
