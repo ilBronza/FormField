@@ -16,4 +16,9 @@ trait FormFieldOpener
 
 		return ;
 	}
+
+	public function getOpenerRequiredAttribute() : bool
+	{
+		return !! ($this->opener['required'] ?? false);
+	}
 }

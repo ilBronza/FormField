@@ -25,7 +25,14 @@ jQuery(document).ready(function($)
 	{
 		@if($name = $field->getOpenerTargetName())
 
-			$('*[name="{{ $name }}"]').parents('.fieldcontainer').fadeIn().addClass('manzone');
+			$('*[name="{{ $name }}"]').parents('.fieldcontainer').fadeIn();
+
+			@if($field->getOpenerRequiredAttribute())
+			$('*[name="{{ $name }}"]').each(function(index, target)
+			{
+				$(target).prop('required', true);
+			})
+			@endif;
 		
 		@elseif($id = $field->getOpenerId())
 
