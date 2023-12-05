@@ -34,6 +34,9 @@ trait FormFieldDisplay
 
 	public function getLabel()
 	{
+		if($this->showLabel === false)
+			return false;
+
 		if($this->label === true)
 			return $this->getName();
 

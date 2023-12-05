@@ -68,7 +68,12 @@ trait SingleValueFormFieldTrait
 		try
 		{
 			if($this->isInteger())
-				return floor($this->getFormOldValue());			
+			{
+				if($this->getFormOldValue())
+					return floor($this->getFormOldValue());
+
+				return null;
+			}
 		}
 		catch(\Throwable $e)
 		{

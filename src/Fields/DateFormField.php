@@ -39,12 +39,17 @@ class DateFormField extends FormField implements FormFieldInterface
 		return $this;
 	}
 
+	public function getShowFormat()
+	{
+		return trans("dates.{$this->getType()}");
+	}
+
 	public function getDateType()
 	{
 		return $this->dateType;
 	}
 
-	public function getValue()
+	public function getRawValue()
 	{
 		if(isset($this->value))
 			$value = $this->value;
@@ -61,11 +66,25 @@ class DateFormField extends FormField implements FormFieldInterface
 		else if(! empty($this->default))
 			$value = $this->default;
 
+		return $value;
+	}
+
+	public function getShowValue()
+	{
+		if(($value = $this->getRawValue())&&(class_basename($value) == 'Carbon'))
+			return $value->format($this->getShowFormat());
+
+		return $value ?? null;		
+	}
+
+	public function getValue()
+	{
+		$value = $this->getRawValue();
+
 		if((isset($value))&&(class_basename($value) == 'Carbon'))
 			return $value->format($this->format);
 
 		return $value ?? null;
 		// throw new \Exception('Nessun model da dove prendere il dato');
 	}
-
 }

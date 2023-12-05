@@ -109,7 +109,7 @@
 
 
 
-		dictDefaultMessage: 'Trascina i files in questo riquadro',
+		dictDefaultMessage: '{{ trans('formfield::files.dragFilesHereLabel') }}',
 		params: {
 			"ib-fileupload": true,
 			fieldname: $(container).attr('name'),

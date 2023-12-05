@@ -46,6 +46,7 @@ class FormField
 
 	public $required;
 	public $label;
+	public $showLabel;
 	public $placeholder;
 	public $tooltip;
 

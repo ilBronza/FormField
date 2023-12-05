@@ -13,14 +13,14 @@
 
 			class="uk-radio" 
 			type="radio"
-			value="{{ $value }}"
+			value="{{ $index }}"
 
-			@if(in_array($value, $oldSelected))
+			@if(in_array($index, $oldSelected))
 			checked
 			@endif
 			/>
 		<label for="{{ $field->getId() }}-{{ $index }}">
-			{!! __('fields.radioLabel' . $index) !!}
+			{!! $value !!}
 		</label>
 	</span>
 

@@ -1,5 +1,5 @@
 @include('formfield::uikit.show.formRowHeader')
 
-{{ $field->getFormOldValue() }}
+{{ $field->getShowValue() }}
 
 @include('formfield::uikit.show.formRowFooter')
