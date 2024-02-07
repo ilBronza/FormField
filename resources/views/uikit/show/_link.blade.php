@@ -1,5 +1,5 @@
 @include('formfield::uikit.show.formRowHeader')
 
-{!! $field->getFormOldValue() !!}
+<a target="_blank" href="{{ $field->getFormOldValue() }}">{{ $field->getFormOldValue() }}</a>
 
 @include('formfield::uikit.show.formRowFooter')

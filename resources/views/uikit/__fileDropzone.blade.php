@@ -24,6 +24,11 @@
 
 <script type="text/javascript">
 
+	window.dropzoneError = function(file, response)
+	{
+		window.addDangerNotification(response.message);
+	}
+
 	var id = "{{ ($overrideId ?? ($field->getId() . ( ($fieldIndex ?? false)? ('-' . $fieldIndex) : ''))) }}"
 
 	var container = "div#" + id;
@@ -134,6 +139,9 @@
 		}
 	}).on("success", function(file, response)
 	{
+		if(! response.success)
+			return window.dropzoneError(file, response);
+		
 		window.addSuccessNotification(response.message);
 
 		$( 'div#{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }} .fileslist').append('<li><a target="_blank" href="' + response.fileurl + '" uk-icon="file">' + response.filename + '</a> &nbsp; <span class="ib-dropzone-delete" href="' + response.deleteurl + '" uk-icon="trash"></span></li>');
@@ -141,8 +149,8 @@
 		// window.dropzoneIbSuccess(file, response, container);
 	}).on("error", function(file, response)
 	{
-		console.log(response);
-		alert(response.message);
+		return window.dropzoneError(file, response);
+
 		// window.addSuccessNotification(response.message);
 
 		// $( 'div#{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }} .fileslist').append('<li><a target="_blank" href="' + response.fileurl + '" uk-icon="file">' + response.filename + '</a> &nbsp; <span class="ib-dropzone-delete" href="' + response.deleteurl + '" uk-icon="trash"></span></li>');

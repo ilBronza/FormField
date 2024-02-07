@@ -1,5 +1,5 @@
 @include('formfield::uikit.show.formRowHeader')
 
-{!! $field->getFormOldValue() !!}
+<iframe src="{{ $field->getFormOldValue() }}"></iframe>
 
 @include('formfield::uikit.show.formRowFooter')

@@ -41,6 +41,7 @@ class FormField
 	public $visible = true;
 	public $closed = false;
 	public $readOnly = false;
+	public $readOnlyText;
 	public $disabled = false;
 	public $nullable;
 
