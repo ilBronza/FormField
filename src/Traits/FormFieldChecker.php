@@ -4,6 +4,11 @@ namespace IlBronza\FormField\Traits;
 
 trait FormFieldChecker
 {
+	public function isRepeatable() : bool
+	{
+		return !! $this->repeatable;
+	}
+
 	public function isRelationship() : bool
 	{
 		return !! $this->getRelationshipName();
@@ -12,6 +17,11 @@ trait FormFieldChecker
 	public function hasFetcher()
 	{
 		return isset($this->fetcher);
+	}
+
+	public function isButton() : bool
+	{
+		return $this->getType() == 'button';
 	}
 
 	public function isClosed()
@@ -31,6 +41,9 @@ trait FormFieldChecker
 
 	public function isDisabled()
 	{
+		if($this->isEnabledForUserRole())
+			return false;
+
 		return $this->disabled;
 	}
 

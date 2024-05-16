@@ -1,4 +1,10 @@
-@if(isset($fieldIndex))
+@if($field->isRepeatable()&&($_fieldIndex = $field->getRepeatableFieldKey()))
+
+name="{{ $field->getName() }}[{{ $_fieldIndex }}]"
+data-name="{{ $field->getName() }}[{{ $_fieldIndex }}]"
+id="{{ $overrideId ?? ($field->getId() . '-' . $_fieldIndex) }}"
+
+@elseif(isset($fieldIndex))
 	@if($field->isMultiple())
 	name="{{ $field->getName() }}[{{ $fieldIndex }}][]"
 	data-name="{{ $field->getName() }}[{{ $fieldIndex }}][]"
@@ -14,6 +20,7 @@
 	@if($field->isMultiple())
 	name="{{ $field->getName() }}[]"
 	data-name="{{ $field->getName() }}[]"
+	
 	@else
 	name="{{ $field->getName() }}"
 	data-name="{{ $field->getName() }}"
@@ -23,6 +30,7 @@
 	id="{{ $overrideId ?? $field->getId() }}"
 	@endif
 @endif
+
 
 data-flatname="{{ $field->getName() }}"
 
@@ -35,6 +43,8 @@ required
 @endif
 
 @if($field->isReadOnly())
+
+style="pointer-events: none;"
 
 readonly
 data-disabledtext="{{ $field->getReadOnlyText() }}"

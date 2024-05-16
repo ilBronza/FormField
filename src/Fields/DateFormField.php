@@ -2,6 +2,7 @@
 
 namespace IlBronza\FormField\Fields;
 
+use Carbon\Carbon;
 use IlBronza\FormField\Fields\FormFieldInterface;
 use IlBronza\FormField\FormField;
 use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
@@ -87,4 +88,16 @@ class DateFormField extends FormField implements FormFieldInterface
 		return $value ?? null;
 		// throw new \Exception('Nessun model da dove prendere il dato');
 	}
+
+	static public function renderValueForView($value) : ? string
+	{
+		if($value instanceof Carbon)
+			return $value->format(__('crud::dates.human'));
+
+		if(is_string($value))
+			return $value;
+
+		return null;
+	}
+
 }

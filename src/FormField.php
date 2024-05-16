@@ -2,6 +2,7 @@
 
 namespace IlBronza\FormField;
 
+use IlBronza\CRUD\Traits\ElementRolesVisibilityTrait;
 use IlBronza\FormField\Traits\FormFieldChecker;
 use IlBronza\FormField\Traits\FormFieldDisplay;
 use IlBronza\FormField\Traits\FormFieldGetter;
@@ -11,13 +12,14 @@ use IlBronza\FormField\Traits\MultipleValueFormFieldTrait;
 use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
 
 
-class FormField
+abstract class FormField
 {
 	use FormFieldDisplay;
 	use FormFieldChecker;
 	use FormFieldGetter;
 	use FormFieldSetter;
 	use FormFieldOpener;
+	use ElementRolesVisibilityTrait;
 
 	public $name;
 	public $value;
@@ -38,6 +40,8 @@ class FormField
 
 	public $multiple = false;
 
+	public ? bool $repeatable = null;
+
 	public $visible = true;
 	public $closed = false;
 	public $readOnly = false;
@@ -56,6 +60,8 @@ class FormField
 	public $rowHtmlClasses = [];
 	public $labelHtmlClasses = [];
 	public $inputSizeClass =  'uk-form-small';
+
+	public string $displayMode = 'formfield';
 	
 	public $rules = [];
 
@@ -63,6 +69,8 @@ class FormField
 	{
 		$this->assignArrayParameters($parameters);
 	}
+
+	abstract static public function renderValueForView($value) : ? string;
 
 	static function createFromArray(array $parameters)
 	{
@@ -83,8 +91,20 @@ class FormField
 		if($parameters['htmlClasses'] ?? false)
 			$parameters['htmlClasses'] = array_merge($parameters['htmlClasses'], $this->htmlClasses);
 
+		if($enabledRoles = $parameters['enabledRoles'] ?? false)
+		{
+			$this->setEnabledRoles($enabledRoles);
+
+			unset($parameters['enabledRoles']);
+		}
+
 		foreach($parameters as $name => $value)
 			$this->$name = $value;
+	}
+
+	public function getDisplayMode() : string
+	{
+		return $this->displayMode;
 	}
 
 	public function render()
@@ -92,8 +112,18 @@ class FormField
 		$this->executeBeforeRenderingOperations();
 
 		$type = $this->getRenderType();
-		
-		return view("formfield::uikit._{$type}", ['field' => $this]);
+
+		if($this->getDisplayMode() == 'show')
+			return view("formfield::uikit.show._{$type}", ['field' => $this]);
+
+		return view("formfield::uikit._{$type}", ['field' => $this]);		
+	}
+
+	public function renderPdf()
+	{
+		$type = $this->getRenderType();
+
+		return view("formfield::uikit.pdf._{$type}", ['field' => $this]);		
 	}
 
 	public function renderShow()

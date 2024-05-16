@@ -13,6 +13,15 @@
 		</script>
 		<div class="uk-text-danger">{{ $message }}</div>
 		@enderror
+
+		@if($field->isRepeatable())
+		<a data-repeatable-url="{{ $field->getRepeatableFormfieldAjaxUrl() }}" href="javascript:void(0)" class="uk-button uk-button-small uk-button-secondary uk-margin">
+			{!! FaIcon::inline('plus') !!}
+
+			@lang('form::buttons.addInstance')
+		</a>
+		@endif
+
     </div>
 </div>
 

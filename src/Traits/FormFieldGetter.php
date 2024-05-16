@@ -3,6 +3,7 @@
 namespace IlBronza\FormField\Traits;
 
 use IlBronza\FormField\FormField;
+use IlBronza\FormField\Interfaces\FormfieldModelCompatibilityInterface;
 use IlBronza\Form\Form;
 use IlBronza\Form\FormFieldset;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +13,25 @@ use Illuminate\Support\Str;
 
 trait FormFieldGetter
 {
+	public function getRepeatableFormfieldAjaxUrl() : string
+	{
+		if($model = $this->getModel())
+			return $model->getRepeatableFormfieldAjaxUrl();
+	}
+
+	public function getRepeatableFieldKey() : ? string
+	{
+		if(($model = $this->getModel())&&($model instanceof FormfieldModelCompatibilityInterface))
+			return $model->getKey();
+
+		return null;
+	}
+
+	public function getRules()
+	{
+		return $this->rules;
+	}
+
 	public function getParent() : ? FormField
 	{
 		return $this->parent;
@@ -192,10 +212,13 @@ trait FormFieldGetter
 		if(preg_match('/^\d/', $this->id) === 1)
 			$this->id = 'id-' . $this->id;
 
+		if($model = $this->getModel())
+			$this->id = $this->id . $model->getKey();
+
 		return $this->id;
 	}
 
-	public function getName()
+	public function getName() : ? string
 	{
 		return $this->name;
 	}

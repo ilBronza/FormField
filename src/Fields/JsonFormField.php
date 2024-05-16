@@ -206,6 +206,14 @@ class JsonFormField extends FormField implements FormFieldInterface
 		return $result;
 	}
 
+	static public function renderValueForView($value) : ? string
+	{
+		if(is_string($value))
+			return $value;
+
+		return json_encode($value);
+	}
+
 	public function addFormField(FormField $formField) : FormField
 	{
 		$formField = $this->manageLabel($formField);

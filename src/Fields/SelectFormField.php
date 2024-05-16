@@ -6,6 +6,7 @@ use IlBronza\FormField\Fields\FormFieldInterface;
 use IlBronza\FormField\Fields\ListValueFormFieldInterface;
 use IlBronza\FormField\FormField;
 use IlBronza\FormField\Traits\ListValueFormFieldTrait;
+use IlBronza\FormField\Traits\NEWMultipleValueFormFieldTrait;
 use IlBronza\FormField\Traits\RelationshipFormFieldTrait;
 use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
 use Illuminate\Support\Str;
@@ -17,6 +18,8 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 	public $select2 = true;
 	public $manualInput;
 
+	public $mustBeSorted = true;
+
 	public $htmlClasses = [
 			'uk-select'
 		];
@@ -24,11 +27,26 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 	use SingleValueFormFieldTrait;
 	use ListValueFormFieldTrait;
 	use RelationshipFormFieldTrait;
+	use NEWMultipleValueFormFieldTrait;
 
 	private function checkIfModelUsesRelationshipTrait($model)
 	{
 		if(! in_array('IlBronza\CRUD\Traits\Model\CRUDModelTrait', class_uses($model)))
 			throw new \Exception('add ASD CRUDModelTrait to model ' . class_basename($model));
+	}
+
+	static public function renderValueForView($value) : ? string
+	{
+		if(is_string($value))
+			return $value;
+
+		if(is_array($value))
+			return implode("<br />", $value);
+
+		if(is_null($value))
+			return $value;
+
+		throw new \Exception("Value type not considered jet: " . gettype($value));
 	}
 
 	public function hasManualInput()
@@ -103,6 +121,11 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 		return ;
 	}
 
+	public function mustBeSorted() : bool
+	{
+		return !! $this->mustBeSorted;
+	}
+
 	public function getPossibleValuesArray()
 	{
 		if(is_array($this->possibleValuesArray))
@@ -122,9 +145,13 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 				$relationshipName
 			);
 
-			asort($result);
+			if(! is_null($result))
+			{
+				if($this->mustBeSorted())
+					asort($result);
 
-			return $result;
+				return $result;
+			}
 		}
 
 		if($possibleValues = $this->getSpecificModelFieldPossibleValues($model))

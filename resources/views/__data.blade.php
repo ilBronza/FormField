@@ -6,8 +6,12 @@
 	@endif
 @endforeach
 
+@if(! isset($hideOldValue))
+
 	@if(is_string($value = $field->getFormOldValue()))
 		data-originalvalue="{{ $field->getFormOldValue() }}"
 	@else
 		data-originalvalue="{{ json_encode($value) }}"
 	@endif
+
+@endif

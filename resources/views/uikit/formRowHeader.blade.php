@@ -16,7 +16,7 @@
 	@endif
 	>
 
-	@if($label = $field->getLabel())
+	@if(($label = $field->getLabel())&&(! $field->isButton()))
 	<label class="uk-form-label {{ $field->getHtmlLabelClassesString() }}">
 
 		@if($icon = $field->getFasIcon())

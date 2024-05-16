@@ -7,6 +7,11 @@ use \IlBronza\Form\Form;
 
 trait SingleValueFormFieldTrait
 {
+	static public function renderValueForView($value) : ? string
+	{
+		return $value;
+	}
+
 	public function setValue($value)
 	{
 		$this->value = $value;
@@ -69,7 +74,7 @@ trait SingleValueFormFieldTrait
 		{
 			if($this->isInteger())
 			{
-				if($this->getFormOldValue())
+				if(is_numeric($this->getFormOldValue()))
 					return floor($this->getFormOldValue());
 
 				return null;
