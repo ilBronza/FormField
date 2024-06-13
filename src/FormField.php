@@ -41,6 +41,7 @@ abstract class FormField
 	public $multiple = false;
 
 	public ? bool $repeatable = null;
+	public ? bool $lastOfType = null;
 
 	public $visible = true;
 	public $closed = false;

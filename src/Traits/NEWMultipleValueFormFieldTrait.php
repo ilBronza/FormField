@@ -2,6 +2,7 @@
 
 namespace IlBronza\FormField\Traits;
 
+use Illuminate\Support\Collection;
 use \IlBronza\Form\Form;
 
 trait NEWMultipleValueFormFieldTrait
@@ -26,11 +27,24 @@ trait NEWMultipleValueFormFieldTrait
         if(is_null($selected))
             return [];
 
-        if(! is_array($selected))
+        if($selected instanceof Collection)
+            $selected = $selected->toArray();
+
+        if((! is_array($selected)))
             $selected = [$selected];
 
         $values = $this->getPossibleValuesArray();
 
-        return array_intersect_key($values, array_flip($selected));
+        try
+        {
+            return array_intersect_key($values, array_flip($selected));
+        }
+        catch(\Exception $e)
+        {
+            dd([
+                'error manage this value type',
+                $selected
+            ]);
+        }
     }
 }

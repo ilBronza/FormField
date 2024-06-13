@@ -42,7 +42,7 @@ class DateFormField extends FormField implements FormFieldInterface
 
 	public function getShowFormat()
 	{
-		return trans("dates.{$this->getType()}");
+		return __("crud::dates.{$this->getType()}");
 	}
 
 	public function getDateType()

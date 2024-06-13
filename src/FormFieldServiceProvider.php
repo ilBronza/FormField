@@ -34,9 +34,9 @@ class FormFieldServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/formfield.php', 'formfield');
 
         // Register the service the package provides.
-        $this->app->singleton('formfield', function ($app) {
-            return new FormField;
-        });
+        // $this->app->singleton('formfield', function ($app) {
+        //     return new FormField;
+        // });
     }
 
     /**

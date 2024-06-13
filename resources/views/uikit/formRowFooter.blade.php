@@ -14,12 +14,39 @@
 		<div class="uk-text-danger">{{ $message }}</div>
 		@enderror
 
-		@if($field->isRepeatable())
-		<a data-repeatable-url="{{ $field->getRepeatableFormfieldAjaxUrl() }}" href="javascript:void(0)" class="uk-button uk-button-small uk-button-secondary uk-margin">
+		@if(($field->isRepeatable())&&($field->isLastOfType()))
+		<a id="fieldreplicator{{ $field->getId() }}" data-repeatable-url="{{ $field->getRepeatableFormfieldAjaxUrl() }}" href="javascript:void(0)" class="uk-button uk-button-small uk-button-secondary uk-margin fieldreplicatorbutton" data-field-id="{{ $field->getId() }}">
 			{!! FaIcon::inline('plus') !!}
 
 			@lang('form::buttons.addInstance')
 		</a>
+
+		<script type="text/javascript">
+			jQuery(document).ready(function($)
+			{
+				$('#fieldreplicator{{ $field->getId() }}').on('click', function()
+				{
+					var that = $(this);
+					var url = that.data('repeatable-url');
+
+					$.ajax({
+						url: url,
+						type: 'POST',
+						success: function(response)
+						{
+							window.addSuccessNotification(response.message);
+
+							that.closest('.fieldcontainer').after(response.html);
+
+						},
+						error: function(response)
+						{
+							window.addDangerNotification(response.message);
+						}
+					});
+				});
+			});
+		</script>
 		@endif
 
     </div>

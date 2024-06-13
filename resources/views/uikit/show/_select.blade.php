@@ -2,7 +2,6 @@
 
 
 @if($field->getShowValue())
-CONTROLLARE QUESTO OUTPUT, PERCHE' NON arriva dal successivo else?
 	{!! $field->getShowValue() !!}
 @else
 

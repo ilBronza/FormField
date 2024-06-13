@@ -21,10 +21,10 @@ trait SingleValueFormFieldTrait
 
 	public function getDefaultValue()
 	{
-		if(! $this->form)
+		if(! $form = $this->getForm())
 			return null;
 
-		if($databaseField = $this->form->getDatabaseField($this->name))
+		if($databaseField = $form->getDatabaseField($this->name))
 			return $databaseField->getDefaultValue();
 
 		return $this->default;
@@ -77,7 +77,9 @@ trait SingleValueFormFieldTrait
 				if(is_numeric($this->getFormOldValue()))
 					return floor($this->getFormOldValue());
 
-				return null;
+				return $this->getDefaultValue();
+
+				// return null;
 			}
 		}
 		catch(\Throwable $e)

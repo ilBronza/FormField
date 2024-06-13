@@ -204,6 +204,9 @@ trait FormFieldGetter
 
 	public function getId()
 	{
+		if($this->id)
+			return $this->id;
+
 		if($this->id === false)
 			return false;
 

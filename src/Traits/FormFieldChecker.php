@@ -9,6 +9,11 @@ trait FormFieldChecker
 		return !! $this->repeatable;
 	}
 
+	public function isLastOfType() : bool
+	{
+		return !! $this->lastOfType;
+	}
+
 	public function isRelationship() : bool
 	{
 		return !! $this->getRelationshipName();

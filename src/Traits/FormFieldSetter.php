@@ -9,6 +9,10 @@ use \IlBronza\Form\Form;
 
 trait FormFieldSetter
 {
+	public function setLastOfType(bool $value = true)
+	{
+		$this->lastOfType = $value;
+	}
 	/**
 	 * DEPRECATA IN FAVORE Di setModel DOGODO SISTODO TODO
 	 **/

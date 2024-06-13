@@ -72,7 +72,18 @@ trait ListValueFormFieldTrait
         if(! $relation = $this->getRelationshipName())
             return $model->{$this->name};
 
-        $relatedModels = $model->$relation()->get();
+        try
+        {
+            $getterMethod = 'get' . ucfirst($relation);
+            $relatedModels = $model->{$getterMethod}();            
+        }
+        catch(\Exception $e)
+        {
+            $relatedModels = $model->$relation()->get();
+        }
+
+        if(! $relatedModels)
+            return null;
 
         $links = $relatedModels->map(function($item)
             {
