@@ -2,6 +2,8 @@
 
 namespace IlBronza\FormField\Traits;
 
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use \IlBronza\Form\Form;
 
 trait ListValueFormFieldTrait
@@ -85,23 +87,29 @@ trait ListValueFormFieldTrait
         if(! $relatedModels)
             return null;
 
+        if($relatedModels instanceof Model)
+            $relatedModels = collect([$relatedModels]);
+
+        if(! $relatedModels instanceof Collection)
+            throw new \Exception('Il metodo ' . $getterMethod . ' deve restituire un modello o una collection');
+
         $links = $relatedModels->map(function($item)
+        {
+            try
             {
-                try
-                {
-                    return [
-                        'name' => $item->getName(),
-                        'link' => $item->getShowUrl()
-                    ];
-                }
-                catch(\Exception $e)
-                {
-                    return [
-                        'name' => $item->getName() . ' | ' . $e->getMessage(),
-                        'link' => ''
-                    ];                    
-                }
-            });
+                return [
+                    'name' => $item->getName(),
+                    'link' => $item->getShowUrl()
+                ];
+            }
+            catch(\Exception $e)
+            {
+                return [
+                    'name' => $item->getName() . ' | ' . $e->getMessage(),
+                    'link' => ''
+                ];                    
+            }
+        });
 
         return view('formfield::uikit.show.__links', ['links' => $links])->render();
 
