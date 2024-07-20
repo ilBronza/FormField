@@ -13,6 +13,11 @@ class ButtonFormField extends FormField implements FormFieldInterface
 			'uk-button'
 		];
 
+	static public function renderValueForView($value) : ? string
+	{
+		return $value;
+	}
+
 	public function getValue()
 	{
 		if($this->value)
