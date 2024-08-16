@@ -1,0 +1,1 @@
+<div class="ibmilestone"><span>{{ round($percentage, 2) }}%</span><div style="width: {{ 100 - round($percentage, 2) }}%;"></div></div>

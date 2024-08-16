@@ -2,6 +2,8 @@
 
 namespace IlBronza\FormField\Traits;
 
+use function is_null;
+
 trait FormFieldChecker
 {
 	public function isRepeatable() : bool
@@ -87,6 +89,9 @@ trait FormFieldChecker
 
 	public function hasUpdateEditor() : bool
 	{
+		if(is_null($this->updateEditor))
+			return !! $this->getForm()?->hasUpdateEditor();
+
 		if(! $this->updateEditor)
 			return false;
 

@@ -2,6 +2,7 @@
 
 namespace IlBronza\FormField;
 
+use IlBronza\CRUD\Helpers\PackagesHelpers\PackageClassesResolverHelper;
 use IlBronza\CRUD\Traits\ElementRolesVisibilityTrait;
 use IlBronza\FormField\Traits\FormFieldChecker;
 use IlBronza\FormField\Traits\FormFieldDisplay;
@@ -11,6 +12,8 @@ use IlBronza\FormField\Traits\FormFieldSetter;
 use IlBronza\FormField\Traits\MultipleValueFormFieldTrait;
 use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
 
+use function strpos;
+use function ucfirst;
 
 abstract class FormField
 {
@@ -77,7 +80,13 @@ abstract class FormField
 	{
 		$type = $parameters['type'] ?? config('formfield.defaultFieldType');
 
-		$formFieldClassName = __NAMESPACE__ . '\\Fields\\' . ucfirst($type) . 'FormField';
+		if(strpos($type, "::") !== false)
+			$formFieldClassName = PackageClassesResolverHelper::getPackageClassNameByType($type);
+
+		else
+			$formFieldClassName = __NAMESPACE__ . '\\Fields\\' . ucfirst($type);
+
+		$formFieldClassName .= 'FormField';
 
 		return $formFieldClassName::_createFromArray($parameters);
 	}
@@ -114,10 +123,9 @@ abstract class FormField
 
 		$type = $this->getRenderType();
 
-		if($this->getDisplayMode() == 'show')
-			return view("formfield::uikit.show._{$type}", ['field' => $this]);
+		$viewName = $this->getViewName($type);
 
-		return view("formfield::uikit._{$type}", ['field' => $this]);		
+		return view($viewName, ['field' => $this]);
 	}
 
 	public function renderPdf()
@@ -133,7 +141,7 @@ abstract class FormField
 
 		$type = $this->getRenderType();
 		
-		return view("formfield::uikit.show._{$type}", ['field' => $this]);
+		return view($this->getShowViewName($type), ['field' => $this]);
 	}
 
 	public function transformValueBeforeStore($value)
@@ -142,5 +150,28 @@ abstract class FormField
 	}
 
 	public function executeBeforeRenderingOperations() { }
+
+	/**
+	 * @param $type
+	 *
+	 * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+	 */
+	public function getViewName($type) : string
+	{
+		if ($this->getDisplayMode() == 'show')
+			return $this->getShowViewName($type);
+
+		return "formfield::uikit._{$type}";
+	}
+
+	/**
+	 * @param $type
+	 *
+	 * @return string
+	 */
+	public function getShowViewName($type) : string
+	{
+		return "formfield::uikit.show._{$type}";
+	}
 }
 

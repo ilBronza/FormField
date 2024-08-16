@@ -44,8 +44,6 @@ required
 
 @if($field->isReadOnly())
 
-style="pointer-events: none;"
-
 readonly
 data-disabledtext="{{ $field->getReadOnlyText() }}"
 
@@ -63,7 +61,7 @@ autocomplete="off"
 	@include('formfield::__fetcherAttributes')
 @endif
 
-@if($field->hasUpdateEditor()) 
+@if($field->hasUpdateEditor())
 	data-updateeditorurl="{{ $field->getUpdateEditorUrl() }}"
 @endif
 
