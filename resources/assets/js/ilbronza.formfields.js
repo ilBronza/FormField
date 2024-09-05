@@ -7,6 +7,75 @@ require('select2');
 
 jQuery(document).ready(function($)
 {
+	window.getFieldValueFromEditor = function(target)
+	{
+		let url = $(target).data('updateeditorurl');
+		let field = $(target).attr('name');
+
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: {
+				'ib-editor-read': true,
+				field: field,
+				_method: 'PUT'
+			},
+			success: function(response)
+			{
+				let value = response.value;
+				let tagname = $(target).prop("tagName");
+
+				if(target.length == 1)
+				{
+					if(tagname == 'INPUT')
+						$(target).val(value);
+
+					else('alewrt qua da impostare (tipo un select)');
+				}
+				else
+				{
+					if(tagname == 'INPUT')
+					{
+						if($("input[name=" + field + "][value=" + value + "]").length == 0)
+						{
+							if(value == 0)
+								value = "false";
+							else if(value == 1)
+								value = "true";
+							else if(value == null)
+								value = "null";
+						}
+
+						$("input[name=" + field + "][value=" + value + "]").prop('checked', true);
+					}
+					else
+						alert('qua sono con il field multiplo');
+				}
+
+
+			},
+			error: function(response)
+			{
+				window.addDangerNotification('Impossibile leggere il valore di ' + field);
+			}
+		});
+	}
+
+	window.refreshFetchingFieldsValues = function (target)
+	{
+		if(! $(target).data('fetchfields').length)
+			return null;
+
+		$(target).data('fetchfields').forEach(function(item)
+		{
+			let target = $('*[name="' + item + '"]');
+
+			window.getFieldValueFromEditor(target);
+		});
+
+	}
+
+
 	window.sendFieldToEditor = function(field, value, url, e)
 	{
 	    $.ajax({

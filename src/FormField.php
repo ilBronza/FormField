@@ -24,6 +24,9 @@ abstract class FormField
 	use FormFieldOpener;
 	use ElementRolesVisibilityTrait;
 
+	public ? string $translationPrefix;
+	public ? int $max;
+	public ? int $min;
 	public $name;
 	public $value;
 	public $oldName;
@@ -68,6 +71,8 @@ abstract class FormField
 	public string $displayMode = 'formfield';
 	
 	public $rules = [];
+
+	public array $fetchFieldValue = [];
 
 	public function __construct(array $parameters = [])
 	{

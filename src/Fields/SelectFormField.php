@@ -11,9 +11,12 @@ use IlBronza\FormField\Traits\RelationshipFormFieldTrait;
 use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
 use Illuminate\Support\Str;
 
+use function dd;
+
 class SelectFormField extends FormField implements FormFieldInterface, ListValueFormFieldInterface, RelatedFormFieldInterface
 {
 	protected $relationType;
+	public $relation;
 	protected $possibleValuesArray;
 	public $select2 = true;
 	public $manualInput;

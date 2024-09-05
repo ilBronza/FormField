@@ -57,6 +57,10 @@ placeholder="{{ $field->getPlaceholder() }}"
 autocomplete="off"
 @endif
 
+@if($field->hasFieldsToFetch())
+data-fetchfields='{!! json_encode($field->getFieldsToFetch()) !!}'
+@endif
+
 @if($field->hasFetcher())
 	@include('formfield::__fetcherAttributes')
 @endif

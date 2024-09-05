@@ -15,6 +15,8 @@
 			type="radio"
 			value="{{ $value }}"
 
+			@if($field->isReadOnly()) disabled @endif
+
 			@if($value == $booleanValue)
 			checked
 			@endif

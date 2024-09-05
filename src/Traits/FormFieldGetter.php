@@ -13,6 +13,16 @@ use Illuminate\Support\Str;
 
 trait FormFieldGetter
 {
+	public function getFieldsToFetch() : array
+	{
+		return $this->fetchFieldValue;
+	}
+
+	public function hasFieldsToFetch() : bool
+	{
+		return count($this->getFieldsToFetch()) > 0;
+	}
+
 	public function getRepeatableFormfieldAjaxUrl() : string
 	{
 		if($model = $this->getModel())
