@@ -15,7 +15,7 @@
 	</label>
 	@endif
 
-	<div class="uk-form-controls @if(! $label) uk-margin-remove-left @endif">
+	<div class="uk-form-controls ibfieldcontent @if(! $label) uk-margin-remove-left @endif">
 		@yield('field' . $field->getName())
 
 		@error($field->getFormOldName()) 

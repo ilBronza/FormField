@@ -51,7 +51,56 @@ jQuery(document).ready(function($)
 
 	}
 
-	$('body').on('change', '.ajaxfetcher', function()
+    window.dblClickCopySelect = function(option)
+    {
+        alert('qweqwe');
+
+	}
+
+    window.dblClickCopy = function(target, value)
+	{
+        var $temp = $("<div>");
+
+        $(target).parent().append($temp);
+
+        $temp.attr("contenteditable", true)
+            .html(value).select()
+            .on("focus", function() { document.execCommand('selectAll',false,null); })
+            .focus();
+
+        document.execCommand("copy");
+        $temp.remove();
+    }
+
+    $('body').on('dblclick', '.dblclickcopy', function()
+    {
+        var content = $(this).next();
+        var label = $(this).text().trim();
+        var value = $(this).text().trim();
+
+        var element = null;
+
+        if( (element = $(content).find('input')).length != 0)
+        {
+            if(element.length == 1)
+                window.dblClickCopy(element, value = $(element).val());
+            else
+				window.dblClickCopy(element, value = $(content).find('input:checked').siblings('label').text());
+		}
+        else if( (element = $(content).find('select')).length != 0)
+            window.dblClickCopy(element, value = $(element).find(":selected").text());
+        else
+        {
+            alert('non trovato elemento tra input e select');
+
+            return ;
+		}
+
+        return window.addSuccessNotification(label + ' copiato!<br />[' + value + ']');
+    });
+
+
+    $('body').on('change', '.ajaxfetcher', function()
 	{
 		ajaxFetcherChanged(this);
 	});

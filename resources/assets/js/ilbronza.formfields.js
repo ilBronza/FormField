@@ -111,6 +111,8 @@ jQuery(document).ready(function($)
         let value = $(e.target).val();
         let field = $(e.target).attr('name');
 
+		field = field.replace("[]", "");
+
         let url = $(e.target).data('updateeditorurl');
 
         window.sendFieldToEditor(field, value, url, e);

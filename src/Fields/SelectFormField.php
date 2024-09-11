@@ -12,6 +12,7 @@ use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
 use Illuminate\Support\Str;
 
 use function dd;
+use function is_array;
 
 class SelectFormField extends FormField implements FormFieldInterface, ListValueFormFieldInterface, RelatedFormFieldInterface
 {
@@ -95,8 +96,15 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 		if(is_int($value))
 			return [$value];
 
-		if(! is_array($value))
-			return $value->toArray();
+		try
+		{
+			if(! is_array($value))
+				return $value->toArray();
+		}
+		catch(\Throwable $e)
+		{
+			return $value;
+		}
 
 
 		return $value;

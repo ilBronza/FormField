@@ -17,7 +17,7 @@
 	>
 
 	@if(($label = $field->getLabel())&&(! $field->isButton()))
-	<label class="uk-form-label {{ $field->getHtmlLabelClassesString() }}">
+	<label class="uk-form-label {{ $field->getHtmlLabelClassesString() }} @if($field->hasDblClickCopy()) dblclickcopy @endif">
 
 		@if($icon = $field->getFasIcon())
 		<i class="fas fa-{{ $icon }}"></i>

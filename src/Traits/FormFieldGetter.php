@@ -13,6 +13,31 @@ use Illuminate\Support\Str;
 
 trait FormFieldGetter
 {
+	public function hasProblems() : bool
+	{
+		return !! $this->getProblems();
+	}
+
+	public function getProblems() : array
+	{
+		return $this->problems;
+	}
+
+	public function getProblemsString(string $separator = '<br />') : string
+	{
+		return implode($separator, $this->getProblems());
+	}
+
+	public function getProblemsCount() : int
+	{
+		return count($this->getProblems());
+	}
+
+	public function getDblClickCopy() : bool
+	{
+		return $this->dblClickCopy;
+	}
+	
 	public function getFieldsToFetch() : array
 	{
 		return $this->fetchFieldValue;

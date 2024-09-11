@@ -7,8 +7,25 @@ use IlBronza\Form\FormFieldset;
 use Illuminate\Database\Eloquent\Model;
 use \IlBronza\Form\Form;
 
+use function in_array;
+
 trait FormFieldSetter
 {
+	public function addProblem(string $problem) : self
+	{
+		if(! in_array($problem, $this->problems))
+			$this->problems[] = $problem;
+
+		return $this;
+	}
+
+	public function setDblClickCopy(bool $value) : self
+	{
+		$this->dblClickCopy = $value;
+
+		return $this;
+	}
+
 	public function setLastOfType(bool $value = true)
 	{
 		$this->lastOfType = $value;

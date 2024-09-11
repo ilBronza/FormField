@@ -24,6 +24,7 @@ abstract class FormField
 	use FormFieldOpener;
 	use ElementRolesVisibilityTrait;
 
+	public bool $dblClickCopy = true;
 	public ? string $translationPrefix;
 	public ? int $max;
 	public ? int $min;
@@ -31,6 +32,8 @@ abstract class FormField
 	public $value;
 	public $oldName;
 	public $default;
+
+	public $problems = [];
 
 	public $type;
 	public $form;

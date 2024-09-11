@@ -6,6 +6,11 @@ use function is_null;
 
 trait FormFieldChecker
 {
+	public function hasDblClickCopy() : bool
+	{
+		return !! $this->getDblClickCopy();
+	}
+
 	public function isRepeatable() : bool
 	{
 		return !! $this->repeatable;
