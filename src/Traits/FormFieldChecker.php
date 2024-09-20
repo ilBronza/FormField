@@ -8,22 +8,22 @@ trait FormFieldChecker
 {
 	public function hasDblClickCopy() : bool
 	{
-		return !! $this->getDblClickCopy();
+		return ! ! $this->getDblClickCopy();
 	}
 
 	public function isRepeatable() : bool
 	{
-		return !! $this->repeatable;
+		return ! ! $this->repeatable;
 	}
 
 	public function isLastOfType() : bool
 	{
-		return !! $this->lastOfType;
+		return ! ! $this->lastOfType;
 	}
 
 	public function isRelationship() : bool
 	{
-		return !! $this->getRelationshipName();
+		return ! ! $this->getRelationshipName();
 	}
 
 	public function hasFetcher()
@@ -53,7 +53,7 @@ trait FormFieldChecker
 
 	public function isDisabled()
 	{
-		if($this->isEnabledForUserRole())
+		if ($this->isEnabledForUserRole())
 			return false;
 
 		return $this->disabled;
@@ -71,7 +71,7 @@ trait FormFieldChecker
 
 	public function isRequired() : bool
 	{
-		return !! $this->required;
+		return ! ! $this->required;
 	}
 
 	public function rulesContain(string $rule)
@@ -81,26 +81,26 @@ trait FormFieldChecker
 
 	public function hasAutocomplete()
 	{
-		return false;		
+		return false;
 	}
 
 	public function mustShowPlaceholder()
 	{
-		if((is_null($this->placeholder))&&(isset($this->form)))
+		if ((is_null($this->placeholder)) && (isset($this->form)))
 			return $this->form->mustShowPlaceholder;
 
-		return !! $this->placeholder;
+		return ! ! $this->placeholder;
 	}
 
 	public function hasUpdateEditor() : bool
 	{
-		if(is_null($this->updateEditor))
-			return !! $this->getForm()?->hasUpdateEditor();
+		if (is_null($this->updateEditor))
+			return ! ! $this->getForm()?->hasUpdateEditor();
 
-		if(! $this->updateEditor)
+		if (! $this->updateEditor)
 			return false;
 
-		if(is_array($this->updateEditor))
+		if (is_array($this->updateEditor))
 			return count($this->updateEditor) > 0;
 
 		return $this->updateEditor;
@@ -108,7 +108,7 @@ trait FormFieldChecker
 
 	public function getUpdateEditorUrl() : string
 	{
-		if(is_array($this->updateEditor))
+		if (is_array($this->updateEditor))
 			return $this->updateEditor['url'];
 
 		return $this->getModel()->getUpdateUrl();

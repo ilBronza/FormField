@@ -60,6 +60,9 @@ trait ListValueFormFieldTrait
             $_enumStr = \DB::select($expression);            
         }
 
+        if(! isset($_enumStr[0]))
+            return [];
+
         $enumStr = $_enumStr[0]->Type;
 
         preg_match_all("/'([^']+)'/", $enumStr, $matches);

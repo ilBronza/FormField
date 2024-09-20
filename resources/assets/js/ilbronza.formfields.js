@@ -4,7 +4,6 @@ Dropzone.autoDiscover = false;
 
 require('select2');
 
-
 jQuery(document).ready(function($)
 {
 	window.getFieldValueFromEditor = function(target)
@@ -28,7 +27,12 @@ jQuery(document).ready(function($)
 				if(target.length == 1)
 				{
 					if(tagname == 'INPUT')
-						$(target).val(value);
+					{
+						if($(target).prop('type') == 'date')
+							$(target).val(value.substring(0, 10));
+						else
+							$(target).val(value);
+					}
 
 					else('alewrt qua da impostare (tipo un select)');
 				}
@@ -89,15 +93,20 @@ jQuery(document).ready(function($)
 	        },
 	        success: function(response)
 	        {
-	            if(response.success != true)
-	                return this.error(response);
-	            
-	            let message = field  + ' modificato con successo';
+				window.refreshFetchingFieldsValues(e.target);
 
-	            if(response.message)
-	                message = response.message;
+				if(response.ibaction == 'reloadAllTables')
+					return window.__reloadAllTables(params);
 
-	            window.addSuccessNotification(message);
+				if(response.success != true)
+					return this.error(response);
+
+				let message = field  + ' modificato con successo';
+
+				if(response.message)
+					message = response.message;
+
+				window.addSuccessNotification(message);
 	        },
 	        error: function()
 	        {
@@ -106,7 +115,24 @@ jQuery(document).ready(function($)
 	    });
 	}
 
-    $('body').on('change', '.update-editor-field', function(e)
+	window.setValueAsHtmlClass = function(target, value)
+	{
+		value = value.replace("+", "plus");
+		value = value.toLowerCase();
+
+		$(target).removeClass (function (index, className) {
+			return (className.match (/(^|\s)valclass-\S+/g) || []).join(' ');
+		});
+
+		$(target).addClass('valclass-' + value);
+	}
+
+	$('body').on('change', '*[data-valueashtmlclass="true"]', function(e)
+	{
+		window.setValueAsHtmlClass(this, $(this).val());
+	});
+
+	$('body').on('change', '.update-editor-field', function(e)
     {
         let value = $(e.target).val();
         let field = $(e.target).attr('name');
