@@ -24,7 +24,7 @@ class FormfieldParametersHelper
 		];
 
 		if($model->getRowType()->hasValuesList())
-			$result['possibleValuesArray'] = $model->getRowType()->getPossibleValuesArray();
+			$result['possibleValuesArray'] = $model->getRowType()->getPossibleValuesArray($model);
 
 		return $result;
 	}

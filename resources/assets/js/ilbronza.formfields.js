@@ -6,6 +6,35 @@ require('select2');
 
 jQuery(document).ready(function($)
 {
+	window.parseMoneyField = function(target)
+	{
+		let step = $(target).attr('step');
+
+		let decimals = step.toString().split(".")[1].length || 0;
+
+		if(decimals > 0)
+			$(target).val(parseFloat($(target).val()).toFixed(decimals));
+	}
+
+	window.parseMoneyFields = function()
+	{
+		$('.money input').each(function()
+		{
+			window.parseMoneyField(this);
+
+		});
+	}
+
+	$('body').on('change', '.money input', function()
+	{
+		window.parseMoneyField(this);
+
+	});
+
+	window.parseMoneyFields();
+
+
+
 	window.getFieldValueFromEditor = function(target)
 	{
 		let url = $(target).data('updateeditorurl');
@@ -33,6 +62,8 @@ jQuery(document).ready(function($)
 						else
 							$(target).val(value);
 					}
+
+					window.parseMoneyField(target);
 
 					else('alewrt qua da impostare (tipo un select)');
 				}

@@ -278,7 +278,7 @@ trait FormFieldGetter
 
 	public function getHtmlRowClassesString() : string
 	{
-		return " " . implode(" ", $this->rowHtmlClasses) . " ";
+		return " " . implode(" ", $this->rowHtmlClasses) . " " . Str::slug($this->getName()) . " ";
 	}
 
 	public function getHtmlLabelClassesString() : string

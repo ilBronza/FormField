@@ -9,15 +9,25 @@ use function array_push;
 class DateExpiringFormField extends DateFormField
 {
 	public $expiringDate = null;
+	public bool $considerNullAsValid = true;
 
 	public function getExpiringDate()
 	{
 		return $this->expiringDate;
 	}
 
+	public function nullIsValid() : bool
+	{
+		return $this->considerNullAsValid;
+	}
+
 	public function isExpired()
 	{
-		if($this->getValue() >= Carbon::now())
+		if(is_null($value = $this->getValue()))
+			if($this->nullIsValid())
+				return false;
+
+		if($value >= Carbon::now())
 			return false;
 
 		$this->addProblem(trans('formfields::problems.dateExpired'));
@@ -31,6 +41,8 @@ class DateExpiringFormField extends DateFormField
 
 		if($this->isExpired())
 			$classes[] = 'uk-form-danger';
+		else
+			$classes[] = 'uk-form-success';
 
 		return $classes;
 	}
