@@ -10,7 +10,7 @@ use IlBronza\FormField\FormField;
 class JsonFormField extends FormField implements FormFieldInterface
 {
 	public $position = true;
-	public $vertical = false;
+	public bool $vertical = false;
 
 	use CRUDArrayFieldsTrait;
 

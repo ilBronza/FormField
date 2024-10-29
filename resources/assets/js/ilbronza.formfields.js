@@ -6,11 +6,25 @@ require('select2');
 
 jQuery(document).ready(function($)
 {
+	window.changeCheckboxBoolean = function(target)
+	{
+		let inputName = $(target).data('name');
+
+		let value = $(target).prop('checked');
+
+		$('input[name="' + inputName + '"][value="' + value + '"]').prop('checked', true).change();
+	}
+
 	window.parseMoneyField = function(target)
 	{
 		let step = $(target).attr('step');
 
-		let decimals = step.toString().split(".")[1].length || 0;
+		let split = step.toString().split(".");
+
+		if(typeof split[1] == 'undefined')
+			return ;
+
+		let decimals = split[1].length || 0;
 
 		if(decimals > 0)
 			$(target).val(parseFloat($(target).val()).toFixed(decimals));

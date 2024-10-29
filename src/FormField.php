@@ -4,6 +4,7 @@ namespace IlBronza\FormField;
 
 use IlBronza\CRUD\Helpers\PackagesHelpers\PackageClassesResolverHelper;
 use IlBronza\CRUD\Traits\ElementRolesVisibilityTrait;
+use IlBronza\FormField\Traits\FormFieldAlert;
 use IlBronza\FormField\Traits\FormFieldChecker;
 use IlBronza\FormField\Traits\FormFieldDisplay;
 use IlBronza\FormField\Traits\FormFieldGetter;
@@ -17,6 +18,7 @@ use function ucfirst;
 
 abstract class FormField
 {
+	use FormFieldAlert;
 	use FormFieldDisplay;
 	use FormFieldChecker;
 	use FormFieldGetter;
@@ -35,12 +37,17 @@ abstract class FormField
 
 	public $problems = [];
 
+	public string $widthClass = 'uk-width-1-1';
+	public bool $vertical = false;
+
 	public $type;
 	public $form;
 	public $fieldset;
 	public $parent;
 	public $model;
 	public $modelClass;
+
+	public $alerts = [];
 	public $viewName;
 	public $updateEditor;
 
@@ -159,11 +166,6 @@ abstract class FormField
 
 	public function executeBeforeRenderingOperations() { }
 
-	/**
-	 * @param $type
-	 *
-	 * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
-	 */
 	public function getViewName($type) : string
 	{
 		if ($this->getDisplayMode() == 'show')

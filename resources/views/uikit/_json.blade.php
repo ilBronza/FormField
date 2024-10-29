@@ -83,6 +83,6 @@
 	</div>
 </div>
 
-<button type="button" data-id="{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}" class="addjson uk-button uk-button-small uk-button-danger uk-margin-bottom" uk-icon="plus">{{ __('fields.addInstance') }}</button>
+<button type="button" data-id="{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}" class="addjson uk-button uk-button-small uk-button-danger uk-margin-bottom" uk-icon="plus">{{ __('formfield::fields.addInstance') }}</button>
 
 @include('formfield::uikit.formRowFooter')

@@ -12,7 +12,7 @@
 	</div>
 	@endif
 
-	@if($field->getPrefix()||$field->getSuffix())
+	@if($field->getPrefix()||$field->hasAlert()||$field->getSuffix())
 		</div>
 @endif
 

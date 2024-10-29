@@ -1,4 +1,3 @@
-
 <div
 	@if(! $field->isVisible())
 	hidden="1"
@@ -38,11 +37,21 @@
 
 	<div class="uk-form-controls @if(! $label) uk-margin-remove-left @endif">
 
-
-		@if($field->getPrefix()||$field->getSuffix())
+		@if($field->getPrefix()||$field->hasAlert()||$field->getSuffix())
 		<div class="ib-suffix-container">
 		@endif
 
 			@if($prefix = $field->getPrefix())
 				<div class="ib-prefix"><div>{{ $prefix }}</div></div>
-			@endif
+            @endif
+
+			@if($alert = $field->getAlertString())
+				<div class="ib-prefix">
+					<div>
+						<span uk-tooltip="{!! $alert !!}" class="uk-button uk-button-small uk-button-danger uk-float-left">
+							<i class="fa-solid fa-exclamation-triangle"></i>
+						</span>
+					</div>
+				</div>
+            @endif
+

@@ -11,6 +11,25 @@ use function in_array;
 
 trait FormFieldSetter
 {
+	public function setHorizontal() : self
+	{
+		return $this->setVertical(false);
+	}
+
+	public function setVertical(bool $vertical = true) : self
+	{
+		$this->vertical = $vertical;
+
+		return $this;
+	}
+
+	public function setWidthClass(string $widthClass) : self
+	{
+		$this->widthClass = $widthClass;
+
+		return $this;
+	}
+
 	public function addProblem(string $problem) : self
 	{
 		if(! in_array($problem, $this->problems))

@@ -50,6 +50,8 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 		if(is_null($value))
 			return $value;
 
+		return json_encode($value);
+
 		throw new \Exception("Value type not considered jet: " . gettype($value));
 	}
 

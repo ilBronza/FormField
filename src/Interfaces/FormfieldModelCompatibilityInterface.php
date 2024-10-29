@@ -2,11 +2,14 @@
 
 namespace IlBronza\FormField\Interfaces;
 
+use Illuminate\Database\Eloquent\Model;
+
 interface FormfieldModelCompatibilityInterface
 {
 	public function getFormfieldType() : string;
 	public function getFormfieldValue() : mixed;
 	public function getFormfieldName() : string;
+	public function getFormfieldPlaceholder(Model $model) : ? string;
 	public function getFormfieldLabel() : string;
 	public function isFormfieldRequired() : bool;
 	public function isFormfieldDisabled() : bool;

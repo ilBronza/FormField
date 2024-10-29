@@ -2,8 +2,15 @@
 
 namespace IlBronza\FormField\Traits;
 
+use function __;
+
 trait FormFieldDisplay
 {
+	public function getTranslationPrefix() : ? string
+	{
+		return $this->translationPrefix;
+	}
+
 	public function generateContainerId()
 	{
 
@@ -66,10 +73,10 @@ trait FormFieldDisplay
 	public function getTooltip()
 	{
 		if($this->tooltip === true)
-			return __('fieldTooltips.' . $this->getName());
+			return __($this->getTranslationPrefix() . 'Tooltips.' . $this->getName());
 
 		else if($this->tooltip)
-			return __('fieldTooltips.' . $this->tooltip);
+			return __($this->getTranslationPrefix() . 'Tooltips.' . $this->tooltip);
 
 		return false;
 	}

@@ -12,6 +12,7 @@ class FileFormField extends FormField implements FormFieldInterface
 {
 	use SingleValueFormFieldTrait;
 
+	public bool $vertical = true;
 	public $dropzone = true;
 	public $actionMethod;
 	public $method;

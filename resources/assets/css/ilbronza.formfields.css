@@ -66,3 +66,11 @@
 {
     border-right:none;  
 }
+
+.uk-form-horizontal .ibfieldvertical .uk-form-label {
+    width: 100%;
+}
+
+.uk-form-horizontal .ibfieldvertical .uk-form-controls {
+    margin-left: 0px;
+}
