@@ -18,4 +18,5 @@ interface FormfieldModelCompatibilityInterface
 	public function getFormfieldRelationName() : ? string;
 	public function getFormfieldRoles() : ? array;
 	public function getFormfieldRepeatable() : bool;
+	public function getFormfieldTranslatedTooltip() : ? string;
 }

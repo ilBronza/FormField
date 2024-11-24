@@ -6,6 +6,9 @@
 
 	@if(is_array($oldSelected))
 
+@if(! in_array($field->name, ['type']))
+	@endif
+
 	<select
 		@include('formfield::__data')
 		@include('formfield::__attributes')
@@ -27,14 +30,14 @@
 	>
 		@if(! $field->isReadOnly())
 			@if((($field->isSelect2())||($field->hasManualInput())))
-			<option value="">{{ __('fields.selectFromOptions', ['fieldName' => __('fields.' . $field->getName())]) }}</option>
+			<option value="">{{ __('fields.selectFromOptions', ['fieldName' => $field->getLabel()]) }}</option>
 			@else
 			<option
 				@if(empty($oldSelected[0])||(is_null($oldSelected[0])))
 				selected disabled
 				@endif
 				value=""
-				>{{ __('fields.selectFromOptions', ['fieldName' => __('fields.' . $field->getName())]) }}</option>
+				>{{ __('fields.selectFromOptions', ['fieldName' => $field->getLabel()]) }}</option>
 			@endif
 		@endif
 

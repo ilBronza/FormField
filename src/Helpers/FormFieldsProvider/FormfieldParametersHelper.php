@@ -25,6 +25,7 @@ class FormfieldParametersHelper
 			'multiple' => $model->isFormfieldMultiple($model),
 			'relation' => $model->getFormfieldRelationName(),
 			'repeatable' => $model->getFormfieldRepeatable(),
+			'translatedTooltip' => $model->getFormfieldTranslatedTooltip(),
 			'roles' => $model->getFormfieldRoles(),
 		];
 

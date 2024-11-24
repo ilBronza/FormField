@@ -71,6 +71,7 @@ abstract class FormField
 	public $showLabel;
 	public $placeholder;
 	public $tooltip;
+	public ? string $translatedTooltip = null;
 
 	public $data = [];
 	public $htmlClasses = [];

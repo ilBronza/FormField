@@ -70,8 +70,16 @@ trait FormFieldDisplay
 		return strip_tags(__('fields.' . $this->getName()));
 	}
 
+	public function getTranslatedTooltip() : ? string
+	{
+		return $this->translatedTooltip;
+	}
+
 	public function getTooltip()
 	{
+		if($tooltip = $this->getTranslatedTooltip())
+			return $tooltip;
+
 		if($this->tooltip === true)
 			return __($this->getTranslationPrefix() . 'Tooltips.' . $this->getName());
 
