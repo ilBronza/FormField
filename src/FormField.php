@@ -9,6 +9,7 @@ use IlBronza\FormField\Traits\FormFieldChecker;
 use IlBronza\FormField\Traits\FormFieldDisplay;
 use IlBronza\FormField\Traits\FormFieldGetter;
 use IlBronza\FormField\Traits\FormFieldOpener;
+use IlBronza\FormField\Traits\FormFieldRepeatableTrait;
 use IlBronza\FormField\Traits\FormFieldSetter;
 use IlBronza\FormField\Traits\MultipleValueFormFieldTrait;
 use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
@@ -21,6 +22,7 @@ abstract class FormField
 	use FormFieldAlert;
 	use FormFieldDisplay;
 	use FormFieldChecker;
+	use FormFieldRepeatableTrait;
 	use FormFieldGetter;
 	use FormFieldSetter;
 	use FormFieldOpener;

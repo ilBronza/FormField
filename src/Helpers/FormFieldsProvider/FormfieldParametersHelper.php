@@ -27,6 +27,7 @@ class FormfieldParametersHelper
 			'repeatable' => $model->getFormfieldRepeatable(),
 			'translatedTooltip' => $model->getFormfieldTranslatedTooltip(),
 			'roles' => $model->getFormfieldRoles(),
+			'problems' => $model->getFormfieldProblems()
 		];
 
 		if($result['type'] == 'number')

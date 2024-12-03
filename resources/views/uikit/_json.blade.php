@@ -10,7 +10,26 @@
 	<div uk-grid class="uk-child-width-auto uk-form-stacked uk-width-expand uk-flex uk-flex-middle">
 		@foreach($field->innerFields as $innerField)
 		<div style="width: {{ floor(100/count($field->innerFields)) }}%;">
-			<label>{{ __('fields.' . $innerField->subName) }}</label>			
+
+			@if($label = $innerField->getLabel())
+				<label class="uk-form-label {{ $innerField->getHtmlLabelClassesString() }} @if($innerField->hasDblClickCopy()) dblclickcopy @endif">
+
+					@if($icon = $innerField->getFasIcon())
+						<i class="fas fa-{{ $icon }}"></i>
+					@endif
+
+					{!! $innerField->getLabel() !!}
+
+					@if($innerField->isRequired())
+						*
+					@endif
+
+					@if($tooltip = $innerField->getTooltip())
+						<span uk-tooltip='title:{{ $tooltip }}' uk-icon='question'></span>
+					@endif
+
+				</label>
+			@endif
 		</div>
 		@endforeach
 	</div>
@@ -72,7 +91,7 @@
 			
 			@foreach($field->innerFields as $innerField)
 			<div @if(! $field->isVertical()) style="width: {{ floor(100/count($field->innerFields)) }}%;" @endif>
-				{!! $innerField->setValue(null)->render() !!}
+				{!! $innerField->setValue(null)->setLabel(false)->render() !!}
 			</div>
 			@endforeach			
 		</div>

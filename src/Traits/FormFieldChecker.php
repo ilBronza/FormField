@@ -11,11 +11,6 @@ trait FormFieldChecker
 		return ! ! $this->getDblClickCopy();
 	}
 
-	public function isRepeatable() : bool
-	{
-		return ! ! $this->repeatable;
-	}
-
 	public function isLastOfType() : bool
 	{
 		return ! ! $this->lastOfType;

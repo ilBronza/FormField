@@ -7,6 +7,8 @@ use IlBronza\CRUD\Traits\CRUDArrayFieldsTrait;
 use IlBronza\FormField\Fields\FormFieldInterface;
 use IlBronza\FormField\FormField;
 
+use function dd;
+
 class JsonFormField extends FormField implements FormFieldInterface
 {
 	public $position = true;
@@ -32,7 +34,7 @@ class JsonFormField extends FormField implements FormFieldInterface
 	// ],
 
 	public $innerFields;
-	public $showLabels = false;
+	public $showLabels = true;
 
 	public function __construct(array $parameters = [])
 	{
@@ -43,11 +45,20 @@ class JsonFormField extends FormField implements FormFieldInterface
 		$this->innerFields = collect();
 
 		foreach($parameters['fields'] as $fieldName => $field)
+		{
+			if(isset($this->translationPrefix)&&(! isset($field['translationPrefix'])))
+			{
+				$field['translationPrefix'] = $this->translationPrefix;
+			}
+
+
 			$this->addFormField(
 				FormField::createFromArray(
 					$this->getFieldParameters($fieldName, $field)
 				)
 			);
+
+		}
 	}
 
 	public function manageOrientation() : void
@@ -105,7 +116,7 @@ class JsonFormField extends FormField implements FormFieldInterface
 				$this->getModelValueByName($this->model, $this->name)
 			);
 
-		
+
 
 		if($model = $this->getModel())
 		{
@@ -183,6 +194,11 @@ class JsonFormField extends FormField implements FormFieldInterface
 		$formField->setId(false);
 
 		return $formField;
+	}
+
+	public function getInnerFields()
+	{
+		return $this->innerFields;
 	}
 
 	// public function getInnerFieldsByKeyValue(string $key, array $value)

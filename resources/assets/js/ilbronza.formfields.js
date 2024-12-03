@@ -75,6 +75,8 @@ jQuery(document).ready(function($)
 							$(target).val(value.substring(0, 10));
 						else
 							$(target).val(value);
+
+						$(target).trigger('ibchanged');
 					}
 
 					window.parseMoneyField(target);
@@ -96,6 +98,7 @@ jQuery(document).ready(function($)
 						}
 
 						$("input[name=" + field + "][value=" + value + "]").prop('checked', true);
+						$("input[name=" + field + "][value=" + value + "]").trigger('ibchanged');
 					}
 					else
 						alert('qua sono con il field multiplo');

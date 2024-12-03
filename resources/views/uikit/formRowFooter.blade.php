@@ -46,7 +46,6 @@
                         window.addSuccessNotification(response.message);
 
                         that.closest('.fieldcontainer').after(response.html);
-
                     },
                     error: function(response)
                     {

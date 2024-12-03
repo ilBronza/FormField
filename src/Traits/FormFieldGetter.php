@@ -16,7 +16,7 @@ trait FormFieldGetter
 {
 	public function hasProblems() : bool
 	{
-		return ! ! $this->getProblems();
+		return !! $this->getProblems();
 	}
 
 	public function getProblems() : array
