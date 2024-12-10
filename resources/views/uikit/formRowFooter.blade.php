@@ -1,7 +1,7 @@
 @if($field->hasProblems())
-	<span uk-tooltip="title: {{ $field->getProblemsString() }}" class="uk-button uk-button-small uk-button-danger uk-padding-remove-horizontal">
-		&nbsp;<i class="fa-solid fa-exclamation-triangle"></i>
-	</span>
+	@include('formfield::uikit.utilities._problems', [
+	'problems' => $field->getProblems()
+	])
 @endif
 
 @if($suffix = $field->getSuffix())

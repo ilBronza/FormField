@@ -127,6 +127,24 @@ jQuery(document).ready(function($)
 
 	}
 
+	window.ibFindProblemsNode = function(target)
+	{
+		return $(target).siblings('.ib-field-problems').first();
+	}
+
+	window.ibPrintFieldProblems = function(problems, target, problemsView)
+	{
+		window.ibFindProblemsNode(target).remove();
+
+		if(typeof problemsView == 'string')
+			$(target).parent().append(problemsView);
+
+		if(problems instanceof Array)
+			problems.forEach(function(message)
+			{
+				window.addDangerNotification(message);
+			});
+	}
 
 	window.sendFieldToEditor = function(field, value, url, e)
 	{
@@ -148,6 +166,8 @@ jQuery(document).ready(function($)
 
 				if(response.success != true)
 					return this.error(response);
+
+				window.ibPrintFieldProblems(response.problems, e.target, response.problemsView);
 
 				let message = field  + ' modificato con successo';
 
