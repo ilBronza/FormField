@@ -1,5 +1,3 @@
-@include('formfield::scripts.quilltextarea')
-
 <style type="text/css">
 .ql-container
 {

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use \IlBronza\Form\Form;
 
+use function dd;
+
 trait ListValueFormFieldTrait
 {
     public function getPossibleEnumValuesArray()
@@ -75,7 +77,21 @@ trait ListValueFormFieldTrait
         $model = $this->getModel();
 
         if(! $relation = $this->getRelationshipName())
-            return $model->{$this->name};
+        {
+			if($this->list ?? null)
+			{
+				$key = $model->{$this->name};
+
+				if(! $key)
+					if(! is_null($this->default))
+						$key = $this->default;
+
+				if(isset($this->list[$key]))
+					return $this->list[$key];
+			}
+
+	        return $model->{$this->name};
+        }
 
         try
         {

@@ -11,9 +11,9 @@
 			@if($file->isImage())
 				<img style="max-width: 100px; max-height: 60px;" src="{{ $file->getUrl() }}" />
 			@else
-			<span uk-icon="file">
-				{{ $file->name }}
-			</span>
+
+				{!! FaIcon::inline('file') !!}
+
 			@endif
 		</a>
 	</li>

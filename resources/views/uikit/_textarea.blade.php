@@ -1,3 +1,5 @@
+@include('formfield::scripts.quilltextarea')
+
 @include('formfield::uikit.formRowHeader')
 
 <textarea 

@@ -6,6 +6,8 @@ use IlBronza\FormField\Fields\FormFieldInterface;
 use IlBronza\FormField\FormField;
 use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
 
+use function is_null;
+
 class NumberFormField extends FormField implements FormFieldInterface
 {
 	public ? int $decimals = null;
@@ -23,7 +25,7 @@ class NumberFormField extends FormField implements FormFieldInterface
 
 	public function getDecimals() : ? int
 	{
-		if($this->decimals)
+		if(! is_null($this->decimals))
 			return $this->decimals;
 
 		if($this->rulesContain('numeric'))
@@ -31,6 +33,8 @@ class NumberFormField extends FormField implements FormFieldInterface
 
 		elseif($this->rulesContain('integer'))
 			return 0;
+
+		return 0;
 	}
 
 	public function getStep()

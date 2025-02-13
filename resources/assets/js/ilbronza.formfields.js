@@ -64,6 +64,13 @@ jQuery(document).ready(function($)
 			},
 			success: function(response)
 			{
+				if(response.field == null)
+				{
+					console.log('Ricorda di disabilitare il reader dei campi quando non esistenti');
+
+					return ;
+				}
+
 				let value = response.value;
 				let tagname = $(target).prop("tagName");
 
@@ -237,6 +244,9 @@ jQuery(document).ready(function($)
 
 	$('body').on('click', 'span.ib-dropzone-delete', function(e)
 	{
+		if(! confirm('Sei sicuro?'))
+			return false;
+
 		let url = $(this).attr('href');
 
 		let that = this;

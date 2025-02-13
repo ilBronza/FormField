@@ -2,6 +2,7 @@
 
 namespace IlBronza\FormField\Fields;
 
+use IlBronza\FileCabinet\Models\Formrow;
 use IlBronza\FormField\Fields\FormFieldInterface;
 use IlBronza\FormField\Fields\ListValueFormFieldInterface;
 use IlBronza\FormField\FormField;
@@ -12,6 +13,8 @@ use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
 use Illuminate\Support\Str;
 
 use function dd;
+use function explode;
+use function in_array;
 use function is_array;
 
 class SelectFormField extends FormField implements FormFieldInterface, ListValueFormFieldInterface, RelatedFormFieldInterface
@@ -139,6 +142,21 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 		return !! $this->mustBeSorted;
 	}
 
+	public function getPossibleValuesArrayByCastable($cast) : ? array
+	{
+		if(strpos($cast, 'ExtraFieldDossier') !== false)
+		{
+			$pieces = explode(':', $cast);
+			$_fields = explode(',', $pieces[1]);
+
+			$formrow = Formrow::gpc()::findCachedByField('slug', $_fields[1]);
+
+			return $formrow->getRowType()->getPossibleValuesArray();
+		}
+
+		return null;
+	}
+
 	public function getPossibleValuesArray()
 	{
 		if(is_array($this->possibleValuesArray))
@@ -148,6 +166,12 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 			return $this->list;
 
 		$model = $this->getModel();
+
+		$casts = $model->getCasts();
+
+		if($cast = ($casts[$this->getName()] ?? null))
+			if(($result = $this->getPossibleValuesArrayByCastable($cast)) !== null)
+				return $result;
 
 		if(! $model)
 			throw new \Exception('Assign a model or declare possibleValuesArray or list');
