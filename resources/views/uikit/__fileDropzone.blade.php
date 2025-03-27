@@ -19,8 +19,12 @@
 </div>
 
 
-<link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>
-<script src="https://unpkg.com/cropperjs"></script>
+{{--<link href="https://unpkg.com/cropperjs/dist/cropper.css" rel="stylesheet"/>--}}
+{{--<script src="https://unpkg.com/cropperjs"></script>--}}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/2.0.0-alpha/cropper.js" integrity="sha512-LmE5y6imvVI/iKs1DQm+8cQJtmV7aLiXuPWg5QIhfLZRkOUbVF1en0IrTvtguCGV7tF5YZ5Mfp00UICmWOcsQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/2.0.0-alpha/cropper.css" integrity="sha512-zzxY7HWh8LIZ/EPgoos+XIZPsXggrEQ1ZfCMuUl7Lh3e3LzTZfvsG4mut09ZOB9CpDhHE//ORri8ocRR+XwtXQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
 <script type="text/javascript">
 
@@ -51,7 +55,7 @@
             editor.style.top = 0;
             editor.style.bottom = 0;
             editor.style.zIndex = 9999;
-            editor.style.backgroundColor = '#000';
+            editor.style.backgroundColor = '#F00';
             document.body.appendChild(editor);
 
 

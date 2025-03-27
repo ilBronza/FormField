@@ -43,6 +43,7 @@ trait ListValueFormFieldTrait
 
     public function getPossibleEnumValues()
     {
+		// dd('qua impostare una cache per public function getPossibleEnumValues()');
         if($this->hasRuleInArray())
             return $this->getPossibleValuesFromRules();
 
@@ -51,12 +52,14 @@ trait ListValueFormFieldTrait
 
         try
         {
+	        // dd('qua impostare una cache per public function getPossibleEnumValues()');
             $expression = \DB::raw('SHOW COLUMNS FROM ' . $this->getModel()->getTable() . ' WHERE Field = "' . $this->name . '"');
             $expression = $expression->getValue(\DB::connection()->getQueryGrammar());
             $_enumStr = \DB::select($expression);
         }
         catch(\Exception $e)
         {
+	        // dd('qua impostare una cache per public function getPossibleEnumValues()');
             $expression = \DB::raw('SHOW COLUMNS FROM ' . $this->getModel()->getTable() . ' WHERE Field = "' . $this->name . '"');
             // $expression = $expression->getValue(\DB::connection()->getQueryGrammar());
             $_enumStr = \DB::select($expression);            
@@ -105,6 +108,14 @@ trait ListValueFormFieldTrait
 
         if(! $relatedModels)
             return null;
+
+        if(is_string($relatedModels))
+                    return view('formfield::uikit.show.__links', ['links' => [
+                        [
+                            'name' => $relatedModels,
+                            'link' => ''
+                        ]
+                    ]])->render();
 
         if($relatedModels instanceof Model)
             $relatedModels = collect([$relatedModels]);

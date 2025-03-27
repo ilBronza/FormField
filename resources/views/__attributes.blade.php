@@ -65,9 +65,9 @@ data-flatname="{{ $field->getName() }}"
 	@include('formfield::__fetcherAttributes')
 @endif
 
-@if($field->hasUpdateEditor())
+{{-- @if($field->hasUpdateEditor()) --}}
 	data-updateeditorurl="{{ $field->getUpdateEditorUrl() }}"
-@endif
+{{-- @endif --}}
 
 class="selectwithmanualinput {{ $field->getInputSizeClass() }} {{ $field->getHtmlClassesString() }} {{ $field->getFetcherFieldClasses() }} @if($field->hasUpdateEditor())
 	update-editor-field

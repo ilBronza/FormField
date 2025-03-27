@@ -101,11 +101,14 @@ trait FormFieldChecker
 		return $this->updateEditor;
 	}
 
-	public function getUpdateEditorUrl() : string
+	public function getUpdateEditorUrl() : ? string
 	{
 		if (is_array($this->updateEditor))
 			return $this->updateEditor['url'];
 
-		return $this->getModel()->getUpdateUrl();
+		if(($this->getModel())&&($this->getModel()->exists))
+			return $this->getModel()->getUpdateUrl();
+
+		return null;
 	}
 }

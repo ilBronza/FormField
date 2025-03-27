@@ -10,6 +10,7 @@ use function is_null;
 
 class NumberFormField extends FormField implements FormFieldInterface
 {
+	public $step = null;
 	public ? int $decimals = null;
 
 	use SingleValueFormFieldTrait;
