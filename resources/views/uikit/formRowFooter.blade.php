@@ -16,12 +16,14 @@
 		</div>
 @endif
 
-@error($field->getFormOldName())
-<script type="text/javascript">
-    window.addDangerNotification('{{ $message }}');
-</script>
-<div class="uk-text-danger">{{ $message }}</div>
-@enderror
+@if(isset($errors))
+	@error($field->getFormOldName())
+		<script type="text/javascript">
+		    window.addDangerNotification('{{ $message }}');
+		</script>
+		<div class="uk-text-danger">{{ $message }}</div>
+	@enderror
+@endif
 
 @if(($field->isRepeatable())&&($field->isLastOfType()))
 	<a id="fieldreplicator{{ $field->getId() }}" data-repeatable-url="{{ $field->getRepeatableFormfieldAjaxUrl() }}" href="javascript:void(0)" class="uk-button uk-button-small uk-button-secondary uk-margin fieldreplicatorbutton" data-field-id="{{ $field->getId() }}">

@@ -18,8 +18,12 @@
 	<div class="uk-form-controls ibfieldcontent @if(! $label) uk-margin-remove-left @endif">
 		@yield('field' . $field->getName())
 
-		@error($field->getFormOldName()) 
-		<div class="uk-text-danger">{{ $message }}</div>
-		@enderror
+		@if(isset($errors))
+
+			@error($field->getFormOldName()) 
+			<div class="uk-text-danger">{{ $message }}</div>
+			@enderror
+
+		@endif
     </div>
 </div>
