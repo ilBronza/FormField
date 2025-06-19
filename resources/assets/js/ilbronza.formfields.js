@@ -15,37 +15,37 @@ jQuery(document).ready(function($)
 		$('input[name="' + inputName + '"][value="' + value + '"]').prop('checked', true).change();
 	}
 
-	window.parseMoneyField = function(target)
-	{
-		let step = $(target).attr('step');
+	// window.parseMoneyField = function(target)
+	// {
+	// 	let step = $(target).attr('step');
 
-		let split = step.toString().split(".");
+	// 	let split = step.toString().split(".");
 
-		if(typeof split[1] == 'undefined')
-			return ;
+	// 	if(typeof split[1] == 'undefined')
+	// 		return ;
 
-		let decimals = split[1].length || 0;
+	// 	let decimals = split[1].length || 0;
 
-		if(decimals > 0)
-			$(target).val(parseFloat($(target).val()).toFixed(decimals));
-	}
+	// 	if(decimals > 0)
+	// 		$(target).val(parseFloat($(target).val()).toFixed(decimals));
+	// }
 
-	window.parseMoneyFields = function()
-	{
-		$('.money input').each(function()
-		{
-			window.parseMoneyField(this);
+	// window.parseMoneyFields = function()
+	// {
+	// 	$('.money input').each(function()
+	// 	{
+	// 		window.parseMoneyField(this);
 
-		});
-	}
+	// 	});
+	// }
 
-	$('body').on('change', '.money input', function()
-	{
-		window.parseMoneyField(this);
+	// $('body').on('change', '.money input', function()
+	// {
+	// 	window.parseMoneyField(this);
 
-	});
+	// });
 
-	window.parseMoneyFields();
+	// window.parseMoneyFields();
 
 
 
@@ -86,7 +86,7 @@ jQuery(document).ready(function($)
 						$(target).trigger('ibchanged');
 					}
 
-					window.parseMoneyField(target);
+					// window.parseMoneyField(target);
 
 					else('alewrt qua da impostare (tipo un select)');
 				}

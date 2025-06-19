@@ -9,7 +9,13 @@ use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
 class MoneyFormField extends NumberFormField
 {
 	public $icon = 'euro-sign';
-	public $viewName = 'number';
+	public $viewName = 'text';
+
+
+	public $htmlClasses = [
+		'dtprice',
+		'uk-input'
+	];
 
 	public function getStep()
 	{
