@@ -81,7 +81,10 @@ jQuery(document).ready(function($)
 						if($(target).prop('type') == 'date')
 							$(target).val(value.substring(0, 10));
 						else
+						{
 							$(target).val(value);
+							$(target).data('cleavevalue', value);
+						}
 
 						$(target).trigger('ibchanged');
 					}
