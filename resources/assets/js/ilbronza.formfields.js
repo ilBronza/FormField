@@ -4,272 +4,271 @@ Dropzone.autoDiscover = false;
 
 require('select2');
 
-jQuery(document).ready(function($)
+jQuery(document).ready(function ($)
 {
-	window.changeCheckboxBoolean = function(target)
-	{
-		let inputName = $(target).data('name');
+    window.changeCheckboxBoolean = function (target)
+    {
+        let inputName = $(target).data('name');
 
-		let value = $(target).prop('checked');
+        let value = $(target).prop('checked');
 
-		$('input[name="' + inputName + '"][value="' + value + '"]').prop('checked', true).change();
-	}
+        $('input[name="' + inputName + '"][value="' + value + '"]').prop('checked', true).change();
+    }
 
-	// window.parseMoneyField = function(target)
-	// {
-	// 	let step = $(target).attr('step');
+    // window.parseMoneyField = function(target)
+    // {
+    // 	let step = $(target).attr('step');
 
-	// 	let split = step.toString().split(".");
+    // 	let split = step.toString().split(".");
 
-	// 	if(typeof split[1] == 'undefined')
-	// 		return ;
+    // 	if(typeof split[1] == 'undefined')
+    // 		return ;
 
-	// 	let decimals = split[1].length || 0;
+    // 	let decimals = split[1].length || 0;
 
-	// 	if(decimals > 0)
-	// 		$(target).val(parseFloat($(target).val()).toFixed(decimals));
-	// }
+    // 	if(decimals > 0)
+    // 		$(target).val(parseFloat($(target).val()).toFixed(decimals));
+    // }
 
-	// window.parseMoneyFields = function()
-	// {
-	// 	$('.money input').each(function()
-	// 	{
-	// 		window.parseMoneyField(this);
+    // window.parseMoneyFields = function()
+    // {
+    // 	$('.money input').each(function()
+    // 	{
+    // 		window.parseMoneyField(this);
 
-	// 	});
-	// }
+    // 	});
+    // }
 
-	// $('body').on('change', '.money input', function()
-	// {
-	// 	window.parseMoneyField(this);
+    // $('body').on('change', '.money input', function()
+    // {
+    // 	window.parseMoneyField(this);
 
-	// });
+    // });
 
-	// window.parseMoneyFields();
-
-
-
-	window.getFieldValueFromEditor = function(target)
-	{
-		let url = $(target).data('updateeditorurl');
-		let field = $(target).attr('name');
-
-		$.ajax({
-			url: url,
-			type: 'POST',
-			data: {
-				'ib-editor-read': true,
-				field: field,
-				_method: 'PUT'
-			},
-			success: function(response)
-			{
-				if(response.field == null)
-				{
-					console.log('Ricorda di disabilitare il reader dei campi quando non esistenti');
-
-					return ;
-				}
-
-				let value = response.value;
-				let tagname = $(target).prop("tagName");
-
-				if(target.length == 1)
-				{
-					if(tagname == 'INPUT')
-					{
-						if($(target).prop('type') == 'date')
-							$(target).val(value.substring(0, 10));
-						else
-						{
-							$(target).val(value);
-							$(target).data('cleavevalue', value);
-						}
-
-						$(target).trigger('ibchanged');
-					}
-
-					// window.parseMoneyField(target);
-
-					else('alewrt qua da impostare (tipo un select)');
-				}
-				else
-				{
-					if(tagname == 'INPUT')
-					{
-						if($("input[name=" + field + "][value=" + value + "]").length == 0)
-						{
-							if(value == 0)
-								value = "false";
-							else if(value == 1)
-								value = "true";
-							else if(value == null)
-								value = "null";
-						}
-
-						$("input[name=" + field + "][value=" + value + "]").prop('checked', true);
-						$("input[name=" + field + "][value=" + value + "]").trigger('ibchanged');
-					}
-					else
-						alert('qua sono con il field multiplo');
-				}
+    // window.parseMoneyFields();
 
 
-			},
-			error: function(response)
-			{
-				window.addDangerNotification('Impossibile leggere il valore di ' + field);
-			}
-		});
-	}
+    window.getFieldValueFromEditor = function (target)
+    {
+        let url = $(target).data('updateeditorurl');
+        let field = $(target).attr('name');
 
-	window.refreshFetchingFieldsValues = function (target)
-	{
-		if(! $(target).data('fetchfields').length)
-			return null;
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                'ib-editor-read': true,
+                field: field,
+                _method: 'PUT'
+            },
+            success: function (response)
+            {
+                if (response.field == null)
+                {
+                    console.log('Ricorda di disabilitare il reader dei campi quando non esistenti');
 
-		$(target).data('fetchfields').forEach(function(item)
-		{
-			let target = $('*[name="' + item + '"]');
+                    return;
+                }
 
-			window.getFieldValueFromEditor(target);
-		});
+                let value = response.value;
+                let tagname = $(target).prop("tagName");
 
-	}
+                if (target.length == 1)
+                {
+                    if (tagname == 'INPUT')
+                    {
+                        if ($(target).prop('type') == 'date')
+                            $(target).val(value.substring(0, 10));
+                        else
+                        {
+                            $(target).val(value);
+                            $(target).data('cleavevalue', value);
+                        }
 
-	window.ibFindProblemsNode = function(target)
-	{
-		return $(target).siblings('.ib-field-problems').first();
-	}
+                        $(target).trigger('ibchanged');
+                    }
 
-	window.ibPrintFieldProblems = function(problems, target, problemsView)
-	{
-		window.ibFindProblemsNode(target).remove();
+                    // window.parseMoneyField(target);
 
-		if(typeof problemsView == 'string')
-			$(target).parent().append(problemsView);
+                    else ('alewrt qua da impostare (tipo un select)');
+                } else
+                {
+                    if (tagname == 'INPUT')
+                    {
+                        if ($("input[name=" + field + "][value=" + value + "]").length == 0)
+                        {
+                            if (value == 0)
+                                value = "false";
+                            else if (value == 1)
+                                value = "true";
+                            else if (value == null)
+                                value = "null";
+                        }
 
-		if(problems instanceof Array)
-			problems.forEach(function(message)
-			{
-				window.addDangerNotification(message);
-			});
-	}
+                        $("input[name=" + field + "][value=" + value + "]").prop('checked', true);
+                        $("input[name=" + field + "][value=" + value + "]").trigger('ibchanged');
+                    } else
+                        alert('qua sono con il field multiplo');
+                }
 
-	window.sendFieldToEditor = function(field, value, url, e)
-	{
-	    $.ajax({
-	        url: url,
-	        type: 'POST',
-	        data: {
-	            'ib-editor': true,
-	            field: field,
-	            value: value,
-	            _method: 'PUT'
-	        },
-	        success: function(response)
-	        {
-				window.refreshFetchingFieldsValues(e.target);
 
-				if(response.ibaction == 'reloadAllTables')
-					return window.__reloadAllTables(params);
+            },
+            error: function (response)
+            {
+                window.addDangerNotification('Impossibile leggere il valore di ' + field);
+            }
+        });
+    }
 
-				if(response.success != true)
-					return this.error(response);
+    window.refreshFetchingFieldsValues = function (target)
+    {
+        if (!$(target).data('fetchfields').length)
+            return null;
 
-				window.ibPrintFieldProblems(response.problems, e.target, response.problemsView);
+        $(target).data('fetchfields').forEach(function (item)
+        {
+            let target = $('*[name="' + item + '"]');
 
-				let message = field  + ' modificato con successo';
+            window.getFieldValueFromEditor(target);
+        });
 
-				if(response.message)
-					message = response.message;
+    }
 
-				window.addSuccessNotification(message);
-	        },
-	        error: function()
-	        {
-	            window.addSuccessNotification('Problemi con il salvataggio di ' + field);
-	        }
-	    });
-	}
+    window.ibFindProblemsNode = function (target)
+    {
+        return $(target).siblings('.ib-field-problems').first();
+    }
 
-	window.setValueAsHtmlClass = function(target, value)
-	{
-		value = value.replace("+", "plus");
-		value = value.toLowerCase();
+    window.ibPrintFieldProblems = function (problems, target, problemsView)
+    {
+        window.ibFindProblemsNode(target).remove();
 
-		$(target).removeClass (function (index, className) {
-			return (className.match (/(^|\s)valclass-\S+/g) || []).join(' ');
-		});
+        if (typeof problemsView == 'string')
+            $(target).parent().append(problemsView);
 
-		$(target).addClass('valclass-' + value);
-	}
+        if (problems instanceof Array)
+            problems.forEach(function (message)
+            {
+                window.addDangerNotification(message);
+            });
+    }
 
-	$('body').on('change', '*[data-valueashtmlclass="true"]', function(e)
-	{
-		window.setValueAsHtmlClass(this, $(this).val());
-	});
+    window.sendFieldToEditor = function (field, value, url, e)
+    {
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                'ib-editor': true,
+                field: field,
+                value: value,
+                _method: 'PUT'
+            },
+            success: function (response)
+            {
+                window.refreshFetchingFieldsValues(e.target);
 
-	$('body').on('change', '.update-editor-field', function(e)
+                if (response.ibaction == 'reloadAllTables')
+                    return window.__reloadAllTables(params);
+
+                if (response.success != true)
+                    return this.error(response);
+
+                window.ibPrintFieldProblems(response.problems, e.target, response.problemsView);
+
+                let message = field + ' modificato con successo';
+
+                if (response.message)
+                    message = response.message;
+
+                window.addSuccessNotification(message);
+            },
+            error: function ()
+            {
+                window.addSuccessNotification('Problemi con il salvataggio di ' + field);
+            }
+        });
+    }
+
+    window.setValueAsHtmlClass = function (target, value)
+    {
+        value = value.replace("+", "plus");
+        value = value.toLowerCase();
+
+        $(target).removeClass(function (index, className)
+        {
+            return (className.match(/(^|\s)valclass-\S+/g) || []).join(' ');
+        });
+
+        $(target).addClass('valclass-' + value);
+    }
+
+    $('body').on('change', '*[data-valueashtmlclass="true"]', function (e)
+    {
+        window.setValueAsHtmlClass(this, $(this).val());
+    });
+
+    $('body').on('change', '.update-editor-field', function (e)
     {
         let value = $(e.target).val();
         let field = $(e.target).attr('name');
 
-		field = field.replace("[]", "");
+        field = field.replace("[]", "");
 
         let url = $(e.target).data('updateeditorurl');
 
         window.sendFieldToEditor(field, value, url, e);
     });
-	// $('.select2').select2();
+    // $('.select2').select2();
 
-	$('.select2').each(function()
-	{
-		let options = {};
+    $('.select2').each(function ()
+    {
+        let options = {};
 
-		if($(this).data('placeholder'))
-			options.placeholder = $(this).data('placeholder');
+        if ($(this).data('placeholder'))
+            options.placeholder = $(this).data('placeholder');
 
-		if($(this).data('allowclear'))
-			options.allowClear = ($(this).data('allowclear'))? true : false;
+        if ($(this).data('allowclear'))
+            options.allowClear = ($(this).data('allowclear')) ? true : false;
 
-		$(this).select2(options);
-	});
+        $(this).select2(options);
+    });
 
-	$(document).on('select2:open', (e) => {
-		var selectId = e.target.id
+    $(document).on('select2:open', (e) =>
+    {
+        var selectId = e.target.id
 
-		$(".select2-search__field[aria-controls='select2-" + selectId + "-results']").each(function (key, value)
-		{
-		    value.focus()
-		})
-	});
+        $(".select2-search__field[aria-controls='select2-" + selectId + "-results']").each(function (key, value)
+        {
+            value.focus()
+        })
+    });
 
-	$('body').on('click', 'span.ib-dropzone-delete', function(e)
-	{
-		if(! confirm('Sei sicuro?'))
-			return false;
+    $('body').on('click', 'span.ib-dropzone-delete', function (e)
+    {
+        if (!confirm('Sei sicuro?'))
+            return false;
 
-		let url = $(this).attr('href');
+        let url = $(this).attr('href');
 
-		let that = this;
+        let that = this;
 
-		$.ajax({
-			url: url,
-			type: 'POST',
-			data: {
-				_method: 'DELETE'
-			},
-			success: function(response)
-			{
-				$(that).parents('li').remove();
-			},
-			error: function(response, message)
-			{
-				alert(message);
-			}
-		});
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: {
+                _method: 'DELETE'
+            },
+            success: function (response)
+            {
+                $(that).parents('li').remove();
+            },
+            error: function (response, message)
+            {
+                alert(message);
+            }
+        });
 
-	});
+    });
 
 });
