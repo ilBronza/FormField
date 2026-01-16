@@ -8,7 +8,6 @@
 	@if($field->isClosed())
 	style="display: none;"
 	@endif
-	
 
 	@if($id = $field->getContainerId())
 		id="{{ $id }}"
@@ -17,6 +16,14 @@
 
 	@if(($label = $field->getLabel())&&(! $field->isButton()))
 	<label class="uk-form-label {{ $field->getHtmlLabelClassesString() }} @if($field->hasDblClickCopy()) dblclickcopy @endif">
+
+		@if($historyUrl = $field->getHistoryUrl())
+		<span uk-lightbox>
+			<a data-type="iframe" href="{{ $historyUrl }}">
+				<i class="fas fa-database"></i>
+			</a>
+		</span>
+		@endif
 
 		@if($icon = $field->getFasIcon())
 		<i class="fas fa-{{ $icon }}"></i>

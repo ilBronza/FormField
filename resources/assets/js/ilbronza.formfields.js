@@ -122,8 +122,13 @@ jQuery(document).ready(function ($)
 
     window.refreshFetchingFieldsValues = function (target)
     {
-        if (!$(target).data('fetchfields').length)
+        var fetchFields = $(target).data('fetchfields');
+
+        if (!fetchFields || !fetchFields.length)
             return null;
+
+        // if (!$(target).data('fetchfields').length)
+        //     return null;
 
         $(target).data('fetchfields').forEach(function (item)
         {
@@ -185,7 +190,7 @@ jQuery(document).ready(function ($)
             },
             error: function ()
             {
-                window.addSuccessNotification('Problemi con il salvataggio di ' + field);
+                window.addDangerNotification('Problemi con il salvataggio di ' + field);
             }
         });
     }

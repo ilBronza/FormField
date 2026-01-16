@@ -10,6 +10,8 @@ class TextareaFormField extends FormField implements FormFieldInterface
 {
 	use SingleValueFormFieldTrait;
 
+	public ? string $inlineStyle = 'height: 90px;';
+
 	public $htmlClasses = [
 			'uk-textarea'
 		];

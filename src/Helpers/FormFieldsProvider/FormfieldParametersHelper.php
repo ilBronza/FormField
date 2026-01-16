@@ -18,6 +18,7 @@ class FormfieldParametersHelper
 			'value' => $model->getFormfieldValue(),
 			'name' => $model->getFormfieldName(),
 			'placeholder' => $model->getFormfieldPlaceholder($model),
+			'updateEditor' => $model->hasUpdateEditor(),
 			'label' => $model->getFormfieldLabel(),
 			'required' => $model->isFormfieldRequired(),
 			'disabled' => $model->isFormfieldDisabled(),

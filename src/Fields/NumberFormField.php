@@ -6,8 +6,6 @@ use IlBronza\FormField\Fields\FormFieldInterface;
 use IlBronza\FormField\FormField;
 use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
 
-use function is_null;
-
 class NumberFormField extends FormField implements FormFieldInterface
 {
 	public $step = null;

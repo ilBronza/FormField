@@ -1,4 +1,8 @@
-@if($field->isRepeatable()&&($_fieldIndex = $field->getRepeatableFieldKey()))
+@if($inlineStyle = $field->getInlineStyleString())
+	style="{{ $inlineStyle }}"
+@endif
+
+@if($field->isRepeatable()&&(class_basename($field->getModel()) != 'Dossierrow')&&($_fieldIndex = $field->getRepeatableFieldKey()))
 
 	name="{{ $field->getName() }}[{{ $_fieldIndex }}]"
 	data-name="{{ $field->getName() }}[{{ $_fieldIndex }}]"

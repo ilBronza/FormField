@@ -8,12 +8,12 @@ use IlBronza\FormField\Traits\FormFieldAlert;
 use IlBronza\FormField\Traits\FormFieldChecker;
 use IlBronza\FormField\Traits\FormFieldDisplay;
 use IlBronza\FormField\Traits\FormFieldGetter;
+use IlBronza\FormField\Traits\FormFieldHistory;
 use IlBronza\FormField\Traits\FormFieldOpener;
 use IlBronza\FormField\Traits\FormFieldRepeatableTrait;
 use IlBronza\FormField\Traits\FormFieldSetter;
 use IlBronza\FormField\Traits\MultipleValueFormFieldTrait;
 use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
-
 use function strpos;
 use function ucfirst;
 
@@ -26,6 +26,7 @@ abstract class FormField
 	use FormFieldGetter;
 	use FormFieldSetter;
 	use FormFieldOpener;
+	use FormFieldHistory;
 	use ElementRolesVisibilityTrait;
 
 	public bool $dblClickCopy = true;
@@ -36,6 +37,8 @@ abstract class FormField
 	public $value;
 	public $oldName;
 	public $default;
+
+	public ? string $inlineStyle;
 
 	public $problems = [];
 

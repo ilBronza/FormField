@@ -24,7 +24,7 @@ trait FormFieldDisplay
 
 	public function getFieldTypeClass()
 	{
-		return $this->type;
+		return "{$this->type} field-{$this->type}";
 	}
 
 	public function setLabel(string $label) : self
@@ -108,6 +108,14 @@ trait FormFieldDisplay
 			return $this->readOnlyText;
 
 		return false;
+	}
+
+	public function getInlineStyleString() : ? string
+	{
+		if(isset($this->inlineStyle))
+			return $this->inlineStyle;
+
+		return null;
 	}
 
 }
