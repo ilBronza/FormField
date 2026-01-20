@@ -49,6 +49,12 @@ trait FormFieldSetter
 	{
 		$this->lastOfType = $value;
 	}
+
+	public function setFirstOfType(bool $value = true)
+	{
+		$this->firstOfType = $value;
+	}
+	
 	/**
 	 * DEPRECATA IN FAVORE Di setModel DOGODO SISTODO TODO
 	 **/

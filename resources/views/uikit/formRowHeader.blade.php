@@ -3,7 +3,11 @@
 	hidden="1"
 	@endif
 
-	class="uk-margin-small-bottom {{ $field->getHtmlRowClassesString() }} {{ $field->getFieldTypeClass() }} uk-clearfix fieldcontainer {{-- Occhio che classe fieldcontainer era una volta solo container --}} fieldcontainer{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}"
+	@if($field->isRepeatable())
+		data-delete-instance-url="{{ $field->getAjaxDeleteInstanceUrl() }}"
+	@endif
+
+	class="uk-margin-small-bottom @if($field->isRepeatable()) ib-repeatable @if($field->isFirstOfType()) ib-first-field @endif @endif {{ $field->getHtmlRowClassesString() }} {{ $field->getFieldTypeClass() }} uk-clearfix fieldcontainer {{-- Occhio che classe fieldcontainer era una volta solo container --}} fieldcontainer{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}"
 
 	@if($field->isClosed())
 	style="display: none;"

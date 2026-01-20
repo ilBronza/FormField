@@ -160,6 +160,13 @@ jQuery(document).ready(function ($)
 
     window.sendFieldToEditor = function (field, value, url, e)
     {
+        // jQuery drops empty arrays during x-www-form-urlencoded serialization.
+        // If a multi-select has no selection we still want to send `value[]`.
+        // By sending a single empty string, Laravel's ConvertEmptyStringsToNull middleware will turn it into `null`.
+        // This allows the backend to detect an explicit "empty" value rather than a missing parameter.
+        if (Array.isArray(value) && value.length === 0)
+            value = [''];
+
         $.ajax({
             url: url,
             type: 'POST',

@@ -16,6 +16,11 @@ trait FormFieldChecker
 		return ! ! $this->lastOfType;
 	}
 
+	public function isFirstOfType() : bool
+	{
+		return ! ! $this->firstOfType;
+	}
+
 	public function isRelationship() : bool
 	{
 		return ! ! $this->getRelationshipName();
@@ -99,6 +104,14 @@ trait FormFieldChecker
 			return count($this->updateEditor) > 0;
 
 		return $this->updateEditor;
+	}
+
+	public function getAjaxDeleteInstanceUrl() : ? string
+	{
+		if(($this->getModel())&&($this->getModel()->exists))
+			return $this->getModel()->getAjaxDeleteInstanceUrl();
+
+		return null;
 	}
 
 	public function getUpdateEditorUrl() : ? string
