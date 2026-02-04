@@ -45,4 +45,4 @@
 			@if($prefix = $field->getPrefix())
 				<div class="ib-prefix"><div>{{ $prefix }}</div></div>
 			@endif
-					<span>
+					<span data-name="{{ $field->getName() }}">
