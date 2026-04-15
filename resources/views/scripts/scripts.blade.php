@@ -199,6 +199,131 @@ jQuery(document).ready(function($)
 		})		
 	}
 
+	function ibJsonCollectValue($root)
+	{
+		let fieldName = $root.data('fieldname');
+
+		if(! fieldName)
+			return null;
+
+		function escapeRegex(text)
+		{
+			return String(text).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+		}
+
+		let result = [];
+
+		$root.find('input, textarea, select').serializeArray().forEach(function(item)
+		{
+			if((! item.name) || (! item.name.startsWith(fieldName + '[')))
+				return;
+
+			// expected: fieldName[0][subKey]
+			let re = new RegExp('^' + escapeRegex(fieldName) + '\\[(\\d+)\\]\\[([^\\]]+)\\]$');
+			let match = item.name.match(re);
+
+			if(! match)
+				return;
+
+			let idx = parseInt(match[1], 10);
+			let subKey = match[2];
+
+			if(Number.isNaN(idx))
+				return;
+
+			if(typeof result[idx] === 'undefined')
+				result[idx] = {};
+
+			result[idx][subKey] = item.value;
+		});
+
+		// compact holes (e.g. removed rows)
+		result = result.filter(function(row) { return typeof row !== 'undefined'; });
+
+		console.log(result);
+
+		return result;
+	}
+
+	function ibJsonMarkDirty($root)
+	{
+		if($root.data('ib-json-dirty'))
+			return;
+
+		$root.data('ib-json-dirty', true);
+
+		if($root.find('.ib-json-save-row').length)
+			return;
+
+		let html = '' +
+			'<div class="ib-json-save-row uk-margin-small-top uk-flex uk-flex-right">' +
+				'<button type="button" class="uk-button uk-button-small uk-button-primary ib-json-save">' +
+					'Salva' +
+				'</button>' +
+			'</div>';
+
+		$root.append(html);
+	}
+
+	$('body').on('input change', '.update-editor-json input, .update-editor-json textarea, .update-editor-json select', function(e)
+	{
+		let $root = $(this).closest('.update-editor-json');
+
+		if(! $root.length)
+			return;
+
+		ibJsonMarkDirty($root);
+	});
+
+	$('body').on('click', '.update-editor-json .ib-json-save', function(e)
+	{
+		e.preventDefault();
+
+		let $root = $(this).closest('.update-editor-json');
+
+		if(! $root.length)
+			return;
+
+		// normalize indexes before collecting/sending
+		setIndexOnValuescontainer();
+
+		let url = $root.data('updateeditorurl');
+		let field = $root.data('fieldname');
+
+		if((! url) || (! field))
+			return window.addDangerNotification('Impossibile salvare: mancano url o nome campo Json');
+
+		let value = ibJsonCollectValue($root);
+
+		$.ajax({
+			url: url,
+			type: 'POST',
+			data: {
+				'ib-editor': true,
+				field: field,
+				value: value,
+				_method: 'PUT'
+			},
+			success: function(response)
+			{
+				$root.data('ib-json-dirty', false);
+				$root.find('.ib-json-save-row').remove();
+
+				if(response && response.problems)
+					window.ibPrintFieldProblems(response.problems, $root.get(0), response.problemsView);
+
+				if(response && response.success === false)
+					return window.addDangerNotification('Problemi con il salvataggio di ' + field);
+
+				window.addSuccessNotification((response && response.message) ? response.message : (field + ' salvato con successo'));
+			},
+			error: function()
+			{
+				window.addDangerNotification('Problemi con il salvataggio di ' + field);
+			}
+		});
+	});
+
 	$('body').on('submit', 'form', function(e)
 	{
 		setIndexOnValuescontainer();

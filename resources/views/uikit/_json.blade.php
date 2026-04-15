@@ -1,6 +1,14 @@
 @include('formfield::uikit.formRowHeader')
 
 <div
+	class="ib-json-editor @if($field->hasUpdateEditor()) update-editor-json @endif"
+	@if($field->hasUpdateEditor())
+		data-updateeditorurl="{{ $field->getUpdateEditorUrl() }}"
+		data-fieldname="{{ $field->getName() }}"
+	@endif
+>
+
+<div
 	uk-grid class="uk-grid-collapse"
 	>
 	<div class="uk-flex uk-flex-middle uk-flex-center uk-width-auto">
@@ -103,5 +111,7 @@
 </div>
 
 <button type="button" data-id="{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }}" class="addjson uk-button uk-button-small uk-button-danger uk-margin-bottom" uk-icon="plus">{{ __('formfield::fields.addInstance') }}</button>
+
+</div>
 
 @include('formfield::uikit.formRowFooter')
