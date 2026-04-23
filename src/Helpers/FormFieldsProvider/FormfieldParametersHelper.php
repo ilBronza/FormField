@@ -48,6 +48,10 @@ class FormfieldParametersHelper
 		if($model->getRowType()->hasValuesList())
 			$result['possibleValuesArray'] = $model->getRowType()->getPossibleValuesArray($model);
 
+		if($result['type'] == 'json')
+			$result['fields'] = $model->getRowType()->getChildrenFields();
+
+
 		return $result;
 	}
 

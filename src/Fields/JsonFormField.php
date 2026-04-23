@@ -44,7 +44,7 @@ class JsonFormField extends FormField implements FormFieldInterface
 
 		$this->innerFields = collect();
 
-		foreach($parameters['fields'] as $fieldName => $field)
+		foreach($this->getChildrenFields() as $fieldName => $field)
 		{
 			if(isset($this->translationPrefix)&&(! isset($field['translationPrefix'])))
 			{
@@ -57,8 +57,15 @@ class JsonFormField extends FormField implements FormFieldInterface
 					$this->getFieldParameters($fieldName, $field)
 				)
 			);
-
 		}
+	}
+
+	public function getChildrenFields() : array
+	{
+		if(isset($this->fields))
+			return $this->fields;
+
+		return $parameters['fields'];
 	}
 
 	public function manageOrientation() : void
@@ -214,7 +221,12 @@ class JsonFormField extends FormField implements FormFieldInterface
 			$_innerField = clone $innerField;
 
 			// $_innerField->name = str_replace("counter", "", $_innerField->name);
-			$_innerField->setValue($value[$_innerField->subName] ?? null);
+			$_innerValue = $value[$_innerField->subName] ?? null;
+
+			if(method_exists($_innerField, 'setValue'))
+				$_innerField->setValue($_innerValue);
+			else
+				$_innerField->value = $_innerValue;
 
 			$result->push($_innerField);
 		}

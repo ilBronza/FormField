@@ -68,7 +68,17 @@
 			@endif
 				@foreach($field->getInnerFieldsByKeyValue($key, $value) as $innerField)
 				<div @if(! $field->isVertical()) style="width: {{ floor(100/count($field->innerFields)) }}%;" @endif>
-					{!! $innerField->setValue($value[$innerField->subName] ?? null)->setLabel(false)->render() !!}					
+					@php
+						$_innerValue = $value[$innerField->subName] ?? null;
+
+						if(method_exists($innerField, 'setValue'))
+							$innerField->setValue($_innerValue);
+						else
+							$innerField->value = $_innerValue;
+
+						$innerField->setLabel(false);
+					@endphp
+					{!! $innerField->render() !!}
 				</div>
 				@endforeach
 			</div>
@@ -99,7 +109,15 @@
 			
 			@foreach($field->innerFields as $innerField)
 			<div @if(! $field->isVertical()) style="width: {{ floor(100/count($field->innerFields)) }}%;" @endif>
-				{!! $innerField->setValue(null)->setLabel(false)->render() !!}
+				@php
+					if(method_exists($innerField, 'setValue'))
+						$innerField->setValue(null);
+					else
+						$innerField->value = null;
+
+					$innerField->setLabel(false);
+				@endphp
+				{!! $innerField->render() !!}
 			</div>
 			@endforeach			
 		</div>
