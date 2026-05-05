@@ -30,14 +30,18 @@
 	>
 		@if(! $field->isReadOnly())
 			@if((($field->isSelect2())||($field->hasManualInput())))
-			<option value="">{{ __('fields.selectFromOptions', ['fieldName' => $field->getLabel()]) }}</option>
+			<option value="">
+				{{ $field->getSelectPlaceholderText() }}
+			</option>
 			@else
 			<option
 				@if(empty($oldSelected[0])||(is_null($oldSelected[0])))
 				selected disabled
 				@endif
 				value=""
-				>{{ __('fields.selectFromOptions', ['fieldName' => $field->getLabel()]) }}</option>
+				>
+					{{ $field->getSelectPlaceholderText() }}
+			</option>
 			@endif
 		@endif
 

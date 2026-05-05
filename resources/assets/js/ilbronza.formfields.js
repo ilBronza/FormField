@@ -81,8 +81,28 @@ jQuery(document).ready(function ($)
                             $(target).val(value.substring(0, 10));
                         else
                         {
-                            $(target).val(value);
-                            $(target).data('cleavevalue', value);
+                            let $t = $(target);
+                            let cleave = $t.data('cleaveInstance');
+                            let raw = (value === null || value === undefined) ? '' : String(value);
+
+                            if (cleave && typeof cleave.setRawValue === 'function')
+                                cleave.setRawValue(raw);
+                            else
+                                $t.val(value);
+
+                            $t.data('cleavevalue', value);
+
+                            if (cleave && typeof cleave.getRawValue === 'function')
+                                $t.data('originalvalue', cleave.getRawValue());
+                            else
+                                $t.data('originalvalue', $t.val());
+
+                            /* Nessun trigger input/change: evitano il salvataggio automatico sugli editor. */
+                            $t.removeClass('ib-editor-dirty editorchanged');
+                            try {
+                                if (typeof window.__ibUnmarkFieldDirty === 'function' && $t.length)
+                                    window.__ibUnmarkFieldDirty($t[0]);
+                            } catch (e) {}
                         }
 
                         $(target).trigger('ibchanged');
