@@ -240,16 +240,75 @@ jQuery(document).ready(function ($)
         window.setValueAsHtmlClass(this, $(this).val());
     });
 
-    $('body').on('change', '.update-editor-field', function (e)
+    window.__ibIsUpdateEditorDateInput = function (target)
     {
-        let value = $(e.target).val();
-        let field = $(e.target).attr('name');
+        const type = String($(target).attr('type') || '').toLowerCase();
 
-        field = field.replace("[]", "");
+        return type === 'date' || type === 'datetime-local' || type === 'time';
+    };
 
-        let url = $(e.target).data('updateeditorurl');
+    window.__ibCancelUpdateEditorDateLeaveAction = function (target)
+    {
+        $(target).removeData('ibUpdateEditorDateLeaveToken');
+    };
+
+    window.__ibScheduleUpdateEditorDateLeaveAction = function (target, fn, delayMs)
+    {
+        const $el = $(target);
+        const token = ($el.data('ibUpdateEditorDateLeaveSeq') || 0) + 1;
+
+        $el.data('ibUpdateEditorDateLeaveSeq', token);
+        $el.data('ibUpdateEditorDateLeaveToken', token);
+
+        setTimeout(function ()
+        {
+            if ($el.data('ibUpdateEditorDateLeaveToken') !== token)
+                return;
+
+            if (document.activeElement === target)
+                return;
+
+            if (typeof fn === 'function')
+                fn(target);
+        }, delayMs || 150);
+    };
+
+    window.__ibSendUpdateEditorField = function (target, e)
+    {
+        const value = $(target).val();
+        let field = $(target).attr('name');
+
+        field = field.replace('[]', '');
+
+        const url = $(target).data('updateeditorurl');
 
         window.sendFieldToEditor(field, value, url, e);
+    };
+
+    $('body').on('focus', '.update-editor-field', function ()
+    {
+        window.__ibCancelUpdateEditorDateLeaveAction(this);
+    });
+
+    $('body').on('change', '.update-editor-field', function (e)
+    {
+        if (window.__ibIsUpdateEditorDateInput(e.target))
+            return;
+
+        window.__ibSendUpdateEditorField(e.target, e);
+    });
+
+    $('body').on('blur', '.update-editor-field', function (e)
+    {
+        if (! window.__ibIsUpdateEditorDateInput(e.target))
+            return;
+
+        const target = e.target;
+
+        window.__ibScheduleUpdateEditorDateLeaveAction(target, function (el)
+        {
+            window.__ibSendUpdateEditorField(el, e);
+        });
     });
     // $('.select2').select2();
 

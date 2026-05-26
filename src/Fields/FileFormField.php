@@ -17,6 +17,18 @@ class FileFormField extends FormField implements FormFieldInterface
 	public $actionMethod;
 	public $method;
 
+	/**
+	 * If false, uploaded media won't be persisted as a model attribute value.
+	 * Upload will still go to media library.
+	 */
+	public bool $persist = true;
+
+	/**
+	 * Spatie media-library collection name override.
+	 * If null, defaults to the field name.
+	 */
+	public ? string $collection = null;
+
 	public $inputSizeClass = '';
 
 	public $htmlClasses = [
@@ -48,7 +60,7 @@ class FileFormField extends FormField implements FormFieldInterface
 		if(! $media = $this->loadModelMediaCollections($model))
 			return collect();
 
-		return $media[$this->name] ?? collect();
+		return $media[$this->getMediaCollection()] ?? collect();
 	}
 
 	public function getMethod() : string
@@ -91,7 +103,12 @@ class FileFormField extends FormField implements FormFieldInterface
 
 	public function getMediaCollection()
 	{
-		return $this->name;
+		return $this->collection ?: $this->name;
+	}
+
+	public function shouldPersistToModelAttribute() : bool
+	{
+		return $this->persist !== false;
 	}
 
 	public function getDisk()

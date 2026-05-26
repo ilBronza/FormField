@@ -2,6 +2,12 @@
 
 	@php
 		$oldSelected = $field->getFormOldSelected();
+
+		// SelectFormField::getFormOldSelected() treats 0/false as "empty" (because of a truthy check),
+		// which causes the placeholder to stay selected. Normalize 0/false values to an explicit selection.
+		$_raw = $field->getFormOldValue();
+		if(($_raw === 0)||($_raw === "0")||($_raw === false))
+			$oldSelected = [0];
 	@endphp
 
 	@if(is_array($oldSelected))
