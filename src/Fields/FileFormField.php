@@ -5,8 +5,10 @@ namespace IlBronza\FormField\Fields;
 use IlBronza\FormField\Fields\FormFieldInterface;
 use IlBronza\FormField\FormField;
 use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class FileFormField extends FormField implements FormFieldInterface
 {
@@ -29,6 +31,9 @@ class FileFormField extends FormField implements FormFieldInterface
 	 */
 	public ? string $collection = null;
 
+	/** When true, existing and newly uploaded files show upload date in the files list. */
+	public bool $showDate = false;
+
 	public $inputSizeClass = '';
 
 	public $htmlClasses = [
@@ -37,6 +42,21 @@ class FileFormField extends FormField implements FormFieldInterface
 	public function isDropzone()
 	{
 		return $this->dropzone;
+	}
+
+	public function shouldShowDate() : bool
+	{
+		return $this->showDate;
+	}
+
+	public function formatMediaUploadedAt(Media $media) : ? string
+	{
+		$createdAt = $media->created_at;
+
+		if(! $createdAt instanceof CarbonInterface)
+			return null;
+
+		return $createdAt->timezone(config('app.timezone'))->format(__('crud::dates.datetime'));
 	}
 
 	public function loadModelMediaCollections(Model $model)

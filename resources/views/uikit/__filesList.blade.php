@@ -6,6 +6,10 @@
 		>
 			<span class="ib-text-filename">{{ $file->name }}</span>
 			{!! FaIcon::inline('file') !!}
-		</a> &nbsp; <span class="ib-dropzone-delete" href="{{ $field->getModel()->getDeleteMediaUrlByMedia($file) }}"
+		</a>
+		@if($field->shouldShowDate() && ($uploadedAt = $field->formatMediaUploadedAt($file)))
+			<span class="ib-file-uploaded-at uk-text-meta uk-margin-small-left">{{ __('formfield::files.uploadedAt') }} {{ $uploadedAt }}</span>
+		@endif
+		&nbsp; <span class="ib-dropzone-delete" href="{{ $field->getModel()->getDeleteMediaUrlByMedia($file) }}"
 						  uk-icon="trash"></span></li>
 @endforeach

@@ -10,8 +10,8 @@ use IlBronza\FormField\Traits\ListValueFormFieldTrait;
 use IlBronza\FormField\Traits\NEWMultipleValueFormFieldTrait;
 use IlBronza\FormField\Traits\RelationshipFormFieldTrait;
 use IlBronza\FormField\Traits\SingleValueFormFieldTrait;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Str;
-
 use function dd;
 use function explode;
 use function in_array;
@@ -103,6 +103,12 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 		if(is_int($value))
 			return [$value];
 
+		if($value instanceof Arrayable)
+			return $value->toArray();
+
+		if(is_object($value))
+			return (array) $value;
+
 		try
 		{
 			if(! is_array($value))
@@ -110,9 +116,10 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 		}
 		catch(\Throwable $e)
 		{
+			dd($e->getMessage());
+
 			return $value;
 		}
-
 
 		return $value;
 	}

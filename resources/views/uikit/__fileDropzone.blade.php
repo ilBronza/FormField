@@ -148,7 +148,13 @@
 
         window.addSuccessNotification(response.message);
 
-        $('div#{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }} .fileslist').append('<li><a target="_blank" href="' + response.fileurl + '" uk-icon="file"><span class="ib-text-filename">' + response.filename + '</span>{!! FaIcon::inline('file') !!}</a> &nbsp; <span class="ib-dropzone-delete" href="' + response.deleteurl + '" uk-icon="trash"></span></li>');
+        var uploadedAtHtml = '';
+        @if($field->shouldShowDate())
+        if (response.fileuploadedat) {
+            uploadedAtHtml = ' <span class="ib-file-uploaded-at uk-text-meta uk-margin-small-left">{{ __('formfield::files.uploadedAt') }} ' + response.fileuploadedat + '</span>';
+        }
+        @endif
+        $('div#{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }} .fileslist').append('<li><a target="_blank" href="' + response.fileurl + '" uk-icon="file"><span class="ib-text-filename">' + response.filename + '</span>{!! FaIcon::inline('file') !!}</a>' + uploadedAtHtml + ' &nbsp; <span class="ib-dropzone-delete" href="' + response.deleteurl + '" uk-icon="trash"></span></li>');
 
         if (typeof window.ibDropzoneSuccess === "function")
             window.ibDropzoneSuccess(file, response, this);
