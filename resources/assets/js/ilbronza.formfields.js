@@ -48,7 +48,10 @@ jQuery(document).ready(function ($)
     // window.parseMoneyFields();
 
 
-    window.getFieldValueFromEditor = function (target)
+    /**
+     * @deprecated Sospeso — usare requestFieldRefreshBatch / getFieldsValuesFromEditorBatch.
+     */
+    window.__ibLegacyGetFieldValueFromEditor = function (target)
     {
         let url = $(target).data('updateeditorurl');
         let field = $(target).attr('name');
@@ -140,23 +143,44 @@ jQuery(document).ready(function ($)
         });
     }
 
-    window.refreshFetchingFieldsValues = function (target)
+    window.getFieldValueFromEditor = function (target)
+    {
+        if (typeof window.requestFieldRefreshBatch !== 'function')
+            return window.__ibLegacyGetFieldValueFromEditor(target);
+
+        var $target = $(target).first();
+        var field = $target.attr('name') || $target.data('field') || $target.data('name');
+
+        if (! field)
+            return null;
+
+        field = String(field).replace(/\[\]$/, '');
+
+        return window.requestFieldRefreshBatch(field, $target.data('updateeditorurl') || null);
+    }
+
+    /**
+     * @deprecated Sospeso — usare refreshFetchingFieldsValuesBatch.
+     */
+    window.__ibLegacyRefreshFetchingFieldsValues = function (target)
     {
         var fetchFields = $(target).data('fetchfields');
 
-        if (!fetchFields || !fetchFields.length)
+        if (! fetchFields || ! fetchFields.length)
             return null;
 
-        // if (!$(target).data('fetchfields').length)
-        //     return null;
-
-        $(target).data('fetchfields').forEach(function (item)
+        fetchFields.forEach(function (item)
         {
-            let target = $('*[name="' + item + '"]');
-
-            window.getFieldValueFromEditor(target);
+            window.__ibLegacyGetFieldValueFromEditor($('*[name="' + item + '"]'));
         });
+    }
 
+    window.refreshFetchingFieldsValues = function (target)
+    {
+        if (typeof window.refreshFetchingFieldsValuesBatch === 'function')
+            return window.refreshFetchingFieldsValuesBatch(target);
+
+        return window.__ibLegacyRefreshFetchingFieldsValues(target);
     }
 
     window.ibFindProblemsNode = function (target)
@@ -363,3 +387,5 @@ jQuery(document).ready(function ($)
     });
 
 });
+
+require('./ilbronza.formfields.batch.js');
