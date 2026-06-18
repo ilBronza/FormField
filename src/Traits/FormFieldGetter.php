@@ -263,6 +263,48 @@ trait FormFieldGetter
 		return str_replace("]", "", str_replace("[", ".", $this->name));
 	}
 
+	public function getFormErrorNames(int|string|null $fieldIndex = null) : array
+	{
+		$names = array_filter([
+			$this->oldName ?? null,
+			$this->getFormOldName(),
+			$this->getName()
+		]);
+
+		if($repeatableKey = $this->getRepeatableFieldKey())
+			$names = array_merge($names, $this->getIndexedFormErrorNames($repeatableKey));
+
+		if($fieldIndex !== null)
+			$names = array_merge($names, $this->getIndexedFormErrorNames($fieldIndex));
+
+		if($this->isMultiple())
+			foreach($names as $name)
+				$names[] = $name . '.*';
+
+		return array_values(array_unique(array_filter($names)));
+	}
+
+	protected function getIndexedFormErrorNames(int|string $index) : array
+	{
+		return [
+			$this->getName() . '.' . $index,
+			$this->getName() . '[' . $index . ']',
+			$this->getFormOldName() . '.' . $index
+		];
+	}
+
+	public function getFirstErrorMessage($errors = null, int|string|null $fieldIndex = null) : ?string
+	{
+		if(! $errors)
+			return null;
+
+		foreach($this->getFormErrorNames($fieldIndex) as $errorName)
+			if($errors->has($errorName))
+				return $errors->first($errorName);
+
+		return null;
+	}
+
 	public function getHtmlClasses()
 	{
 		return $this->htmlClasses;

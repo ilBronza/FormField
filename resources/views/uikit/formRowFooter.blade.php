@@ -16,13 +16,11 @@
 		</div>
 @endif
 
-@if(isset($errors))
-	@error($field->getFormOldName())
+@if(isset($errors) && ($errorMessage = $field->getFirstErrorMessage($errors, $fieldIndex ?? null)))
 		<script type="text/javascript">
-		    window.addDangerNotification('{{ $message }}');
+			window.addDangerNotification(@json($errorMessage));
 		</script>
-		<div class="uk-text-danger">{{ $message }}</div>
-	@enderror
+		<div class="uk-text-danger">{{ $errorMessage }}</div>
 @endif
 
 
