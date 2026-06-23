@@ -16,7 +16,7 @@ class FormFieldServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'formfield');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'formfield');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
+        // $this->loadRoutesFrom(__DIR__.'/../routes/formfield.php');
 
         // Publishing is only necessary when using the CLI.
         if ($this->app->runningInConsole()) {
