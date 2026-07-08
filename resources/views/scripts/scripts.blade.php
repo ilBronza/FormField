@@ -265,6 +265,39 @@ jQuery(document).ready(function($)
 		$root.append(html);
 	}
 
+	function ibNormalizeMoneyValueForPost(value)
+	{
+		if((value === null) || (typeof value === 'undefined'))
+			return value;
+
+		value = String(value).trim().replace(/\s+/g, '');
+
+		if(value === '')
+			return value;
+
+		if(/^-?\d{1,3}(\.\d{3})+(,\d+)?$/.test(value))
+			return value.replace(/\./g, '').replace(',', '.');
+
+		if(/^-?\d+,\d+$/.test(value))
+			return value.replace(',', '.');
+
+		return value.replace(/\.$/, '');
+	}
+
+	function ibNormalizeMoneyFieldsForPost($form)
+	{
+		$form.find('input.dtprice').each(function()
+		{
+			let $input = $(this);
+			let cleave = $input.data('cleaveInstance');
+
+			if(cleave && (typeof cleave.getRawValue === 'function'))
+				return $input.val(ibNormalizeMoneyValueForPost(cleave.getRawValue()));
+
+			$input.val(ibNormalizeMoneyValueForPost($input.val()));
+		});
+	}
+
 	$('body').on('input change', '.update-editor-json input, .update-editor-json textarea, .update-editor-json select', function(e)
 	{
 		let $root = $(this).closest('.update-editor-json');
@@ -326,6 +359,7 @@ jQuery(document).ready(function($)
 
 	$('body').on('submit', 'form', function(e)
 	{
+		ibNormalizeMoneyFieldsForPost($(this));
 		setIndexOnValuescontainer();
 	});
 	//END JSON FIELD
