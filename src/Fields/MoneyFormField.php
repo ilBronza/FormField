@@ -13,7 +13,7 @@ class MoneyFormField extends NumberFormField
 
 
 	public $htmlClasses = [
-		'dtprice',
+		'ibcleave',
 		'uk-input'
 	];
 

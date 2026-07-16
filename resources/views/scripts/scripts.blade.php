@@ -286,7 +286,7 @@ jQuery(document).ready(function($)
 
 	function ibNormalizeMoneyFieldsForPost($form)
 	{
-		$form.find('input.dtprice').each(function()
+		$form.find('input.ibcleave').each(function()
 		{
 			let $input = $(this);
 			let cleave = $input.data('cleaveInstance');
