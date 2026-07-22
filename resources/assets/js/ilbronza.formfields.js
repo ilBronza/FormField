@@ -3,9 +3,173 @@ Dropzone.autoDiscover = false;
 
 
 require('select2');
+require('cleave.js');
 
 jQuery(document).ready(function ($)
 {
+    const cleaveSelector = 'input.ibcleave';
+
+    window.ibNormalizeCleaveRawValue = function (value)
+    {
+        if ((value === null) || (typeof value === 'undefined'))
+            return '';
+
+        value = String(value).trim().replace(/\s+/g, '');
+
+        if (value === '')
+            return '';
+
+        if (/^-?\d{1,3}(\.\d{3})+(,\d+)?$/.test(value))
+            return value.replace(/\./g, '').replace(',', '.');
+
+        if (/^-?\d+,\d+$/.test(value))
+            return value.replace(',', '.');
+
+        return value;
+    }
+
+    window.ibForceCleaveRawValueDecimals = function (value)
+    {
+        value = window.ibNormalizeCleaveRawValue(value);
+
+        if (value === '')
+            return '';
+
+        let number = Number(value);
+
+        if (Number.isNaN(number))
+            return value;
+
+        return number.toFixed(2);
+    }
+
+    window.ibCleaveIt = function (target, raw)
+    {
+        if (typeof window.Cleave === 'undefined')
+            return null;
+
+        let input = target;
+        let $input = $(input);
+
+        if (! $input.is(cleaveSelector))
+            return null;
+
+        let cleave = $input.data('cleaveInstance');
+
+        if (cleave)
+            return cleave;
+
+        raw = (typeof raw === 'undefined') ? window.ibForceCleaveRawValueDecimals(input.value) : window.ibForceCleaveRawValueDecimals(raw);
+        input.value = '';
+
+        cleave = new window.Cleave(input, {
+            numeral: true,
+            numeralThousandsGroupStyle: 'thousand',
+            numeralDecimalMark: ',',
+            numeralDecimalScale: 2,
+            delimiter: '.',
+        });
+
+        $input.data('cleaveInstance', cleave);
+        cleave.setRawValue(raw);
+        $input.data('originalvalue', cleave.getRawValue());
+
+        return cleave;
+    }
+
+    window.ibRefreshCleave = function (target)
+    {
+        let $input = $(target);
+
+        if (! $input.is(cleaveSelector))
+            return null;
+
+        let raw = window.ibForceCleaveRawValueDecimals($input[0].value);
+        let cleave = $input.data('cleaveInstance') || window.ibCleaveIt(target, raw);
+
+        if (cleave && (typeof cleave.setRawValue === 'function'))
+            cleave.setRawValue(raw);
+
+        if (cleave && (typeof cleave.getRawValue === 'function'))
+            $input.data('originalvalue', cleave.getRawValue());
+        else
+            $input.data('originalvalue', $input[0].value);
+
+        return cleave;
+    }
+
+    window.activateAllCleave = function (root)
+    {
+        let $root = root ? $(root) : $(document);
+        let $inputs = $root.find(cleaveSelector);
+
+        if ($root.is(cleaveSelector))
+            $inputs = $inputs.add($root);
+
+        $inputs.each(function ()
+        {
+            window.ibCleaveIt(this);
+        });
+    }
+
+    if (! $.fn.ibOriginalVal)
+    {
+        $.fn.ibOriginalVal = $.fn.val;
+
+        $.fn.val = function (value)
+        {
+            if ((arguments.length === 0) && this.length && this.is(cleaveSelector))
+            {
+                const cleave = $(this[0]).data('cleaveInstance');
+
+                if (cleave && (typeof cleave.getRawValue === 'function'))
+                    return window.ibForceCleaveRawValueDecimals(cleave.getRawValue());
+            }
+
+            return $.fn.ibOriginalVal.apply(this, arguments);
+        };
+    }
+
+    $(document).on('ibchanged ib:cleave:refresh', cleaveSelector, function ()
+    {
+        window.ibRefreshCleave(this);
+    });
+
+    $('body').on('focus', cleaveSelector, function ()
+    {
+        window.ibCleaveIt(this);
+    });
+
+    $('body').on('blur', cleaveSelector, function ()
+    {
+        window.ibRefreshCleave(this);
+    });
+
+    $('body').on('keydown', cleaveSelector, function (e)
+    {
+        if (e.key !== '.')
+            return;
+
+        e.preventDefault();
+
+        if (typeof this.setRangeText === 'function')
+        {
+            this.setRangeText(',', this.selectionStart, this.selectionEnd, 'end');
+            this.dispatchEvent(new Event('input', { bubbles: true }));
+
+            return;
+        }
+
+        document.execCommand('insertText', false, ',');
+    });
+
+    window.activateAllCleave();
+
+    $(window).on('load', function ()
+    {
+        window.activateAllCleave();
+    });
+
     window.changeCheckboxBoolean = function (target)
     {
         let inputName = $(target).data('name');

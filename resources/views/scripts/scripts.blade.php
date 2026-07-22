@@ -270,6 +270,9 @@ jQuery(document).ready(function($)
 		if((value === null) || (typeof value === 'undefined'))
 			return value;
 
+		if(typeof window.ibForceCleaveRawValueDecimals === 'function')
+			return window.ibForceCleaveRawValueDecimals(value);
+
 		value = String(value).trim().replace(/\s+/g, '');
 
 		if(value === '')
