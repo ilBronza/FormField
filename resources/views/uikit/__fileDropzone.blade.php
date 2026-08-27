@@ -154,7 +154,10 @@
             uploadedAtHtml = ' <span class="ib-file-uploaded-at uk-text-meta uk-margin-small-left">{{ __('formfield::files.uploadedAt') }} ' + response.fileuploadedat + '</span>';
         }
         @endif
-        $('div#{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }} .fileslist').append('<li><a target="_blank" href="' + response.fileurl + '" uk-icon="file"><span class="ib-text-filename">' + response.filename + '</span>{!! FaIcon::inline('file') !!}</a>' + uploadedAtHtml + ' &nbsp; <span class="ib-dropzone-delete" href="' + response.deleteurl + '" uk-icon="trash"></span></li>');
+        var fileUrl = response.fileurl + (response.fileurl.includes('?') ? '&' : '?') + 'iframed=true';
+        var filename = $('<div>').text(response.filename).html();
+
+        $('div#{{ $overrideId ?? ($field->getId() . (isset($fieldIndex)? ('-' . $fieldIndex) : '')) }} .fileslist').append('<li uk-lightbox><a data-type="iframe" href="' + fileUrl + '"><span class="ib-text-filename">' + filename + '</span>{!! FaIcon::inline('file') !!}</a>' + uploadedAtHtml + ' &nbsp; <span class="ib-dropzone-delete" href="' + response.deleteurl + '" uk-icon="trash"></span></li>');
 
         if (typeof window.ibDropzoneSuccess === "function")
             window.ibDropzoneSuccess(file, response, this);
