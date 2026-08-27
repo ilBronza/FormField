@@ -16,7 +16,8 @@
 	@foreach($field->getValue() as $index => $parameters)
 	<tr>
 		@foreach($parameters as $name => $value)
-		<td>{{ $value }}</td>
+		@php($displayValue = $field->getValueForShow($name, $value))
+		<td>{{ is_array($displayValue) ? implode(', ', $displayValue) : $displayValue }}</td>
 		@endforeach
 	</tr>
 	@endforeach

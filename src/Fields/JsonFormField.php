@@ -100,9 +100,12 @@ class JsonFormField extends FormField implements FormFieldInterface
 		return json_decode(json_encode([]));
 	}
 
-	public function transformValueByPosition(array $value) : array
+	public function transformValueByPosition(?array $value) : array
 	{
+		$value ??= [];
+
 		return $value;
+
 		if(! $this->hasPosition())
 			return $value;
 
@@ -232,6 +235,34 @@ class JsonFormField extends FormField implements FormFieldInterface
 		}
 
 		return $result;
+	}
+
+	public function getValueForShow(string $fieldName, $value)
+	{
+		$innerField = $this->innerFields->first(
+			fn(FormField $innerField) => $innerField->subName === $fieldName
+		);
+
+		if((! $innerField)||(! method_exists($innerField, 'getPossibleValuesArray')))
+			return $value;
+
+		$possibleValues = $innerField->getPossibleValuesArray();
+
+		if(! is_array($possibleValues))
+			return $value;
+
+		if(is_array($value))
+			return array_map(
+				fn($item) => $this->getValueForShow($fieldName, $item),
+				$value
+			);
+
+		if(is_int($value)||is_string($value))
+			return array_key_exists($value, $possibleValues)
+				? $possibleValues[$value]
+				: $value;
+
+		return $value;
 	}
 
 	static public function renderValueForView($value) : ? string
