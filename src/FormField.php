@@ -90,6 +90,7 @@ abstract class FormField
 	public $rules = [];
 
 	public array $fetchFieldValue = [];
+	public array $refreshSelectOptions = [];
 
 	public function __construct(array $parameters = [])
 	{
@@ -191,4 +192,3 @@ abstract class FormField
 		return "formfield::uikit.show._{$type}";
 	}
 }
-

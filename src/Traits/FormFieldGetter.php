@@ -220,7 +220,12 @@ trait FormFieldGetter
 
 	public function getDataAttributes()
 	{
-		return $this->data;
+		$data = $this->data;
+
+		if($this->refreshSelectOptions)
+			$data['refresh-select-options'] = array_values($this->refreshSelectOptions);
+
+		return $data;
 	}
 
 	public function getContainerId()

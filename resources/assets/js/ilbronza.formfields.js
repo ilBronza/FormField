@@ -498,7 +498,7 @@ jQuery(document).ready(function ($)
             window.__ibSendUpdateEditorField(el, e);
         });
     });
-    // $('.select2').select2();
+    require('./ilbronza.formfields.select.js')($);
 
     $('.select2').each(function ()
     {

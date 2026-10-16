@@ -24,6 +24,8 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 	protected $possibleValuesArray;
 	public $select2 = true;
 	public $manualInput;
+	public ?string $possibleValuesRoute = null;
+	public array $possibleValuesRouteFields = [];
 
 	public $mustBeSorted = true;
 
@@ -211,6 +213,21 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 		return $this->select2;
 	}
 
+	public function getDataAttributes()
+	{
+		$data = parent::getDataAttributes();
+
+		if($this->possibleValuesRoute && ! $this->isReadOnly() && ! $this->isDisabled())
+		{
+			$data['possible-values-route'] = $this->possibleValuesRoute;
+
+			if($this->possibleValuesRouteFields)
+				$data['possible-values-route-fields'] = array_values($this->possibleValuesRouteFields);
+		}
+
+		return $data;
+	}
+
 	public function getHtmlClasses()
 	{
 		if($this->isSelect2())
@@ -263,4 +280,3 @@ class SelectFormField extends FormField implements FormFieldInterface, ListValue
 	// 	return $this->compulsoryValues;
 	// }
 }
-
