@@ -13,6 +13,7 @@ dipendenze disponibili nella risoluzione dei moduli Node:
 
 ```sh
 node --test tests/selectOptions.browser.test.js
+node --test tests/conditionalOpener.browser.test.js
 ```
 
 Si può usare `NODE_PATH` per le dipendenze già presenti nell'applicazione e

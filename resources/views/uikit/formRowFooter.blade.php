@@ -38,7 +38,9 @@
 
 	@endif
 
-	@if($field->hasOpener())
+	@if($field->hasConditionalOpener())
+		@include('formfield::uikit.utilities._conditionalOpener')
+	@elseif($field->hasOpener())
 		<script type="text/javascript">
             jQuery(document).ready(function($)
             {

@@ -4,6 +4,21 @@ namespace IlBronza\FormField\Traits;
 
 trait FormFieldOpener
 {
+	public function hasConditionalOpener() : bool
+	{
+		return $this->hasOpener() && array_key_exists('value', $this->opener);
+	}
+
+	public function getOpenerTargetNames() : array
+	{
+		return $this->opener['targetNames'] ?? [$this->getOpenerTargetName()];
+	}
+
+	public function getOpenerValue()
+	{
+		return $this->opener['value'];
+	}
+
 	public function hasOpener()
 	{
 		return !! ($this->opener ?? false);

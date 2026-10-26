@@ -17,6 +17,28 @@ $ composer require ilbronza/formfield
 
 ## Usage
 
+### Mostrare altri campi in base al valore
+
+`opener` può mostrare o nascondere più campi dello stesso form in base a un
+valore preciso, anche al caricamento iniziale:
+
+```php
+'pdf_show' => [
+    'type' => 'boolean',
+    'rules' => 'bool|nullable',
+    'opener' => [
+        'targetNames' => ['pdf_title', 'pdf_sorting_index'],
+        'value' => 'true',
+    ],
+],
+```
+
+I booleani usano i valori `true`, `false` e `null` come stringhe. I campi
+destinatari vengono nascosti quando il valore non coincide, conservando i dati.
+Per evitare che appaiano prima dell'inizializzazione JavaScript, impostare
+`closed` sui destinatari in base al valore iniziale. Senza `value`, `opener`
+mantiene il comportamento precedente di apertura al cambio del campo.
+
 ### Select or multiple fields
 
 #### Set the possible values for a relation
