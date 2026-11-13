@@ -500,18 +500,39 @@ jQuery(document).ready(function ($)
     });
     require('./ilbronza.formfields.select.js')($);
 
-    $('.select2').each(function ()
+    window.activateAllSelect2 = function (root)
     {
-        let options = {};
+        const $root = root ? $(root) : $(document);
+        const selector = 'select.select2';
+        const $selects = $root.find(selector).add($root.filter(selector));
 
-        if ($(this).data('placeholder'))
-            options.placeholder = $(this).data('placeholder');
+        $selects.each(function ()
+        {
+            const $select = $(this);
 
-        if ($(this).data('allowclear'))
-            options.allowClear = ($(this).data('allowclear')) ? true : false;
+            if ($select.data('select2'))
+                return;
 
-        $(this).select2(options);
-    });
+            const options = {};
+            const $modal = $select.closest('.uk-modal');
+
+            if ($select.data('placeholder'))
+                options.placeholder = $select.data('placeholder');
+
+            if ($select.data('allowclear'))
+                options.allowClear = true;
+
+            if ($modal.length)
+            {
+                options.dropdownParent = $select.closest('.uk-modal-dialog, .uk-modal');
+                options.width = '100%';
+            }
+
+            $select.select2(options);
+        });
+    };
+
+    window.activateAllSelect2();
 
     $(document).on('select2:open', (e) =>
     {
